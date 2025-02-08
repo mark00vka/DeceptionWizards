@@ -1,8 +1,10 @@
 class_name Player
 extends CharacterBody3D
 
+const LERP_SPEED = 2.0
 const SPEED = 10.0
 const JUMP_VELOCITY = 7
+const GRAVITY = 17
 
 @export var controls: PlayerControls
 @export var color : Color
@@ -18,7 +20,7 @@ func _physics_process(delta: float) -> void:
 
 	# Add the gravity.
 	if not is_on_floor():
-		var gravity = get_gravity()
+		var gravity = Vector3.DOWN * GRAVITY
 		if(velocity.y < 0): gravity*=2
 		velocity += gravity * delta
 
@@ -34,8 +36,8 @@ func _physics_process(delta: float) -> void:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, LERP_SPEED)
+		velocity.z = move_toward(velocity.z, 0, LERP_SPEED)
 
 	move_and_slide()
 	
