@@ -8,3 +8,4 @@ extends Resource
 @export var up: String
 @export var down: String
 @export var jump: String
+@export var rot: String

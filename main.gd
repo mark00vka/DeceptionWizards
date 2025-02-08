@@ -16,18 +16,18 @@ var tile_selector = TILE_SELECTOR.instantiate()
 @onready var pick_object_ui: Control = $PickObjectUI
 
 func _ready() -> void:
+	add_child(tile_selector, true)
+	tile_selector.active = false
 	generate_grid()
 	place_item(STAIRS, Vector2i(0, 1),  0, 1)
 	place_item(FINISH_TILE, Vector2i(0, 0),  1, 0)
 	start_building_phase()
-	pick_object_ui.show_ui.call_deferred()
+	#pick_object_ui.show_ui()
 	
 func _process(delta: float) -> void:
 		if Global.building_phase:
 			if tile_selector.active:
 				tile_selector.move()
-			else:
-				rotate_placed_obstacle()
 			
 func _input(event: InputEvent) -> void:
 	if Global.building_phase:
@@ -37,6 +37,11 @@ func _input(event: InputEvent) -> void:
 			else:
 				if not Global.player1: end_building_phase()
 				Global.player1 = !Global.player1
+			tile_selector.active = !tile_selector.active
+		
+		if InputManager.rotation(event):
+			if not tile_selector.active:
+				rotate_placed_obstacle()
 		
 		
 func place_obstacle():
@@ -44,12 +49,7 @@ func place_obstacle():
 		place_item(STAIRS, tile_selector.pos, tile_selector.lvl)
 		
 func rotate_placed_obstacle():
-	if Global.player1:
-		grid[pos_lvl_to_vector3i(tile_selector.pos, tile_selector.lvl)].global_rotation.y += \
-		 InputManager.get_player1_rot_input() * PI/4
-	else:
-		grid[pos_lvl_to_vector3i(tile_selector.pos, tile_selector.lvl)].global_rotation.y += \
-		 InputManager.get_player2_rot_input() * PI/4
+	grid[pos_lvl_to_vector3i(tile_selector.pos, tile_selector.lvl)].global_rotation.y += PI/2
 
 func generate_grid():
 	for i in range(-1, map_size.x+1):
@@ -81,15 +81,14 @@ func place_item(item : PackedScene, pos : Vector2i, level : int, rot: int = 0):
 func start_building_phase():
 	$Camera3D.building()
 	Global.building_phase = true
-	tile_selector = TILE_SELECTOR.instantiate()
-	add_child(tile_selector, true)
 	tile_selector.active = true
 	tile_selector.global_position = tilemap_to_global(Vector2i(0,0))
 	
 func end_building_phase():
 	$Camera3D.chase()
 	Global.building_phase = false
-	tile_selector.queue_free()
+	tile_selector.active = false
+	tile_selector.visible = false
 	
 func tilemap_to_global(pos: Vector2i, level : int = 0):
 	return Vector3(pos.x, 0, pos.y) * tile_size + Vector3.UP * level * tile_height

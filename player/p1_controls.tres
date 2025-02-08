@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="PlayerControls" load_steps=2 format=3 uid="uid://dutd1sptby8aw"]
+[gd_resource type="Resource" script_class="PlayerControls" load_steps=2 format=3 uid="uid://deu0peg282uw6"]
 
-[ext_resource type="Script" path="res://player/player_controls.gd" id="1_pjove"]
+[ext_resource type="Script" path="res://player/player_controls.gd" id="1_cyra2"]
 
 [resource]
-script = ExtResource("1_pjove")
+script = ExtResource("1_cyra2")
 left = "p1_left"
 right = "p1_right"
 fwd = "p1_fwd"
@@ -11,3 +11,4 @@ back = "p1_back"
 up = "p1_up"
 down = "p1_down"
 jump = "p1_jump"
+rot = "p1_rot"
