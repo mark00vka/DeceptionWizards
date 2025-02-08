@@ -1,7 +1,7 @@
 extends Node3D
 
 const GROUND_TILE = preload("res://tiles/ground_tile/ground_tile.tscn")
-const BOUNDARY_TILE = preload("res://tiles/boundary_tile.tscn")
+const BOUNDARY_TILE = preload("res://tiles/boundary_tile/boundary_tile.tscn")
 const STAIRS = preload("res://tiles/stairs/stairs.tscn")
 const FINISH_TILE = preload("res://tiles/finish_tile/finish_tile.tscn")
 const TILE_SELECTOR = preload("res://tile-selector/tile_selector.tscn")
