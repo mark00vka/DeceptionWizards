@@ -33,12 +33,21 @@ func _process(delta: float) -> void:
 			if not selected_tile_free(tile_selector_pos, tile_selector_lvl): 
 				#TODO: PROMENI BOJU
 				pass
-
 			tile_selector.global_position = tilemap_to_global(tile_selector_pos, tile_selector_lvl)
-
+			
+func _input(event: InputEvent) -> void:
+	if Global.building_phase and tile_selected(event):
+		place_item(STAIRS, tile_selector_pos, tile_selector_lvl)
+		if not Global.player1: end_building_phase()
+		Global.player1 = !Global.player1
+		
 		
 func selected_tile_free(tile_pos: Vector2i, tile_lvl: int) -> bool:
 	return !grid.has(pos_lvl_to_vector3i(tile_pos, tile_lvl))
+	
+func tile_selected(event: InputEvent) -> bool:
+	return (Global.player1 and event.is_action_pressed(p1_controls.jump)) \
+	or (!Global.player1 and event.is_action_pressed(p2_controls.jump))
 		
 func get_player2_input():
 	var move_dir = Vector2.ZERO
