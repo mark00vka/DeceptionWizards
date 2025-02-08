@@ -1,10 +1,10 @@
 [gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bf2lpi2j2hrmc"]
 
-[ext_resource type="Texture2D" uid="uid://u7d01rn843iv" path="res://stairs.png" id="1_7hep5"]
+[ext_resource type="Texture2D" uid="uid://u7d01rn843iv" path="res://tiles/stairs/stairs.png" id="1_hlajl"]
 
 [resource]
 resource_name = "stairs"
 vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("1_7hep5")
+albedo_texture = ExtResource("1_hlajl")
 metallic_specular = 0.0
 roughness = 0.0

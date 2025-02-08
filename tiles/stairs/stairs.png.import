@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://u7d01rn843iv"
-path.s3tc="res://.godot/imported/stairs.png-b5ca3de1abb588dc360c45403c9dc6f2.s3tc.ctex"
+path.s3tc="res://.godot/imported/stairs.png-f3c372047592a0fd956d856f24315aa2.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://stairs.png"
-dest_files=["res://.godot/imported/stairs.png-b5ca3de1abb588dc360c45403c9dc6f2.s3tc.ctex"]
+source_file="res://tiles/stairs/stairs.png"
+dest_files=["res://.godot/imported/stairs.png-f3c372047592a0fd956d856f24315aa2.s3tc.ctex"]
 
 [params]
 
