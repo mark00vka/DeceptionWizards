@@ -37,10 +37,13 @@ func _process(delta: float) -> void:
 			
 func _input(event: InputEvent) -> void:
 	if Global.building_phase and tile_selected(event):
+		place_obstacle()
+		
+func place_obstacle():
+	if(selected_tile_free(tile_selector_pos, tile_selector_lvl)):
 		place_item(STAIRS, tile_selector_pos, tile_selector_lvl)
 		if not Global.player1: end_building_phase()
 		Global.player1 = !Global.player1
-		
 		
 func selected_tile_free(tile_pos: Vector2i, tile_lvl: int) -> bool:
 	return !grid.has(pos_lvl_to_vector3i(tile_pos, tile_lvl))
@@ -74,7 +77,6 @@ func get_player1_input():
 	return move_dir
 		
 func update_tile_selector_pos():
-	#TODO: DODATI UP AND DOWN
 	if Global.player1:
 		tile_selector_pos += get_player1_input()
 		tile_selector_lvl += int(Input.is_action_just_pressed(p1_controls.up)) - int(Input.is_action_just_pressed(p1_controls.down))
@@ -84,6 +86,7 @@ func update_tile_selector_pos():
 
 	tile_selector_pos.x = clamp(tile_selector_pos.x, 0, map_size.x-1)
 	tile_selector_pos.y = clamp(tile_selector_pos.y, 0, map_size.y-1)
+	tile_selector_lvl = clamp(tile_selector_lvl, 0, map_size.z-1)
 			
 func generate_grid():
 	for i in range(-1, map_size.x+1):
@@ -106,6 +109,7 @@ func generate_boundary_tile(x: int, y: int):
 	boundary_tile.global_position = tilemap_to_global(Vector2i(x, y))
 
 func place_item(item : PackedScene, pos : Vector2i, level : int, rot: int = 0):
+	print("PLACED")
 	var inst = item.instantiate()
 	add_child(inst, true)
 	inst.global_position = tilemap_to_global(pos, level)
