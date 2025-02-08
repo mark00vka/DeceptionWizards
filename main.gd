@@ -7,13 +7,16 @@ const STAIRS = preload("res://tiles/stairs/stairs.tscn")
 const FINISH_TILE = preload("res://tiles/finish_tile/finish_tile.tscn")
 const TILE_SELECTOR = preload("res://tile_selector.tscn")
 
+@export var p1_controls: PlayerControls
+@export var p2_controls: PlayerControls
+@export var controler_sens: float = 0.1
 @export var map_size : Vector3i = Vector3i(4, 4, 4)
 @export var tile_size : float = 5.0
 @export var tile_height : float = 2.5
 
 var grid = {}
 var tile_selector = TILE_SELECTOR.instantiate()
-var tile_selector_pos = Vector2i(0, 0)
+var tile_selector_pos = Vector2(0, 0)
 var tile_selector_lvl: int = 0
  
 func tilemap_to_global(pos: Vector2i, level : int = 0):
@@ -27,49 +30,31 @@ func _ready() -> void:
 	
 func _input(event: InputEvent) -> void:
 		if Global.building_phase:
-			var prev_tile_selector_pos = tile_selector_pos
-			var prev_tile_selector_lvl = tile_selector_lvl
 			update_tile_selector_pos(event)
-			if selected_tile_free(tile_selector_pos, tile_selector_lvl): 
-				tile_selector.global_position = tilemap_to_global(tile_selector_pos, tile_selector_lvl)
-			else:
-				tile_selector_pos = prev_tile_selector_pos
-				tile_selector_lvl = prev_tile_selector_lvl
+			if not selected_tile_free(tile_selector_pos, tile_selector_lvl): 
+				#TODO: PROMENI BOJU
+				pass
+
+			tile_selector.global_position = tilemap_to_global(tile_selector_pos, tile_selector_lvl)
+
 		
 func selected_tile_free(tile_pos: Vector2i, tile_lvl: int) -> bool:
 	return !grid.has(pos_lvl_to_vector3i(tile_pos, tile_lvl))
 		
 func update_tile_selector_pos(event:InputEvent):
-	#DODATI UP AND DOWN
-	if forward_tile_selected(event):
-		if(tile_selector_pos.y-1) in  range(map_size.y): 
-			tile_selector_pos += Vector2i(0, -1)
-	if back_tile_selected(event):
-		if(tile_selector_pos.y+1) in  range(map_size.y): 
-			tile_selector_pos += Vector2i(0, 1)
-	if right_tile_selected(event):
-		if(tile_selector_pos.x+1) in  range(map_size.x): 
-			tile_selector_pos += Vector2i(1, 0)
-	if left_tile_selected(event):
-		if(tile_selector_pos.x-1) in  range(map_size.x): 
-			tile_selector_pos += Vector2i(-1, 0)
+	#TODO: DODATI UP AND DOWN
+	if Global.player1:
+		tile_selector_pos += Input.get_vector(p1_controls.left, p1_controls.right, p1_controls.up, p1_controls.down)
+	else:
+		tile_selector_pos += Input.get_vector(p2_controls.left, p2_controls.right, p2_controls.up, p2_controls.down) * controler_sens
+		
+	tile_selector_pos.x = snapped(clamp(tile_selector_pos.x, 0, map_size.x-1), 1)
+	tile_selector_pos.y = snapped(clamp(tile_selector_pos.y, 0, map_size.y-1), 1)
 				
 func forward_tile_selected(event: InputEvent) -> bool:
 		return (Global.player1 and event.is_action_pressed("p1_fwd")) \
 			or (!Global.player1 and event.is_action_pressed("p2_fwd"))
 			
-func back_tile_selected(event: InputEvent) -> bool:
-		return (Global.player1 and event.is_action_pressed("p1_back")) \
-			or (!Global.player1 and event.is_action_pressed("p2_back"))
-			
-func right_tile_selected(event: InputEvent) -> bool:
-		return (Global.player1 and event.is_action_pressed("p1_right")) \
-			or (!Global.player1 and event.is_action_pressed("p2_right"))
-			
-func left_tile_selected(event: InputEvent) -> bool:
-		return (Global.player1 and event.is_action_pressed("p1_left")) \
-			or (!Global.player1 and event.is_action_pressed("p2_left"))
-				
 func generate_grid():
 	for i in range(-1, map_size.x+1):
 		for j in range(-1, map_size.y+1):

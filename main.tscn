@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://cm6byh8geuxup"]
+[gd_scene load_steps=10 format=3 uid="uid://cm6byh8geuxup"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_b5th3"]
 [ext_resource type="PackedScene" uid="uid://efhli5mx1ocb" path="res://player/player.tscn" id="1_gx7nr"]
 [ext_resource type="Resource" uid="uid://dutd1sptby8aw" path="res://player/p1_controls.tres" id="3_mi2kk"]
+[ext_resource type="Script" path="res://camera_3d.gd" id="4_2ybbk"]
 [ext_resource type="Resource" uid="uid://c1bs0xj1k2bgb" path="res://player/p2_controls.tres" id="4_3ab4h"]
 [ext_resource type="PackedScene" uid="uid://hni7dct4exvb" path="res://models/board/boardnoplane.fbx" id="5_w4thp"]
 
@@ -21,6 +22,9 @@ glow_enabled = true
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_b5th3")
+p1_controls = ExtResource("3_mi2kk")
+p2_controls = ExtResource("4_3ab4h")
+controler_sens = null
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_3p8xg")
@@ -32,14 +36,21 @@ shadow_enabled = true
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.707107, -0.353553, 0.612372, 0, 0.866026, 0.5, -0.707107, -0.353553, 0.612372, 35.413, 23.849, 33.548)
 fov = 35.0
+script = ExtResource("4_2ybbk")
+
+[node name="CameraPos2" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.632516, 0.774547, 0, -0.774547, 0.632516, 5.62736, 48.7606, 45.9308)
+visible = false
+fov = 35.0
+script = ExtResource("4_2ybbk")
 
 [node name="Player" parent="." instance=ExtResource("1_gx7nr")]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 14.523, 1.52139, 15.817)
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 14.523, 0.9, 15.817)
 controls = ExtResource("3_mi2kk")
 color = Color(0, 0.0166669, 1, 1)
 
 [node name="Player2" parent="." instance=ExtResource("1_gx7nr")]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 16.091, 1.52139, 14.5044)
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 16.091, 0.9, 14.5044)
 controls = ExtResource("4_3ab4h")
 color = Color(1, 0, 0, 1)
 
