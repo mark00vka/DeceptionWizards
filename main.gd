@@ -10,14 +10,17 @@ const TILE_SELECTOR = preload("res://tile-selector/tile_selector.tscn")
 @export var tile_size : float = 5.0
 @export var tile_height : float = 2.5
 
-var grid = {}
+var grid : Dictionary = {}
 var tile_selector = TILE_SELECTOR.instantiate()
+
+@onready var pick_object_ui: Control = $PickObjectUI
 
 func _ready() -> void:
 	generate_grid()
 	place_item(STAIRS, Vector2i(0, 1),  0, 1)
 	place_item(FINISH_TILE, Vector2i(0, 0),  1, 0)
 	start_building_phase()
+	#pick_object_ui.show_ui()
 	
 func _process(delta: float) -> void:
 		if Global.building_phase:

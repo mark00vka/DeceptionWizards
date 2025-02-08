@@ -32,6 +32,16 @@ animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={
+"materials": {
+"Material": {
+"use_external/enabled": true,
+"use_external/path": "res://models/signpost/Material.tres"
+},
+"Material.001": {
+"use_external/enabled": true,
+"use_external/path": "res://models/signpost/Material.tres"
+}
+},
 "nodes": {
 "PATH:Camera": {
 "import/skip_import": true

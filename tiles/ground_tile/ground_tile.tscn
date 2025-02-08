@@ -4,16 +4,16 @@
 [ext_resource type="Texture2D" uid="uid://nalopa1mbntn" path="res://tiles/ground_tile/light_ground.png" id="2_l7deo"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ptod6"]
-size = Vector3(5, 1, 5)
+size = Vector3(5, 0.0800781, 5)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vrk68"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_62k4w"]
 resource_local_to_scene = true
 transparency = 1
 albedo_texture = ExtResource("2_l7deo")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_paqri"]
 resource_local_to_scene = true
-material = SubResource("StandardMaterial3D_vrk68")
+material = SubResource("StandardMaterial3D_62k4w")
 size = Vector2(5, 5)
 
 [node name="GroundTile" instance=ExtResource("1_vrcwq")]
@@ -22,7 +22,7 @@ size = Vector2(5, 5)
 collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0400391, 0)
 shape = SubResource("BoxShape3D_ptod6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." index="2"]
