@@ -1,5 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://boi8ol3kqk3xa"]
 
+<<<<<<< Updated upstream
 [sub_resource type="GDScript" id="GDScript_ahihk"]
 script/source = "extends CharacterBody3D
 
@@ -39,6 +40,9 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 "
+=======
+[ext_resource type="Script" path="res://player.gd" id="1_uxt2i"]
+>>>>>>> Stashed changes
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_5ncyn"]
 
@@ -47,7 +51,11 @@ func _physics_process(delta: float) -> void:
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
 collision_mask = 7
+<<<<<<< Updated upstream
 script = SubResource("GDScript_ahihk")
+=======
+script = ExtResource("1_uxt2i")
+>>>>>>> Stashed changes
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_5ncyn")

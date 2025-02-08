@@ -27,15 +27,32 @@ func _ready() -> void:
 	
 func _input(event: InputEvent) -> void:
 		if Global.building_phase:
-			if forward_tile_selected(event):
-				if(tile_selector_pos.y-1) in  range(map_size.y): tile_selector_pos += Vector2i(0, -1)
-			if back_tile_selected(event):
-				if(tile_selector_pos.y+1) in  range(map_size.y): tile_selector_pos += Vector2i(0, 1)
-			if right_tile_selected(event):
-				if(tile_selector_pos.x+1) in  range(map_size.x): tile_selector_pos += Vector2i(1, 0)
-			if left_tile_selected(event):
-				if(tile_selector_pos.x-1) in  range(map_size.x): tile_selector_pos += Vector2i(-1, 0)
-			tile_selector.global_position = tilemap_to_global(tile_selector_pos, tile_selector_lvl)
+			var prev_tile_selector_pos = tile_selector_pos
+			var prev_tile_selector_lvl = tile_selector_lvl
+			update_tile_selector_pos(event)
+			if selected_tile_free(tile_selector_pos, tile_selector_lvl): 
+				tile_selector.global_position = tilemap_to_global(tile_selector_pos, tile_selector_lvl)
+			else:
+				tile_selector_pos = prev_tile_selector_pos
+				tile_selector_lvl = prev_tile_selector_lvl
+		
+func selected_tile_free(tile_pos: Vector2i, tile_lvl: int) -> bool:
+	return !grid.has(pos_lvl_to_vector3i(tile_pos, tile_lvl))
+		
+func update_tile_selector_pos(event:InputEvent):
+	#DODATI UP AND DOWN
+	if forward_tile_selected(event):
+		if(tile_selector_pos.y-1) in  range(map_size.y): 
+			tile_selector_pos += Vector2i(0, -1)
+	if back_tile_selected(event):
+		if(tile_selector_pos.y+1) in  range(map_size.y): 
+			tile_selector_pos += Vector2i(0, 1)
+	if right_tile_selected(event):
+		if(tile_selector_pos.x+1) in  range(map_size.x): 
+			tile_selector_pos += Vector2i(1, 0)
+	if left_tile_selected(event):
+		if(tile_selector_pos.x-1) in  range(map_size.x): 
+			tile_selector_pos += Vector2i(-1, 0)
 				
 func forward_tile_selected(event: InputEvent) -> bool:
 		return (Global.player1 and event.is_action_pressed("p1_up")) \
@@ -63,10 +80,10 @@ func generate_grid():
 				generate_boundary_tile(i, j)
 
 func generate_tile(x: int, y: int):
-	var tile =  GROUND_TILE.instantiate()
-	add_child(tile, true)		
-	tile.global_position = tilemap_to_global(Vector2i(x, y))
-	grid[tile.global_position] = tile
+	var ground_tile =  GROUND_TILE.instantiate()
+	add_child(ground_tile, true)		
+	ground_tile.global_position = tilemap_to_global(Vector2i(x, y))
+	#grid[tile.global_position] = tile
 	
 func generate_boundary_tile(x: int, y: int):
 	var boundary_tile =  BOUNDARY_TILE.instantiate()
@@ -78,6 +95,7 @@ func place_item(item : PackedScene, pos : Vector2i, level : int, rot: int = 0):
 	add_child(inst, true)
 	inst.global_position = tilemap_to_global(pos, level)
 	inst.global_rotation.y = rot * PI / 2
+	grid[pos_lvl_to_vector3i(pos, level)] = inst
 
 func start_building_phase():
 	Global.building_phase = true
@@ -88,3 +106,6 @@ func start_building_phase():
 func end_building_phase():
 	Global.building_phase = false
 	remove_child(tile_selector)
+	
+func pos_lvl_to_vector3i(pos: Vector2i, lvl: int) -> Vector3i:
+	return Vector3i(pos.x, lvl, pos.y)
