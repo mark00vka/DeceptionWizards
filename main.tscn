@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://efhli5mx1ocb" path="res://player/player.tscn" id="1_gx7nr"]
 [ext_resource type="Resource" uid="uid://dutd1sptby8aw" path="res://player/p1_controls.tres" id="3_mi2kk"]
 [ext_resource type="Resource" uid="uid://c1bs0xj1k2bgb" path="res://player/p2_controls.tres" id="4_3ab4h"]
-[ext_resource type="PackedScene" uid="uid://dqsodpt8ae14x" path="res://models/board/board.fbx" id="5_ft1md"]
+[ext_resource type="PackedScene" uid="uid://hni7dct4exvb" path="res://models/board/boardnoplane.fbx" id="5_w4thp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vo3no"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -43,5 +43,5 @@ transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 
 controls = ExtResource("4_3ab4h")
 color = Color(1, 0, 0, 1)
 
-[node name="board" parent="." instance=ExtResource("5_ft1md")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.106, -0.13, 7.534)
+[node name="boardnoplane" parent="." instance=ExtResource("5_w4thp")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.73518, -0.171568, 6.24596)
