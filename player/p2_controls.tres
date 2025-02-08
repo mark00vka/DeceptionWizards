@@ -6,6 +6,8 @@
 script = ExtResource("1_1q1r3")
 left = "p2_left"
 right = "p2_right"
+fwd = "p2_fwd"
+back = "p2_back"
 up = "p2_up"
 down = "p2_down"
 jump = "p2_jump"

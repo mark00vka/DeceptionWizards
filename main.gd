@@ -59,13 +59,9 @@ func update_tile_selector_pos():
 		tile_selector_pos += Input.get_vector(p1_controls.left, p1_controls.right, p1_controls.up, p1_controls.down)
 	else:
 		tile_selector_pos += get_player2_input()
-		
+
 	tile_selector_pos.x = clamp(tile_selector_pos.x, 0, map_size.x-1)
 	tile_selector_pos.y = clamp(tile_selector_pos.y, 0, map_size.y-1)
-				
-func forward_tile_selected(event: InputEvent) -> bool:
-		return (Global.player1 and event.is_action_pressed("p1_up")) \
-			or (!Global.player1 and event.is_action_pressed("p2_up"))
 			
 func generate_grid():
 	for i in range(-1, map_size.x+1):
