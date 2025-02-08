@@ -19,11 +19,8 @@ var current_speed: float = 5.0
 #MOVEMENT VARS
 
 const JUMP_VELOCITY = 4.5
-
 var lerp_speed: float = 10.0
-
 var crouching_depth: float = -0.5
-
 var direction: Vector3 = Vector3.ZERO
 
 #INPUT VARS

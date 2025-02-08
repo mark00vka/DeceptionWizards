@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bj0g4qj3mcc8c"]
+[gd_scene load_steps=8 format=3 uid="uid://bj0g4qj3mcc8c"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_uxt2i"]
 
@@ -14,6 +14,11 @@ height = 1.4
 [sub_resource type="PlaneMesh" id="PlaneMesh_xvdd4"]
 material = SubResource("ShaderMaterial_xowuc")
 orientation = 2
+
+[sub_resource type="QuadMesh" id="QuadMesh_0c0ci"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yv2ga"]
+size = Vector3(1, 1, 0.001)
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_uxt2i")
@@ -52,3 +57,13 @@ light_energy = 0.515
 
 [node name="StandingRay" type="RayCast3D" parent="."]
 target_position = Vector3(0, 1, 0)
+
+[node name="DrawingPlane" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.87462, 0.48481, 0, -0.48481, 0.87462, 0.173356, 0, -1.22046)
+mesh = SubResource("QuadMesh_0c0ci")
+
+[node name="DrawingArea" type="Area3D" parent="DrawingPlane"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DrawingPlane/DrawingArea"]
+transform = Transform3D(1, 0, 0, 0, 0.999996, 3.8743e-07, 0, -3.8743e-07, 0.999996, 0, 0, 0)
+shape = SubResource("BoxShape3D_yv2ga")

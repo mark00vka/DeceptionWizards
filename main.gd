@@ -17,6 +17,8 @@ func generate_indices(array: Array[Vector2]):
 	for i in range(1, n - 1):
 		indices.append_array([0, i, i+1])
 		indices.append_array([n,i+n+1,i+n])
+		#indices.append_array([i+1, i, 0])
+		#indices.append_array([i+n,i+n+1,n])
 		
 	#sides
 	for i in range(0, n - 1):
@@ -36,12 +38,12 @@ func translate_vertices(v: Array[Vector2], translation: Vector3):
 		res.append(ver + translation)
 	return PackedVector3Array(res)
 
-func generate_mesh(vertices: Array[Vector2]) -> void:
-	var ind = generate_indices(vertices)
+func generate_mesh(verts: Array[Vector2]) -> void:
+	var ind = generate_indices(verts)
 	var inverse := vertices.duplicate()
 	inverse.reverse()
 	ind.append_array(generate_indices(inverse))
-	var ver = translate_vertices(vertices, Vector3.DOWN)
+	var verts_final = translate_vertices(verts, Vector3.DOWN)
 	
 	var indices := PackedInt32Array([
 		#bottom
@@ -78,9 +80,9 @@ func generate_mesh(vertices: Array[Vector2]) -> void:
 	
 	var st = SurfaceTool.new()
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
-	for i in range(ver.size()):
+	for i in range(verts_final.size()):
 		#st.set_uv(uvs[i])
-		st.add_vertex(ver[i])
+		st.add_vertex(verts_final[i])
 		
 	for i in ind:
 		st.add_index(i)
