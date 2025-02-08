@@ -1,8 +1,8 @@
 @tool
-
 extends Node3D
 
 const TILE = preload("res://tiles/base_tile/tile.tscn")
+const BOUNDARY_TILE = preload("res://boundary_tile.tscn")
 const STAIRS = preload("res://tiles/stairs/stairs.tscn")
 
 @export var map_size : Vector3i = Vector3i(4, 4, 4)

@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://irqx4mth2q2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iisde"]
+transparency = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_8a4kp"]
+material = SubResource("StandardMaterial3D_iisde")
+size = Vector3(5, 10, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yeqjd"]
+size = Vector3(5, 0.01, 5)
+
+[node name="BoundaryTile" type="MeshInstance3D"]
+mesh = SubResource("BoxMesh_8a4kp")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0110426, 0, 0.927755)
+shape = SubResource("BoxShape3D_yeqjd")
