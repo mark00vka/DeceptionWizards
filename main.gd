@@ -162,22 +162,3 @@ func add_point(pos: Vector3):
 	var res = Vector2(pos.x, pos.z) * s
 	if not Geometry2D.is_point_in_polygon(res, PackedVector2Array(vertices)):
 		vertices.append(res)
-
-func _on_drawing_area_input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int) -> void:		
-	if event is InputEventMouseButton:
-		if event.is_released():
-			if vertices.size() > 2:
-				generate_mesh(vertices)
-			vertices.clear()
-			drawing = false
-		if event.is_pressed():
-			drawing = true
-	
-	if event is InputEventMouseMotion and drawing and Engine.get_process_frames() % 4 == 0:
-		add_point(event_position - $DrawingPlane.global_position)
-
-func _on_drawing_area_mouse_exited() -> void:
-	if vertices.size() > 2:
-		generate_mesh(vertices)
-	drawing = false
-	vertices.clear()

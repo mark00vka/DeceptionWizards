@@ -1,5 +1,8 @@
 extends CharacterBody3D
 
+signal generate_mesh
+signal add_point(pos: Vector2)
+
 # PLAYER NODES
 
 @onready var head: Node3D = $Head
@@ -7,7 +10,7 @@ extends CharacterBody3D
 @onready var crouching_shape = $CrouchingShape
 @onready var standing_ray = $StandingRay
 @onready var point_ray = $Head/PointRay
-
+@onready var drawing_plane: CSGMesh3D = $DrawingPlane
 
 #SPEED VARS
 
@@ -22,6 +25,8 @@ const JUMP_VELOCITY = 4.5
 var lerp_speed: float = 10.0
 var crouching_depth: float = -0.5
 var direction: Vector3 = Vector3.ZERO
+var drawing : bool = false
+var drawing_mode : bool = false
 
 #INPUT VARS
 
@@ -38,6 +43,9 @@ func _input(event):
 		rotate_y(-event.relative.x * mouse_sens)
 		head.rotate_x(-event.relative.y * mouse_sens)
 		head.rotation.x = clamp(head.rotation.x, -1.2, 1.2)
+	
+	if event.is_action_pressed("tab"):
+		drawing_mode = not drawing_mode
 
 func _physics_process(delta):
 	
@@ -80,3 +88,18 @@ func _physics_process(delta):
 		velocity.z = move_toward(velocity.z, 0, current_speed)
 
 	move_and_slide()
+
+func _on_drawing_area_input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int) -> void:		
+	if event is InputEventMouseButton:
+		if event.is_released():
+			generate_mesh.emit()
+			drawing = false
+		if event.is_pressed():
+			drawing = true
+	
+	if event is InputEventMouseMotion and drawing and Engine.get_process_frames() % 4 == 0:
+		add_point.emit(event_position - $DrawingPlane.global_position)
+
+func _on_drawing_area_mouse_exited() -> void:
+	generate_mesh.emit()
+	drawing = false

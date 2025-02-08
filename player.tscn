@@ -16,6 +16,7 @@ material = SubResource("ShaderMaterial_xowuc")
 orientation = 2
 
 [sub_resource type="QuadMesh" id="QuadMesh_0c0ci"]
+size = Vector2(0.2, 0.3)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yv2ga"]
 size = Vector3(1, 1, 0.001)
@@ -59,7 +60,7 @@ light_energy = 0.515
 target_position = Vector3(0, 1, 0)
 
 [node name="DrawingPlane" type="CSGMesh3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.87462, 0.48481, 0, -0.48481, 0.87462, 0.173356, 0, -1.22046)
+transform = Transform3D(1, 0, 0, 0, 0.957319, 0.289032, 0, -0.289032, 0.957319, 0.252585, 0.607084, -0.525351)
 mesh = SubResource("QuadMesh_0c0ci")
 
 [node name="DrawingArea" type="Area3D" parent="DrawingPlane"]
