@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=4 uid="uid://cm6byh8geuxup"]
+[gd_scene load_steps=12 format=4 uid="uid://cm6byh8geuxup"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_b5th3"]
+[ext_resource type="PackedScene" uid="uid://bj0g4qj3mcc8c" path="res://player.tscn" id="1_gx7nr"]
 [ext_resource type="PackedScene" uid="uid://cfasp8gth34eb" path="res://stairs.fbx" id="3_44eyh"]
 [ext_resource type="Texture2D" uid="uid://wane8mf68nan" path="res://icon.svg" id="3_uj88q"]
 
@@ -92,3 +93,6 @@ size = Vector3(1.62451, 1.64453, 1.91064)
 
 [node name="stairs" parent="." instance=ExtResource("3_44eyh")]
 transform = Transform3D(0.14, 0, 0, 0, 0.14, 0, 0, 0, 0.14, 5.28315, 0.603797, -3.42729)
+
+[node name="Player" parent="." instance=ExtResource("1_gx7nr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3993, 2.59649, 0)
