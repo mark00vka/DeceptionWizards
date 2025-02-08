@@ -55,12 +55,12 @@ func update_tile_selector_pos(event:InputEvent):
 			tile_selector_pos += Vector2i(-1, 0)
 				
 func forward_tile_selected(event: InputEvent) -> bool:
-		return (Global.player1 and event.is_action_pressed("p1_up")) \
-			or (!Global.player1 and event.is_action_pressed("p2_up"))
+		return (Global.player1 and event.is_action_pressed("p1_fwd")) \
+			or (!Global.player1 and event.is_action_pressed("p2_fwd"))
 			
 func back_tile_selected(event: InputEvent) -> bool:
-		return (Global.player1 and event.is_action_pressed("p1_down")) \
-			or (!Global.player1 and event.is_action_pressed("p2_down"))
+		return (Global.player1 and event.is_action_pressed("p1_back")) \
+			or (!Global.player1 and event.is_action_pressed("p2_back"))
 			
 func right_tile_selected(event: InputEvent) -> bool:
 		return (Global.player1 and event.is_action_pressed("p1_right")) \

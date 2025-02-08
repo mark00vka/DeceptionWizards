@@ -1,10 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://kinit4vm8nv3"]
+[gd_scene load_steps=2 format=3 uid="uid://c12rkveqomry7"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t2b6i"]
-albedo_color = Color(0, 0.463339, 0.511076, 1)
+[ext_resource type="PackedScene" uid="uid://dkqgdigaspjw" path="res://models/cursor/cursor.fbx" id="1_0yhwv"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_e03cg"]
-material = SubResource("StandardMaterial3D_t2b6i")
+[node name="TileSelector" type="Node3D"]
 
-[node name="TileSelector" type="MeshInstance3D"]
-mesh = SubResource("SphereMesh_e03cg")
+[node name="cursor" parent="." instance=ExtResource("1_0yhwv")]
+transform = Transform3D(400, 0, 0, 0, -1.74846e-05, -400, 0, 400, -1.74846e-05, 0.252075, 0, 1.70201)
