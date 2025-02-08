@@ -50,10 +50,6 @@ func update_tile_selector_pos(event:InputEvent):
 		
 	tile_selector_pos.x = snapped(clamp(tile_selector_pos.x, 0, map_size.x-1), 1)
 	tile_selector_pos.y = snapped(clamp(tile_selector_pos.y, 0, map_size.y-1), 1)
-				
-func forward_tile_selected(event: InputEvent) -> bool:
-		return (Global.player1 and event.is_action_pressed("p1_fwd")) \
-			or (!Global.player1 and event.is_action_pressed("p2_fwd"))
 			
 func generate_grid():
 	for i in range(-1, map_size.x+1):
