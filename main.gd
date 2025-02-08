@@ -49,7 +49,6 @@ func tile_selected(event: InputEvent) -> bool:
 func generate_grid():
 	for i in range(-1, map_size.x+1):
 		for j in range(-1, map_size.y+1):
-			
 			if(i in range(map_size.x) and j in range(map_size.y)):
 				generate_tile(i, j)
 			else:
@@ -58,7 +57,8 @@ func generate_grid():
 func generate_tile(x: int, y: int):
 	var ground_tile =  GROUND_TILE.instantiate()
 	add_child(ground_tile, true)		
-	ground_tile.global_position = tilemap_to_global(Vector2i(x, y))
+	ground_tile.global_position = tilemap_to_global(Vector2i(x, y))if (x + y) % 2 == 0:
+		ground_tile.get_node("MeshInstance3D").mesh.material.albedo_texture = preload("res://tiles/ground_tile/dark_ground.png")
 	
 func generate_boundary_tile(x: int, y: int):
 	var boundary_tile =  BOUNDARY_TILE.instantiate()
