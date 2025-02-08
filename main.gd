@@ -1,7 +1,7 @@
 extends Node3D
 
 const GROUND_TILE = preload("res://tiles/ground_tile/ground_tile.tscn")
-const BOUNDARY_TILE = preload("res://tiles/boundary_tile.tscn")
+const BOUNDARY_TILE = preload("res://tiles/boundary_tile/boundary_tile.tscn")
 const STAIRS = preload("res://tiles/stairs/stairs.tscn")
 const FINISH_TILE = preload("res://tiles/finish_tile/finish_tile.tscn")
 const TILE_SELECTOR = preload("res://tile-selector/tile_selector.tscn")
@@ -20,7 +20,7 @@ func _ready() -> void:
 	place_item(STAIRS, Vector2i(0, 1),  0, 1)
 	place_item(FINISH_TILE, Vector2i(0, 0),  1, 0)
 	start_building_phase()
-	pick_object_ui.show_ui()
+	pick_object_ui.show_ui.call_deferred()
 	
 func _process(delta: float) -> void:
 		if Global.building_phase:
