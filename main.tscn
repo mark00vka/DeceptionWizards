@@ -23,8 +23,6 @@ glow_enabled = true
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_b5th3")
-p1_controls = ExtResource("3_mi2kk")
-p2_controls = ExtResource("4_3ab4h")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_3p8xg")
