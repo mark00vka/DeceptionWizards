@@ -57,8 +57,10 @@ func update_tile_selector_pos():
 	#TODO: DODATI UP AND DOWN
 	if Global.player1:
 		tile_selector_pos += Input.get_vector(p1_controls.left, p1_controls.right, p1_controls.up, p1_controls.down)
+		tile_selector_lvl += int(Input.is_action_just_pressed(p1_controls.up)) - int(Input.is_action_just_pressed(p1_controls.down))
 	else:
 		tile_selector_pos += get_player2_input()
+		tile_selector_lvl += int(Input.is_action_just_pressed(p2_controls.up)) - int(Input.is_action_just_pressed(p2_controls.down))
 
 	tile_selector_pos.x = clamp(tile_selector_pos.x, 0, map_size.x-1)
 	tile_selector_pos.y = clamp(tile_selector_pos.y, 0, map_size.y-1)
