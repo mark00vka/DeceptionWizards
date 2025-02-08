@@ -1,7 +1,6 @@
 extends CharacterBody3D
 
-signal generate_mesh
-signal add_point(pos: Vector2)
+signal generate_mesh(verts: Array[Vector2])
 
 # PLAYER NODES
 
@@ -25,8 +24,11 @@ const JUMP_VELOCITY = 4.5
 var lerp_speed: float = 10.0
 var crouching_depth: float = -0.5
 var direction: Vector3 = Vector3.ZERO
+
+#OTHER VARS
 var drawing : bool = false
 var drawing_mode : bool = false
+var vertices : Array[Vector2] = []
 
 #INPUT VARS
 
@@ -39,16 +41,21 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event):
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and not drawing_mode:
 		rotate_y(-event.relative.x * mouse_sens)
 		head.rotate_x(-event.relative.y * mouse_sens)
 		head.rotation.x = clamp(head.rotation.x, -1.2, 1.2)
 	
 	if event.is_action_pressed("tab"):
 		drawing_mode = not drawing_mode
+		if drawing_mode:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _physics_process(delta):
-	
+	if drawing_mode:
+		return
 	#HANDLE MOVEMENT STATE
 	if Input.is_action_pressed("crouch"):
 		#crouching
@@ -93,13 +100,22 @@ func _on_drawing_area_input_event(camera: Node, event: InputEvent, event_positio
 	if event is InputEventMouseButton:
 		if event.is_released():
 			generate_mesh.emit()
+			vertices.clear()
 			drawing = false
 		if event.is_pressed():
 			drawing = true
 	
 	if event is InputEventMouseMotion and drawing and Engine.get_process_frames() % 4 == 0:
-		add_point.emit(event_position - $DrawingPlane.global_position)
+		add_point(event_position - $DrawingPlane.global_position)
 
 func _on_drawing_area_mouse_exited() -> void:
 	generate_mesh.emit()
+	vertices.clear()
 	drawing = false
+
+
+func add_point(pos: Vector3):
+	var s = 5.0
+	var res = Vector2(pos.x, pos.z) * s
+	if not Geometry2D.is_point_in_polygon(res, PackedVector2Array(vertices)):
+		vertices.append(res)

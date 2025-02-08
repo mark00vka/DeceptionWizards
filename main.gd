@@ -45,27 +45,6 @@ func generate_mesh(verts: Array[Vector2]) -> void:
 	ind.append_array(generate_indices(inverse))
 	var verts_final = translate_vertices(verts, Vector3.DOWN)
 	
-	var indices := PackedInt32Array([
-		#bottom
-		2,1,0,
-		3,2,0,
-		#sides
-		7,2,3,
-		7,6,2,
-		
-		6,1,2,
-		6,5,1,
-		
-		5,4,1,
-		4,0,1,
-		
-		7,3,0,
-		7,0,4,
-		# top
-		4,5,6,
-		6,7,4,	
-	])
-	
 	var uvs := PackedVector2Array([
 		Vector2(0,0),
 		Vector2(1,0),
@@ -156,9 +135,3 @@ func generate_sphere():
 	st.generate_normals()
 	var mesh = st.commit()
 	$CSGCombiner3D/Union/CSGMesh3D.mesh = mesh
-
-func add_point(pos: Vector3):
-	var s = 5.0
-	var res = Vector2(pos.x, pos.z) * s
-	if not Geometry2D.is_point_in_polygon(res, PackedVector2Array(vertices)):
-		vertices.append(res)
