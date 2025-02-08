@@ -99,7 +99,7 @@ func _physics_process(delta):
 func _on_drawing_area_input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int) -> void:		
 	if event is InputEventMouseButton:
 		if event.is_released():
-			generate_mesh.emit()
+			generate_mesh.emit(vertices)
 			vertices.clear()
 			drawing = false
 		if event.is_pressed():
@@ -109,7 +109,7 @@ func _on_drawing_area_input_event(camera: Node, event: InputEvent, event_positio
 		add_point(event_position - $DrawingPlane.global_position)
 
 func _on_drawing_area_mouse_exited() -> void:
-	generate_mesh.emit()
+	generate_mesh.emit(vertices)
 	vertices.clear()
 	drawing = false
 

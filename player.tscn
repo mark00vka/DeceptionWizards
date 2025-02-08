@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bj0g4qj3mcc8c"]
+[gd_scene load_steps=7 format=3 uid="uid://bj0g4qj3mcc8c"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_uxt2i"]
 
@@ -9,17 +9,14 @@ radius = 0.4
 radius = 0.4
 height = 1.4
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xowuc"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_xvdd4"]
-material = SubResource("ShaderMaterial_xowuc")
-orientation = 2
-
 [sub_resource type="QuadMesh" id="QuadMesh_0c0ci"]
 size = Vector2(0.2, 0.3)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yv2ga"]
 size = Vector3(1, 1, 0.001)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_y10rv"]
+radius = 0.4
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_uxt2i")
@@ -35,22 +32,6 @@ shape = SubResource("CapsuleShape3D_a133h")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.289112, 0)
 shape = SubResource("CapsuleShape3D_ikgcm")
 disabled = true
-
-[node name="Head" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
-
-[node name="Camera3D" type="Camera3D" parent="Head"]
-fov = 56.2243
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Head/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1)
-visible = false
-mesh = SubResource("PlaneMesh_xvdd4")
-
-[node name="PointRay" type="RayCast3D" parent="Head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.485208)
-target_position = Vector3(0, 0, -0.8)
-collision_mask = 2
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 light_color = Color(0.698039, 0.639216, 0.454902, 1)
@@ -68,6 +49,9 @@ mesh = SubResource("QuadMesh_0c0ci")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DrawingPlane/DrawingArea"]
 transform = Transform3D(1, 0, 0, 0, 0.999996, 3.8743e-07, 0, -3.8743e-07, 0.999996, 0, 0, 0)
 shape = SubResource("BoxShape3D_yv2ga")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_y10rv")
 
 [connection signal="input_event" from="DrawingPlane/DrawingArea" to="." method="_on_drawing_area_input_event"]
 [connection signal="mouse_exited" from="DrawingPlane/DrawingArea" to="." method="_on_drawing_area_mouse_exited"]

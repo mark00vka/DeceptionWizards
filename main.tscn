@@ -1,9 +1,6 @@
-[gd_scene load_steps=12 format=4 uid="uid://cm6byh8geuxup"]
+[gd_scene load_steps=5 format=3 uid="uid://cm6byh8geuxup"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_b5th3"]
-[ext_resource type="PackedScene" uid="uid://bj0g4qj3mcc8c" path="res://player.tscn" id="1_gx7nr"]
-[ext_resource type="PackedScene" uid="uid://cfasp8gth34eb" path="res://stairs.fbx" id="3_44eyh"]
-[ext_resource type="Texture2D" uid="uid://wane8mf68nan" path="res://icon.svg" id="3_uj88q"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vo3no"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -18,30 +15,9 @@ sky = SubResource("Sky_1bi71")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6a0ww"]
-albedo_texture = ExtResource("3_uj88q")
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_7klxq"]
-size = Vector2(20, 20)
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_1g1l8"]
-_surfaces = [{
-"aabb": AABB(0, 0, 0, 1, 1, 1),
-"attribute_data": PackedByteArray("AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAgD8AAAAAAACAPwAAgD8AAIA/AACAPwAAAAAAAAAAAAAAAA=="),
-"format": 34359742487,
-"index_count": 36,
-"index_data": PackedByteArray("AAABAAIAAwAAAAIABAAAAAMABAAFAAAABQABAAAABQAGAAEABgAHAAEABwACAAEABAADAAIABAACAAcABwAGAAUABQAEAAcA"),
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 8,
-"vertex_data": PackedByteArray("AACAPwAAAAAAAIA/AACAPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA/AAAAAAAAgD8AAIA/AACAPwAAgD8AAIA/AACAPwAAgD8AAAAAAAAAAAAAgD8AAAAAmZnMTDIzmZll5jIzmZllpjIzMjPMTMzMVFVUVQAAAIDMTJmZmZllpjKzMrPMTMzMVNVU1QAAAIAyM2XmMjOZmQ==")
-}]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3fumk"]
-albedo_color = Color(0.211765, 0.384314, 0.0666667, 1)
-
 [node name="Main" type="Node3D"]
 script = ExtResource("1_b5th3")
+map_size = Vector2(4, 4)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_3p8xg")
@@ -50,46 +26,5 @@ environment = SubResource("Environment_3p8xg")
 transform = Transform3D(-0.874172, -0.416134, 0.250311, -0.0020669, 0.518634, 0.854994, -0.485612, 0.746895, -0.454235, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Ground" type="CSGMesh3D" parent="."]
-material_override = SubResource("StandardMaterial3D_6a0ww")
-use_collision = true
-mesh = SubResource("PlaneMesh_7klxq")
-
-[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1, 0)
-operation = 2
-use_collision = true
-
-[node name="Union" type="CSGCombiner3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.078753, -0.0466598, 0)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Union"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.111709, 0.354053, 0.78018)
-size = Vector3(1.66748, 1.92871, 2.06787)
-
-[node name="CSGMesh3D" type="CSGMesh3D" parent="CSGCombiner3D/Union"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.05443, 1.18838, 0)
-mesh = SubResource("ArrayMesh_1g1l8")
-material = SubResource("StandardMaterial3D_3fumk")
-
-[node name="Subtraction" type="CSGCombiner3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.171656, -0.26452)
-operation = 2
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Subtraction"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0430884, 0.165951, -0.266395)
-
-[node name="Intersection" type="CSGCombiner3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.361951, 0.11734, 0)
-visible = false
-operation = 1
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Intersection"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.269167, 0.488217, 0.188927)
-size = Vector3(1.62451, 1.64453, 1.91064)
-
-[node name="stairs" parent="." instance=ExtResource("3_44eyh")]
-transform = Transform3D(0.14, 0, 0, 0, 0.14, 0, 0, 0, 0.14, 5.28315, 0.603797, -3.42729)
-
-[node name="Player" parent="." instance=ExtResource("1_gx7nr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3993, 2.59649, 0)
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.0218324, 0.999762, 0, -0.999762, 0.0218324, 0, 7.92276, 0)
