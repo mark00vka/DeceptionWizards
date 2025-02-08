@@ -38,9 +38,15 @@ _subresources={
 "use_external/path": "res://models/cursor/lambert2.tres"
 }
 },
-"nodes": {
-"PATH:AnimationPlayer": {
-"import/skip_import": true
+"meshes": {
+"Mesh_006": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 2,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": false,
+"save_to_file/path": ""
 }
 }
 }

@@ -5,4 +5,10 @@
 [node name="TileSelector" type="Node3D"]
 
 [node name="cursor" parent="." instance=ExtResource("1_0yhwv")]
-transform = Transform3D(450, 0, 0, 0, -1.96701e-05, -450, 0, 450, -1.96701e-05, -0.163, 1.043, 1.432)
+transform = Transform3D(2.2, 0, 0, 0, -9.61651e-08, -2.2, 0, 2.2, -9.61651e-08, -0.163, 1.653, 1.432)
+
+[node name="Cursor" parent="cursor/group/pasted__group3/pasted__pasted__group2/pasted__pasted__pasted__group_001" index="0"]
+cast_shadow = 0
+ignore_occlusion_culling = true
+
+[editable path="cursor"]

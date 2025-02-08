@@ -113,14 +113,17 @@ func place_item(item : PackedScene, pos : Vector2i, level : int, rot: int = 0):
 	grid[pos_lvl_to_vector3i(pos, level)] = inst
 
 func start_building_phase():
+	$Camera3D.building()
 	Global.building_phase = true
+	tile_selector = TILE_SELECTOR.instantiate()
 	add_child(tile_selector, true)
 	tile_selector.global_position = tilemap_to_global(Vector2i(0,0))
 	print("STARTED")
 	
 func end_building_phase():
+	$Camera3D.chase()
 	Global.building_phase = false
-	remove_child(tile_selector)
+	tile_selector.queue_free()
 	
 func pos_lvl_to_vector3i(pos: Vector2i, lvl: int) -> Vector3i:
 	return Vector3i(pos.x, lvl, pos.y)

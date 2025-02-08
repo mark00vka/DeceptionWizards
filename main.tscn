@@ -41,7 +41,6 @@ script = ExtResource("4_2ybbk")
 transform = Transform3D(1, 0, 0, 0, 0.632516, 0.774547, 0, -0.774547, 0.632516, 5.62736, 48.7606, 45.9308)
 visible = false
 fov = 35.0
-script = ExtResource("4_2ybbk")
 
 [node name="Player" parent="." instance=ExtResource("1_gx7nr")]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 14.523, 0.9, 15.817)
