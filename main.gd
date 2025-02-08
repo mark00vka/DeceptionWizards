@@ -77,7 +77,6 @@ func get_player1_input():
 	return move_dir
 		
 func update_tile_selector_pos():
-	#TODO: DODATI UP AND DOWN
 	if Global.player1:
 		tile_selector_pos += get_player1_input()
 		tile_selector_lvl += int(Input.is_action_just_pressed(p1_controls.up)) - int(Input.is_action_just_pressed(p1_controls.down))
@@ -87,6 +86,7 @@ func update_tile_selector_pos():
 
 	tile_selector_pos.x = clamp(tile_selector_pos.x, 0, map_size.x-1)
 	tile_selector_pos.y = clamp(tile_selector_pos.y, 0, map_size.y-1)
+	tile_selector_lvl = clamp(tile_selector_lvl, 0, map_size.z-1)
 			
 func generate_grid():
 	for i in range(-1, map_size.x+1):
