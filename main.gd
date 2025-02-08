@@ -1,7 +1,7 @@
 @tool
 extends Node3D
 
-const TILE = preload("res://tiles/base_tile/tile.tscn")
+const GROUND_TILE = preload("res://tiles/ground_tile/ground_tile.tscn")
 const BOUNDARY_TILE = preload("res://boundary_tile.tscn")
 const STAIRS = preload("res://tiles/stairs/stairs.tscn")
 
@@ -19,12 +19,12 @@ func _ready() -> void:
 func generate_grid():
 	for i in range(map_size.x):
 		for j in range(map_size.y):
-			var tile =  TILE.instantiate()
-			add_child(tile)
+			var tile =  GROUND_TILE.instantiate()
+			add_child(tile, true)
 			tile.global_position = tilemap_to_global(Vector2i(i, j))
 
 func place_item(item : PackedScene, pos : Vector2i, level : int, rot: int = 0):
 	var inst = item.instantiate()
-	add_child(inst)
+	add_child(inst, true)
 	inst.global_position = tilemap_to_global(pos, level)
 	inst.global_rotation.y = rot * PI / 2

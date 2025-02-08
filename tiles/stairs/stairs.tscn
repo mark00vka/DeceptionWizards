@@ -1,21 +1,19 @@
 [gd_scene load_steps=4 format=3 uid="uid://cm8gyi4lp50xt"]
 
 [ext_resource type="PackedScene" uid="uid://cfasp8gth34eb" path="res://tiles/stairs/stairs.fbx" id="1_4spbn"]
-[ext_resource type="Script" path="res://tiles/stairs/stairs.gd" id="1_5insi"]
+[ext_resource type="PackedScene" uid="uid://b8wfo3u7311gh" path="res://tiles/base_tile/base_tile.tscn" id="1_jougs"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_bopxh"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0sto0"]
 points = PackedVector3Array(2, 0, 0, 0, 0, 0, 2, 2.5, 5, 0, 2.5, 5, 0, 0, 5, 2, 0, 5)
 
-[node name="Stairs" type="Node3D"]
-script = ExtResource("1_5insi")
+[node name="Stairs" instance=ExtResource("1_jougs")]
 
-[node name="stairs" parent="." instance=ExtResource("1_4spbn")]
+[node name="stairs" parent="." index="1" instance=ExtResource("1_4spbn")]
 transform = Transform3D(0.096, 0, 0, 0, 0.096, 0, 0, 0, 0.096, 0, 0.313263, 0)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="2"]
+collision_mask = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.48924, 0, 0.94449)
-shape = SubResource("ConvexPolygonShape3D_bopxh")
-
-[editable path="stairs"]
+shape = SubResource("ConvexPolygonShape3D_0sto0")
