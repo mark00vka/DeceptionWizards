@@ -1,8 +1,8 @@
 class_name Player
 extends CharacterBody3D
 
-const SPEED = 5.0
-const JUMP_VELOCITY = 10
+const SPEED = 10.0
+const JUMP_VELOCITY = 7
 
 @export var controls: PlayerControls
 @export var color : Color
@@ -13,10 +13,13 @@ func _ready() -> void:
 	$MeshInstance3D.mesh.material = material
 
 func _physics_process(delta: float) -> void:
+	if Global.building_phase:
+		return
+		
 	# Add the gravity.
 	if not is_on_floor():
 		var gravity = get_gravity()
-		if(velocity.y > 0): gravity*=3
+		if(velocity.y < 0): gravity*=2
 		velocity += gravity * delta
 
 	# Handle jump.
