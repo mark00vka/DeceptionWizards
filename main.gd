@@ -13,11 +13,13 @@ const TILE_SELECTOR = preload("res://tile_selector.tscn")
 @export var tile_size : float = 5.0
 @export var tile_height : float = 2.5
 
-var grid = {}
+var grid : Dictionary = {}
 var tile_selector = TILE_SELECTOR.instantiate()
 var tile_selector_pos = Vector2(0, 0)
 var tile_selector_lvl: int = 0
- 
+
+@onready var pick_object_ui: Control = $PickObjectUI
+
 func tilemap_to_global(pos: Vector2i, level : int = 0):
 	return Vector3(pos.x, 0, pos.y) * tile_size + Vector3.UP * level * tile_height
 
@@ -26,14 +28,15 @@ func _ready() -> void:
 	place_item(STAIRS, Vector2i(0, 1),  0, 1)
 	place_item(FINISH_TILE, Vector2i(0, 0),  1, 0)
 	start_building_phase()
+	#pick_object_ui.show_ui()
 	
 func _process(delta: float) -> void:
-		if Global.building_phase:
-			update_tile_selector_pos()
-			if not selected_tile_free(tile_selector_pos, tile_selector_lvl): 
-				#TODO: PROMENI BOJU
-				pass
-			tile_selector.global_position = tilemap_to_global(tile_selector_pos, tile_selector_lvl)
+	if Global.building_phase:
+		update_tile_selector_pos()
+		if not selected_tile_free(tile_selector_pos, tile_selector_lvl): 
+			#TODO: PROMENI BOJU
+			pass
+		tile_selector.global_position = tilemap_to_global(tile_selector_pos, tile_selector_lvl)
 			
 func _input(event: InputEvent) -> void:
 	if Global.building_phase and tile_selected(event):
