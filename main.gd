@@ -20,7 +20,7 @@ func _ready() -> void:
 	place_item(STAIRS, Vector2i(0, 1),  0, 1)
 	place_item(FINISH_TILE, Vector2i(0, 0),  1, 0)
 	start_building_phase()
-	#pick_object_ui.show_ui()
+	pick_object_ui.show_ui()
 	
 func _process(delta: float) -> void:
 		if Global.building_phase and tile_selector.active:
@@ -31,13 +31,12 @@ func _input(event: InputEvent) -> void:
 	if Global.building_phase:
 		if tile_selected(event):
 			place_obstacle()
-			tile_selector.active = false
+			#tile_selector.active = false
 		
 		
 func place_obstacle():
 	if(GridManager.selected_tile_free(grid, tile_selector.pos, tile_selector.lvl)):
 		place_item(STAIRS, tile_selector.pos, tile_selector.lvl)
-		tile_selector.active = false
 		
 		if not Global.player1: end_building_phase()
 		Global.player1 = !Global.player1
@@ -60,7 +59,8 @@ func generate_grid():
 func generate_tile(x: int, y: int):
 	var ground_tile =  GROUND_TILE.instantiate()
 	add_child(ground_tile, true)		
-	ground_tile.global_position = tilemap_to_global(Vector2i(x, y))if (x + y) % 2 == 0:
+	ground_tile.global_position = tilemap_to_global(Vector2i(x, y))
+	if (x + y) % 2 == 0:
 		ground_tile.get_node("MeshInstance3D").mesh.material.albedo_texture = preload("res://tiles/ground_tile/dark_ground.png")
 	
 func generate_boundary_tile(x: int, y: int):

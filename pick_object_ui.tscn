@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cpn2ympvqfo3q"]
+[gd_scene load_steps=7 format=3 uid="uid://cpn2ympvqfo3q"]
 
 [ext_resource type="Script" path="res://pick_object_ui.gd" id="1_1l0jk"]
 [ext_resource type="Texture2D" uid="uid://nalopa1mbntn" path="res://tiles/ground_tile/light_ground.png" id="1_t1rhl"]
+[ext_resource type="Texture2D" uid="uid://b0ivlhdjqiokb" path="res://tiles/stairs/stairs_icon.png" id="3_s8hha"]
+[ext_resource type="Script" path="res://object.gd" id="4_j0pxk"]
+[ext_resource type="Resource" uid="uid://cqst6qpbxfi2u" path="res://tiles/stairs/stairs_res.tres" id="5_i7h7q"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sp7fk"]
 texture = ExtResource("1_t1rhl")
@@ -39,7 +42,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_sp7fk")
 
-[node name="Control" type="Control" parent="Panel"]
+[node name="ObjectHolder" type="Control" parent="Panel"]
 layout_mode = 1
 anchor_left = 0.1
 anchor_top = 0.078
@@ -47,3 +50,15 @@ anchor_right = 0.9
 anchor_bottom = 0.943
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Stairs" type="TextureRect" parent="Panel/ObjectHolder"]
+layout_mode = 1
+anchors_preset = -1
+offset_right = 100.0
+offset_bottom = 100.0
+texture = ExtResource("3_s8hha")
+expand_mode = 1
+script = ExtResource("4_j0pxk")
+tile = ExtResource("5_i7h7q")
+
+[connection signal="gui_input" from="Panel/ObjectHolder/Stairs" to="Panel/ObjectHolder/Stairs" method="_on_gui_input"]
