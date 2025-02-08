@@ -5,6 +5,6 @@
 [resource]
 resource_name = "stairs"
 vertex_color_use_as_albedo = true
-albedo_color = Color(0.906332, 0.906332, 0.906332, 1)
 albedo_texture = ExtResource("1_7hep5")
-emission_enabled = true
+metallic_specular = 0.0
+roughness = 0.0

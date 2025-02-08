@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=4 uid="uid://cm6byh8geuxup"]
+[gd_scene load_steps=11 format=4 uid="uid://cm6byh8geuxup"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_b5th3"]
+[ext_resource type="PackedScene" uid="uid://cfasp8gth34eb" path="res://stairs.fbx" id="3_44eyh"]
 [ext_resource type="Texture2D" uid="uid://wane8mf68nan" path="res://icon.svg" id="3_uj88q"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vo3no"]
@@ -37,11 +38,6 @@ _surfaces = [{
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3fumk"]
 albedo_color = Color(0.211765, 0.384314, 0.0666667, 1)
-
-[sub_resource type="QuadMesh" id="QuadMesh_8xb0u"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_povv4"]
-size = Vector3(1, 1, 0.001)
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_b5th3")
@@ -94,15 +90,5 @@ operation = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.269167, 0.488217, 0.188927)
 size = Vector3(1.62451, 1.64453, 1.91064)
 
-[node name="DrawingPlane" type="CSGMesh3D" parent="."]
-transform = Transform3D(1.965, 0, 0, 0, -8.58929e-08, 1.965, 0, -1.965, -8.58929e-08, 1.7409, 4.13084, 3.36963)
-mesh = SubResource("QuadMesh_8xb0u")
-
-[node name="DrawingArea" type="Area3D" parent="DrawingPlane"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DrawingPlane/DrawingArea"]
-transform = Transform3D(1, 0, 0, 0, 0.999996, 3.8743e-07, 0, -3.8743e-07, 0.999996, 0, -0.00569057, 0.000798702)
-shape = SubResource("BoxShape3D_povv4")
-
-[connection signal="input_event" from="DrawingPlane/DrawingArea" to="." method="_on_drawing_area_input_event"]
-[connection signal="mouse_exited" from="DrawingPlane/DrawingArea" to="." method="_on_drawing_area_mouse_exited"]
+[node name="stairs" parent="." instance=ExtResource("3_44eyh")]
+transform = Transform3D(0.14, 0, 0, 0, 0.14, 0, 0, 0, 0.14, 5.28315, 0.603797, -3.42729)
