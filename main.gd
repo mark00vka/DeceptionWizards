@@ -2,7 +2,7 @@
 extends Node3D
 
 const GROUND_TILE = preload("res://tiles/ground_tile/ground_tile.tscn")
-const BOUNDARY_TILE = preload("res://boundary_tile.tscn")
+const BOUNDARY_TILE = preload("res://tiles/boundary_tile.tscn")
 const STAIRS = preload("res://tiles/stairs/stairs.tscn")
 const TILE_SELECTOR = preload("res://tile_selector.tscn")
 
@@ -40,9 +40,10 @@ func _input(event: InputEvent) -> void:
 				
 	
 func generate_grid():
-	for i in range(-1, map_size.x+2):
-		row = []
-		for j in range(-1, map_size.y+2):
+
+	for i in range(-1, map_size.x+1):
+		for j in range(-1, map_size.y+1):
+			
 			if(i in range(map_size.x) and j in range(map_size.y)):
 				generate_tile(i, j)
 			else:

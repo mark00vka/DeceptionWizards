@@ -1,25 +1,31 @@
+class_name Player
 extends CharacterBody3D
 
-
 const SPEED = 5.0
-const JUMP_VELOCITY = 7
+const JUMP_VELOCITY = 10
 
-@onready var shape_cast_3d: ShapeCast3D = $ShapeCast3D
+@export var controls: PlayerControls
+@export var color : Color
+
+func _ready() -> void:
+	var material = StandardMaterial3D.new()
+	material.albedo_color = color
+	$MeshInstance3D.mesh.material = material
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		var gravity = get_gravity()
-		if(velocity.y > 0): gravity*=2
+		if(velocity.y > 0): gravity*=3
 		velocity += gravity * delta
 
 	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed(controls.jump) and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	var input_dir := Input.get_vector(controls.left, controls.right, controls.up, controls.down)
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
 		velocity.x = direction.x * SPEED
