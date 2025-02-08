@@ -11,8 +11,7 @@ const TILE_SELECTOR = preload("res://tile_selector.tscn")
 @export var tile_size : float = 5.0
 @export var tile_height : float = 2.5
 
-var grid: Array[Array] = []
-var row: Array[Tile] = []
+var grid = {}
 var tile_selector = TILE_SELECTOR.instantiate()
 var tile_selector_pos = Vector2i(0, 0)
 var tile_selector_lvl: int = 0
@@ -28,20 +27,33 @@ func _ready() -> void:
 	
 func _input(event: InputEvent) -> void:
 		if Global.building_phase:
-			if event.is_action_pressed("forward"):
+			if forward_tile_selected(event):
 				if(tile_selector_pos.y-1) in  range(map_size.y): tile_selector_pos += Vector2i(0, -1)
-			if event.is_action_pressed("back"):
+			if back_tile_selected(event):
 				if(tile_selector_pos.y+1) in  range(map_size.y): tile_selector_pos += Vector2i(0, 1)
-			if event.is_action_pressed("right"):
+			if right_tile_selected(event):
 				if(tile_selector_pos.x+1) in  range(map_size.x): tile_selector_pos += Vector2i(1, 0)
-			if event.is_action_pressed("left"):
+			if left_tile_selected(event):
 				if(tile_selector_pos.x-1) in  range(map_size.x): tile_selector_pos += Vector2i(-1, 0)
 			tile_selector.global_position = tilemap_to_global(tile_selector_pos, tile_selector_lvl)
-			
 				
-	
+func forward_tile_selected(event: InputEvent) -> bool:
+		return (Global.player1 and event.is_action_pressed("p1_up")) \
+			or (!Global.player1 and event.is_action_pressed("p2_up"))
+			
+func back_tile_selected(event: InputEvent) -> bool:
+		return (Global.player1 and event.is_action_pressed("p1_down")) \
+			or (!Global.player1 and event.is_action_pressed("p2_down"))
+			
+func right_tile_selected(event: InputEvent) -> bool:
+		return (Global.player1 and event.is_action_pressed("p1_right")) \
+			or (!Global.player1 and event.is_action_pressed("p2_right"))
+			
+func left_tile_selected(event: InputEvent) -> bool:
+		return (Global.player1 and event.is_action_pressed("p1_left")) \
+			or (!Global.player1 and event.is_action_pressed("p2_left"))
+				
 func generate_grid():
-
 	for i in range(-1, map_size.x+1):
 		for j in range(-1, map_size.y+1):
 			
@@ -49,14 +61,12 @@ func generate_grid():
 				generate_tile(i, j)
 			else:
 				generate_boundary_tile(i, j)
-		if i in range(map_size.x): grid.append(row)
-	print(grid)
 
 func generate_tile(x: int, y: int):
 	var tile =  GROUND_TILE.instantiate()
 	add_child(tile, true)		
 	tile.global_position = tilemap_to_global(Vector2i(x, y))
-	row.append(tile)
+	grid[tile.global_position] = tile
 	
 func generate_boundary_tile(x: int, y: int):
 	var boundary_tile =  BOUNDARY_TILE.instantiate()
@@ -73,6 +83,7 @@ func start_building_phase():
 	Global.building_phase = true
 	add_child(tile_selector, true)
 	tile_selector.global_position = tilemap_to_global(Vector2i(0,0))
+	print("STARTED")
 	
 func end_building_phase():
 	Global.building_phase = false
