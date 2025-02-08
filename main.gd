@@ -28,9 +28,9 @@ func _ready() -> void:
 	place_item(FINISH_TILE, Vector2i(0, 0),  1, 0)
 	start_building_phase()
 	
-func _input(event: InputEvent) -> void:
+func _process(delta: float) -> void:
 		if Global.building_phase:
-			update_tile_selector_pos(event)
+			update_tile_selector_pos()
 			if not selected_tile_free(tile_selector_pos, tile_selector_lvl): 
 				#TODO: PROMENI BOJU
 				pass
@@ -41,15 +41,27 @@ func _input(event: InputEvent) -> void:
 func selected_tile_free(tile_pos: Vector2i, tile_lvl: int) -> bool:
 	return !grid.has(pos_lvl_to_vector3i(tile_pos, tile_lvl))
 		
-func update_tile_selector_pos(event:InputEvent):
+func get_player2_input():
+	var move_dir = Vector2.ZERO
+	if Input.is_action_just_pressed(p2_controls.up):
+		move_dir = Vector2(0, -1)
+	elif Input.is_action_just_pressed(p2_controls.down):
+		move_dir = Vector2(0, 1)
+	elif Input.is_action_just_pressed(p2_controls.left):
+		move_dir = Vector2(-1, 0)
+	elif Input.is_action_just_pressed(p2_controls.right):
+		move_dir = Vector2(1, 0)
+	return move_dir
+		
+func update_tile_selector_pos():
 	#TODO: DODATI UP AND DOWN
 	if Global.player1:
 		tile_selector_pos += Input.get_vector(p1_controls.left, p1_controls.right, p1_controls.up, p1_controls.down)
 	else:
-		tile_selector_pos += Input.get_vector(p2_controls.left, p2_controls.right, p2_controls.up, p2_controls.down) * controler_sens
+		tile_selector_pos += get_player2_input()
 		
-	tile_selector_pos.x = snapped(clamp(tile_selector_pos.x, 0, map_size.x-1), 1)
-	tile_selector_pos.y = snapped(clamp(tile_selector_pos.y, 0, map_size.y-1), 1)
+	tile_selector_pos.x = clamp(tile_selector_pos.x, 0, map_size.x-1)
+	tile_selector_pos.y = clamp(tile_selector_pos.y, 0, map_size.y-1)
 				
 func forward_tile_selected(event: InputEvent) -> bool:
 		return (Global.player1 and event.is_action_pressed("p1_up")) \
