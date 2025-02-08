@@ -1,16 +1,18 @@
 [gd_scene load_steps=6 format=3 uid="uid://bl4ojbvq6ubvb"]
 
 [ext_resource type="PackedScene" uid="uid://b8wfo3u7311gh" path="res://tiles/base_tile/base_tile.tscn" id="1_vrcwq"]
-[ext_resource type="Texture2D" uid="uid://nalopa1mbntn" path="res://tiles/ground_tile/stairstexture.png" id="2_l7deo"]
+[ext_resource type="Texture2D" uid="uid://nalopa1mbntn" path="res://tiles/ground_tile/light_ground.png" id="2_l7deo"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ptod6"]
 size = Vector3(5, 1, 5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vrk68"]
+resource_local_to_scene = true
 transparency = 1
 albedo_texture = ExtResource("2_l7deo")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_paqri"]
+resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_vrk68")
 size = Vector2(5, 5)
 
