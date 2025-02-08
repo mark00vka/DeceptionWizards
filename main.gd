@@ -20,31 +20,34 @@ func _ready() -> void:
 	start_building_phase()
 	
 func _process(delta: float) -> void:
-		if Global.building_phase and tile_selector.active:
-			tile_selector.move()
-			
+		if Global.building_phase:
+			if tile_selector.active:
+				tile_selector.move()
+			else:
+				rotate_placed_obstacle()
 			
 func _input(event: InputEvent) -> void:
 	if Global.building_phase:
-		if tile_selected(event):
-			place_obstacle()
-			tile_selector.active = false
+		if InputManager.tile_selected(event):
+			if tile_selector.active: 
+				place_obstacle()
+			else:
+				if not Global.player1: end_building_phase()
+				Global.player1 = !Global.player1
 		
 		
 func place_obstacle():
-	if(GridManager.selected_tile_free(grid, tile_selector.pos, tile_selector.lvl)):
+	if(selected_tile_free(grid, tile_selector.pos, tile_selector.lvl)):
 		place_item(STAIRS, tile_selector.pos, tile_selector.lvl)
 		tile_selector.active = false
 		
-		if not Global.player1: end_building_phase()
-		Global.player1 = !Global.player1
-		
-
-	
-func tile_selected(event: InputEvent) -> bool:
-	return (Global.player1 and event.is_action_pressed(InputManager.p1_controls.jump)) \
-	or (!Global.player1 and event.is_action_pressed(InputManager.p2_controls.jump))
-		
+func rotate_placed_obstacle():
+	if Global.player1:
+		grid[pos_lvl_to_vector3i(tile_selector.pos, tile_selector.lvl)].global_rotation.y += \
+		 InputManager.get_player1_rot_input() * PI/4
+	else:
+		grid[pos_lvl_to_vector3i(tile_selector.pos, tile_selector.lvl)].global_rotation.y += \
+		 InputManager.get_player2_rot_input() * PI/4
 
 func generate_grid():
 	for i in range(-1, map_size.x+1):
@@ -57,7 +60,8 @@ func generate_grid():
 func generate_tile(x: int, y: int):
 	var ground_tile =  GROUND_TILE.instantiate()
 	add_child(ground_tile, true)		
-	ground_tile.global_position = tilemap_to_global(Vector2i(x, y))if (x + y) % 2 == 0:
+	ground_tile.global_position = tilemap_to_global(Vector2i(x, y))
+	if (x + y) % 2 == 0:
 		ground_tile.get_node("MeshInstance3D").mesh.material.albedo_texture = preload("res://tiles/ground_tile/dark_ground.png")
 	
 func generate_boundary_tile(x: int, y: int):
@@ -70,7 +74,7 @@ func place_item(item : PackedScene, pos : Vector2i, level : int, rot: int = 0):
 	add_child(inst, true)
 	inst.global_position = tilemap_to_global(pos, level)
 	inst.global_rotation.y = rot * PI / 2
-	grid[GridManager.pos_lvl_to_vector3i(pos, level)] = inst
+	grid[pos_lvl_to_vector3i(pos, level)] = inst
 
 func start_building_phase():
 	$Camera3D.building()
@@ -87,3 +91,9 @@ func end_building_phase():
 	
 func tilemap_to_global(pos: Vector2i, level : int = 0):
 	return Vector3(pos.x, 0, pos.y) * tile_size + Vector3.UP * level * tile_height
+
+func selected_tile_free(grid: Dictionary, tile_pos: Vector2i, tile_lvl: int) -> bool:
+	return !grid.has(pos_lvl_to_vector3i(tile_pos, tile_lvl))
+
+func pos_lvl_to_vector3i(pos: Vector2i, lvl: int) -> Vector3i:
+	return Vector3i(pos.x, lvl, pos.y)
