@@ -4,6 +4,7 @@ extends Node3D
 const GROUND_TILE = preload("res://tiles/ground_tile/ground_tile.tscn")
 const BOUNDARY_TILE = preload("res://tiles/boundary_tile.tscn")
 const STAIRS = preload("res://tiles/stairs/stairs.tscn")
+const FINISH_TILE = preload("res://tiles/finish_tile/finish_tile.tscn")
 
 @export var map_size : Vector3i = Vector3i(4, 4, 4)
 @export var tile_size : float = 5.0
@@ -15,6 +16,7 @@ func tilemap_to_global(pos: Vector2i, level : int = 0):
 func _ready() -> void:
 	generate_grid()
 	place_item(STAIRS, Vector2i(0, 1),  0, 1)
+	place_item(FINISH_TILE, Vector2i(0, 0),  1, 0)
 	
 func generate_grid():
 	for i in range(-1, map_size.x+1):
