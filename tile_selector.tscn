@@ -5,4 +5,4 @@
 [node name="TileSelector" type="Node3D"]
 
 [node name="cursor" parent="." instance=ExtResource("1_0yhwv")]
-transform = Transform3D(400, 0, 0, 0, -1.74846e-05, -400, 0, 400, -1.74846e-05, 0.252075, 0, 1.70201)
+transform = Transform3D(450, 0, 0, 0, -1.96701e-05, -450, 0, 450, -1.96701e-05, -0.163, 1.043, 1.432)

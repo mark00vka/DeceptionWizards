@@ -23,6 +23,16 @@ Global="*res://globals/global.gd"
 
 enabled=PackedStringArray("res://addons/script-ide/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://audio/": "pink",
+"res://globals/": "green",
+"res://models/": "orange",
+"res://player/": "blue",
+"res://tiles/": "red"
+}
+
 [input]
 
 forward={

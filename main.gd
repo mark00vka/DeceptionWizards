@@ -1,4 +1,3 @@
-@tool
 extends Node3D
 
 const GROUND_TILE = preload("res://tiles/ground_tile/ground_tile.tscn")
@@ -52,11 +51,23 @@ func get_player2_input():
 	elif Input.is_action_just_pressed(p2_controls.right):
 		move_dir = Vector2(1, 0)
 	return move_dir
+	
+func get_player1_input():
+	var move_dir = Vector2.ZERO
+	if Input.is_action_just_pressed(p1_controls.fwd):
+		move_dir = Vector2(0, -1)
+	elif Input.is_action_just_pressed(p1_controls.back):
+		move_dir = Vector2(0, 1)
+	elif Input.is_action_just_pressed(p1_controls.left):
+		move_dir = Vector2(-1, 0)
+	elif Input.is_action_just_pressed(p1_controls.right):
+		move_dir = Vector2(1, 0)
+	return move_dir
 		
 func update_tile_selector_pos():
 	#TODO: DODATI UP AND DOWN
 	if Global.player1:
-		tile_selector_pos += Input.get_vector(p1_controls.left, p1_controls.right, p1_controls.up, p1_controls.down)
+		tile_selector_pos += get_player1_input()
 	else:
 		tile_selector_pos += get_player2_input()
 
