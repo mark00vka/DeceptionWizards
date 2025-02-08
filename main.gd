@@ -22,6 +22,7 @@ func _ready() -> void:
 	place_item(STAIRS, Vector2i(0, 1),  0, 1)
 	place_item(FINISH_TILE, Vector2i(0, 0),  1, 0)
 	start_building_phase()
+	#pick_object_ui.show_ui()
 	
 func _process(delta: float) -> void:
 		if Global.building_phase:
