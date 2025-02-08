@@ -4,6 +4,7 @@ extends CharacterBody3D
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
+@onready var shape_cast_3d: ShapeCast3D = $ShapeCast3D
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -26,3 +27,4 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+	

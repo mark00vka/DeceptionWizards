@@ -26,7 +26,7 @@ func generate_grid():
 				generate_boundary_tile(i, j)
 
 func generate_tile(x: int, y: int):
-	var tile =  TILE.instantiate()
+	var tile =  GROUND_TILE.instantiate()
 	add_child(tile, true)		
 	tile.global_position = tilemap_to_global(Vector2i(x, y))
 	
