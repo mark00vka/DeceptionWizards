@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cm6byh8geuxup"]
+[gd_scene load_steps=8 format=3 uid="uid://cm6byh8geuxup"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_b5th3"]
-[ext_resource type="PackedScene" uid="uid://efhli5mx1ocb" path="res://player.tscn" id="1_gx7nr"]
+[ext_resource type="PackedScene" uid="uid://efhli5mx1ocb" path="res://player/player.tscn" id="1_gx7nr"]
+[ext_resource type="Resource" uid="uid://dutd1sptby8aw" path="res://player/p1_controls.tres" id="3_mi2kk"]
+[ext_resource type="Resource" uid="uid://c1bs0xj1k2bgb" path="res://player/p2_controls.tres" id="4_3ab4h"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vo3no"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -31,3 +33,11 @@ transform = Transform3D(0.707107, -0.61845, 0.342812, 0, 0.48481, 0.87462, -0.70
 fov = 35.0
 
 [node name="Player" parent="." instance=ExtResource("1_gx7nr")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 14.523, 1.52139, 15.817)
+controls = ExtResource("3_mi2kk")
+color = Color(0, 0.0166669, 1, 1)
+
+[node name="Player2" parent="." instance=ExtResource("1_gx7nr")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 16.091, 1.52139, 14.5044)
+controls = ExtResource("4_3ab4h")
+color = Color(1, 0, 0, 1)
