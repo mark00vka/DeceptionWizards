@@ -17,7 +17,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if Global.building_phase:
 		return
-		
+
 	# Add the gravity.
 	if not is_on_floor():
 		var gravity = Vector3.DOWN * GRAVITY
