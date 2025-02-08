@@ -43,9 +43,9 @@ func selected_tile_free(tile_pos: Vector2i, tile_lvl: int) -> bool:
 		
 func get_player2_input():
 	var move_dir = Vector2.ZERO
-	if Input.is_action_just_pressed(p2_controls.up):
+	if Input.is_action_just_pressed(p2_controls.fwd):
 		move_dir = Vector2(0, -1)
-	elif Input.is_action_just_pressed(p2_controls.down):
+	elif Input.is_action_just_pressed(p2_controls.back):
 		move_dir = Vector2(0, 1)
 	elif Input.is_action_just_pressed(p2_controls.left):
 		move_dir = Vector2(-1, 0)
