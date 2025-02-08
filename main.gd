@@ -17,11 +17,23 @@ func _ready() -> void:
 	place_item(STAIRS, Vector2i(0, 1),  0, 1)
 	
 func generate_grid():
-	for i in range(map_size.x):
-		for j in range(map_size.y):
-			var tile =  TILE.instantiate()
-			add_child(tile)
-			tile.global_position = tilemap_to_global(Vector2i(i, j))
+	for i in range(-1, map_size.x+2):
+		for j in range(-1, map_size.y+2):
+			
+			if(i in range(map_size.x) and j in range(map_size.y)):
+				generate_tile(i, j)
+			else:
+				generate_boundary_tile(i, j)
+
+func generate_tile(x: int, y: int):
+	var tile =  TILE.instantiate()
+	add_child(tile)		
+	tile.global_position = tilemap_to_global(Vector2i(x, y))
+	
+func generate_boundary_tile(x: int, y: int):
+	var boundary_tile =  BOUNDARY_TILE.instantiate()
+	add_child(boundary_tile)		
+	boundary_tile.global_position = tilemap_to_global(Vector2i(x, y))
 
 func place_item(item : PackedScene, pos : Vector2i, level : int, rot: int = 0):
 	var inst = item.instantiate()
