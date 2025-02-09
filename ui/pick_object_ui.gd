@@ -17,6 +17,9 @@ signal player2_picked_tile(tile : PackedScene)
 var x_pull : Array[float] = []
 var y_pull : Array[float] = []
 
+var player1_items_left: int = 3
+var player2_items_left: int = 3
+
 var distance_from_cursor:float = 80
 
 func _ready() -> void:
@@ -24,6 +27,8 @@ func _ready() -> void:
 
 func show_ui():
 	show()
+	player1_items_left = 3
+	player2_items_left = 3
 	cursor_p_1.show()
 	cursor_p_2.show()
 	color_rect.modulate.a = 0
@@ -39,7 +44,7 @@ func show_ui():
 		place_items(x_pull, y_pull)
 	
 func place_items(x_p, y_p):
-	for i in range(randi() % 3 + 6):
+	for i in range(randi() % 3 + 7):
 		var inst
 		var t = randf()
 		if t < 0.5:
@@ -84,7 +89,9 @@ func select_item(player1: bool):
 				
 func player1_pick_tile(child):
 	player1_picked_tile.emit(child.tile.tile)
-	cursor_p_1.hide()
+	player1_items_left-=1
+	if player1_items_left == 0:
+		cursor_p_1.hide()
 	var tween = get_tree().create_tween()
 	tween.parallel().tween_property(child, "scale", Vector2.ZERO, 0.3).set_trans(Tween.TRANS_LINEAR)
 	tween.parallel().tween_property(child, "position:y", 2000, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
@@ -95,7 +102,9 @@ func player1_pick_tile(child):
 		
 func player2_pick_tile(child):
 	player2_picked_tile.emit(child.tile.tile)
-	cursor_p_2.hide()
+	player2_items_left-=1
+	if player2_items_left == 0:
+		cursor_p_2.hide()
 	var tween = get_tree().create_tween()
 	tween.parallel().tween_property(child, "scale", Vector2.ZERO, 0.3).set_trans(Tween.TRANS_LINEAR)
 	tween.parallel().tween_property(child, "position:y", 2000, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
@@ -106,10 +115,10 @@ func player2_pick_tile(child):
 
 func _on_cursors_hidden() -> void:
 	animate_ui(900)
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(3).timeout
 	Global.set_building_phase()
 
-func select_random_tiles():
+func get_rand_tile():
 	var i = randi_range(0, $Panel/ObjectHolder.get_children().size()-1)
 	var rand_tile = $Panel/ObjectHolder.get_children()[i]
 	
@@ -117,15 +126,15 @@ func select_random_tiles():
 		i = randi_range(0, $Panel/ObjectHolder.get_children().size()-1)
 		rand_tile = $Panel/ObjectHolder.get_children()[i]
 	
-	if cursor_p_1.visible:
-		player1_pick_tile(rand_tile)
-			
-	i = randi_range(0, $Panel/ObjectHolder.get_children().size()-1)
-	rand_tile = $Panel/ObjectHolder.get_children()[i]
+	return rand_tile
+
+func select_random_tiles():
+	var rand_tile
 	
-	while rand_tile.visible == false or rand_tile is Cursor:
-		i = randi_range(0, $Panel/ObjectHolder.get_children().size()-1)
-		rand_tile = $Panel/ObjectHolder.get_children()[i]			
+	while cursor_p_1.visible:
+		rand_tile  = get_rand_tile()
+		player1_pick_tile(rand_tile)		
 			
-	if cursor_p_2.visible:
+	while cursor_p_2.visible:
+		rand_tile  = get_rand_tile()
 		player2_pick_tile(rand_tile)

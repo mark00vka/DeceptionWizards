@@ -18,8 +18,8 @@ const PLAYER = preload("res://player/player.tscn")
 @export var tile_size : float = 5.0
 @export var tile_height : float = 2.5
 
-var player1_tile: PackedScene 
-var player2_tile: PackedScene 
+var player1_tiles: Array[PackedScene]
+var player2_tiles: Array[PackedScene]
 
 var grid : Dictionary = {}
 
@@ -31,6 +31,8 @@ signal changed_player
 
 func _ready() -> void:
 	grid = {}
+	player1_tiles = []
+	player2_tiles = []
 	generate_grid()
 	$Player.global_position = tilemap_to_global(Vector2i(map_size.x-1, map_size.z-1))
 	$Player2.global_position = tilemap_to_global(Vector2i(map_size.x-1, map_size.z-1)) + Vector3(1, 0, 0)
@@ -51,31 +53,36 @@ func _input(event: InputEvent) -> void:
 func tile_selector_input(event, tile_selector):
 	if tile_selector.on_free_tile():
 		if (InputManager.place_real_blue(event) and tile_selector.player_blue) \
-			or (InputManager.place_real_red(event) and not tile_selector.player_blue) \
-			and tile_selector.active:
+		or (InputManager.place_real_red(event) and not tile_selector.player_blue) \
+		and tile_selector.active:
 				
 			place_obstacle(tile_selector, true)
 			tile_selector.active = false
-			tile_selector.clear_tile()
+			tile_selector.tile_not_selected = true
 		
 		if (InputManager.place_fake_blue(event) and tile_selector.player_blue) \
-			or (InputManager.place_fake_red(event) and not tile_selector.player_blue) \
-			and tile_selector.active:
+		or (InputManager.place_fake_red(event) and not tile_selector.player_blue) \
+		and tile_selector.active:
 				
 			place_obstacle(tile_selector, false)
 			tile_selector.active = false
-			
 			tile_selector.tile_not_selected = true
-			tile_selector.clear_tile()
+				
 				
 	if (InputManager.tile_selected_blue(event) and tile_selector.player_blue)\
 		or (InputManager.tile_selected_red(event) and not tile_selector.player_blue):
 		
 		if not tile_selector.active: 
 			Global.finished_placement+=1
-			if Global.finished_placement == 2:
+			if Global.finished_placement == 6:
 				Global.set_chase_phase()
-			tile_selector.hide()
+			
+			if (tile_selector.player_blue and player1_tiles.is_empty())\
+			or (not tile_selector.player_blue and player2_tiles.is_empty()):
+				tile_selector.hide()
+			else:
+				tile_selector.active = true
+				
 			tile_selector.tile_not_selected = false
 	
 	if (InputManager.tile_rot_blue(event) and tile_selector.player_blue and tile_selector.tile_not_selected)\
@@ -88,9 +95,15 @@ func tile_selector_input(event, tile_selector):
 func place_obstacle(tile_selector, real: bool):
 	if(selected_tile_free(tile_selector.pos, tile_selector.lvl)):
 		if tile_selector.player_blue:
-			place_item(player1_tile, tile_selector.pos, tile_selector.lvl, real)
+			print("PLAYER1: ", player1_tiles)
+			place_item(player1_tiles[0], tile_selector.pos, tile_selector.lvl, real)
+			player1_tiles.remove_at(0)
+			print("PLAYER1: ", player1_tiles)
 		else:
-			place_item(player2_tile, tile_selector.pos, tile_selector.lvl, real)
+			print("PLAYER2: ", player1_tiles)
+			place_item(player2_tiles[0], tile_selector.pos, tile_selector.lvl, real)
+			player2_tiles.remove_at(0)
+			print("PLAYER2: ", player2_tiles)
 		
 func rotate_placed_obstacle(tile_selector):
 	grid[pos_lvl_to_vector3(tile_selector.pos, tile_selector.lvl)].global_rotation.y += PI/2
@@ -142,29 +155,30 @@ func place_obstacle_on_tilecursor():
 	if tile_selector_red.active:
 		place_obstacle(tile_selector_red, true)
 		
-	Global.set_chase_phase()	
+	Global.set_chase_phase()
+		
 
 func phase_changed():
 	if Global.is_tile_select_phase():
+		player1_tiles = []
+		player2_tiles = []
 		pick_object_ui.show_ui()
 		%MainCamera.building()
 		
 	if Global.is_building_phase():
 		%MainCamera.building()
-		pick_object_ui.hide()
-		
+		print(player1_tiles)
+		print(player2_tiles)
 		tile_selector_blue.show()
 		tile_selector_blue.active = true
-		tile_selector_blue.pos = Vector2(2,3)
-		tile_selector_blue.global_position = tilemap_to_global(tile_selector_blue.pos)
-		
-		tile_selector_red.active = true
-		tile_selector_red.pos = Vector2(3,3)
-		tile_selector_red.global_position = tilemap_to_global(tile_selector_red.pos)
 		tile_selector_red.show()
-		
+		tile_selector_blue.global_position = tilemap_to_global(Vector2i(0,0))
+		tile_selector_red.active = true
+		tile_selector_red.global_position = tilemap_to_global(Vector2i(0,0))
+		pick_object_ui.hide()
 		
 	if Global.is_chase_phase():
+		print("CHASE")
 		%MainCamera.chase()
 		tile_selector_blue.active = false
 		tile_selector_blue.visible = false
@@ -186,9 +200,7 @@ func pos_lvl_to_vector3(pos: Vector2i, lvl: int) -> Vector3i:
 	return Vector3(pos.x, lvl, pos.y)
 	
 func _on_pick_object_ui_player_1_picked_tile(tile: PackedScene) -> void:
-	player1_tile = tile
-	tile_selector_blue.set_tile(tile)
+	player1_tiles.append(tile)
 
 func _on_pick_object_ui_player_2_picked_tile(tile: PackedScene) -> void:
-	player2_tile = tile
-	tile_selector_red.set_tile(tile)
+	player2_tiles.append(tile)
