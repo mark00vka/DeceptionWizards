@@ -116,6 +116,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[connection signal="changed_player" from="." to="." method="_on_changed_player"]
+[node name="TileHolder" type="Node3D" parent="."]
+
 [connection signal="player1_picked_tile" from="PickObjectUI" to="." method="_on_pick_object_ui_player_1_picked_tile"]
 [connection signal="player2_picked_tile" from="PickObjectUI" to="." method="_on_pick_object_ui_player_2_picked_tile"]

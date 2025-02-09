@@ -29,8 +29,6 @@ var grid : Dictionary = {}
 @onready var tile_selector_blue: Node3D = $TileSelectorBlue
 @onready var tile_selector_red: Node3D = $TileSelectorRed
 
-signal changed_player
-
 func _ready() -> void:
 	grid = {}
 	player1_tiles = []
@@ -38,7 +36,7 @@ func _ready() -> void:
 	generate_grid()
 	$Player.global_position = tilemap_to_global(Vector2i(map_size.x-1, map_size.z-1))
 	$Player2.global_position = tilemap_to_global(Vector2i(map_size.x-1, map_size.z-1)) + Vector3(1, 0, 0)
-	place_item(FINISH_TILE, Vector2i(0, 0),  1, 1)
+	place_item(FINISH_TILE.instantiate(), Vector2i(0, 0),  1, 1)
 	Global.change_phase.connect(phase_changed)
 	Global.build_timeout.connect(place_obstacle_on_tilecursor)
 	Global.set_tile_select_phase()
@@ -46,74 +44,29 @@ func _ready() -> void:
 	tile_selector_blue.player_blue = true
 	tile_selector_red.change_color(1)
 	tile_selector_red.player_blue = false
-	
-func _input(event: InputEvent) -> void:
-	if Global.is_building_phase():
-		tile_selector_input(event, tile_selector_blue)
-		tile_selector_input(event, tile_selector_red)
-	
-func tile_selector_input(event, tile_selector):
-	if tile_selector.on_free_tile():
-		if (InputManager.place_real_blue(event) and tile_selector.player_blue) \
-		or (InputManager.place_real_red(event) and not tile_selector.player_blue) \
-		and tile_selector.active:
-			
-			SoundManager.play_sound_string("select")
-			place_obstacle(tile_selector, true)
-			tile_selector.active = false
-			tile_selector.tile_not_selected = true
-		
-		if (InputManager.place_fake_blue(event) and tile_selector.player_blue) \
-		or (InputManager.place_fake_red(event) and not tile_selector.player_blue) \
-		and tile_selector.active:
-			
-			SoundManager.play_sound_string("select")
-			place_obstacle(tile_selector, false)
-			tile_selector.active = false
-			tile_selector.tile_not_selected = true
-				
-				
-	if (InputManager.tile_selected_blue(event) and tile_selector.player_blue)\
-		or (InputManager.tile_selected_red(event) and not tile_selector.player_blue):
-		SoundManager.play_sound_string("select")
-		
-		if not tile_selector.active: 
-			Global.finished_placement+=1
-			if Global.finished_placement == 6:
-				Global.set_chase_phase()
-			
-			if (tile_selector.player_blue and player1_tiles.is_empty())\
-			or (not tile_selector.player_blue and player2_tiles.is_empty()):
-				tile_selector.hide()
-			else:
-				tile_selector.active = true
-				
-			tile_selector.tile_not_selected = false
-	
-	if (InputManager.tile_rot_blue(event) and tile_selector.player_blue and tile_selector.tile_not_selected)\
-		or (InputManager.tile_rot_red(event) and not tile_selector.player_blue and tile_selector.tile_not_selected):
-		SoundManager.play_sound_string("rotate")
-		if not tile_selector.active:
-			rotate_placed_obstacle(tile_selector)
-			
+
 		
 func place_obstacle(tile_selector, real: bool):
 	if(selected_tile_free(tile_selector.pos, tile_selector.lvl)):
 		SoundManager.play_sound_string("select")
+		var tile = tile_selector.tile
 		if tile_selector.player_blue:
-			print("PLAYER1: ", player1_tiles)
-			place_item(player1_tiles[0], tile_selector.pos, tile_selector.lvl, real)
+			place_item(tile, tile_selector.pos, tile_selector.lvl, real)
 			player1_tiles.remove_at(0)
-			print("PLAYER1: ", player1_tiles)
+			if not player1_tiles.is_empty():
+				tile_selector.set_tile(player1_tiles[0])
+			else:
+				tile_selector.active = false
+				tile_selector.hide()
 		else:
-			print("PLAYER2: ", player1_tiles)
-			place_item(player2_tiles[0], tile_selector.pos, tile_selector.lvl, real)
+			place_item(tile, tile_selector.pos, tile_selector.lvl, real)
 			player2_tiles.remove_at(0)
-			print("PLAYER2: ", player2_tiles)
+			if not player2_tiles.is_empty():
+				tile_selector.set_tile(player2_tiles[0])
+			else:
+				tile_selector.active = false
+				tile_selector.hide()
 		
-func rotate_placed_obstacle(tile_selector):
-	grid[pos_lvl_to_vector3(tile_selector.pos, tile_selector.lvl)].global_rotation.y += PI/2
-
 func generate_grid():
 	for i in range(-1, map_size.x+1):
 		for j in range(-1, map_size.z+1):
@@ -125,7 +78,7 @@ func generate_grid():
 
 func generate_tile(x: int, y: int):
 	var ground_tile =  GROUND_TILE.instantiate()
-	add_child(ground_tile, true)		
+	$TileHolder.add_child(ground_tile, true)		
 	ground_tile.global_position = tilemap_to_global(Vector2i(x, y))
 	ground_tile.scale = Vector3(0.1,0.1,0.1)
 	var tween = get_tree().create_tween()
@@ -143,17 +96,26 @@ func generate_tile(x: int, y: int):
 	
 func generate_boundary_tile(x: int, y: int):
 	var boundary_tile =  BOUNDARY_TILE.instantiate()
-	add_child(boundary_tile, true)		
+	$TileHolder.add_child(boundary_tile, true)		
 	boundary_tile.global_position = tilemap_to_global(Vector2i(x, y))
 
-func place_item(item : PackedScene, pos : Vector2i, level : int, real: bool = true, rot: int = 0):
-	var inst : Tile = item.instantiate()
-	add_child(inst, true)
-	inst.global_position = tilemap_to_global(pos, level)
-	inst.global_rotation.y = rot * PI / 2
-	inst.real = real
-	if(item == FINISH_TILE): inst.end.connect(the_end)
-	grid[pos_lvl_to_vector3(pos, level)] = inst
+func move_child_to_new_parent(child: Node, new_parent: Node):
+	if child.get_parent():
+		var old_parent = child.get_parent()
+		old_parent.remove_child(child)
+	new_parent.add_child(child, true)
+	print(child.global_position)
+
+func place_item(item : Tile, pos : Vector2i, level : int, real: bool = true, rot: int = 0):
+	move_child_to_new_parent(item, $TileHolder)
+	
+	item.global_position = tilemap_to_global(pos, level)
+	item.real = real
+	if rot != 0:
+		item.global_rotation.y = rot * PI / 2
+	
+	if(item == FINISH_TILE): item.end.connect(the_end)
+	grid[pos_lvl_to_vector3(pos, level)] = item
 		
 func place_obstacle_on_tilecursor():
 	if tile_selector_blue.active:
@@ -180,6 +142,8 @@ func phase_changed():
 		tile_selector_blue.global_position = tilemap_to_global(Vector2i(0,0))
 		tile_selector_red.active = true
 		tile_selector_red.global_position = tilemap_to_global(Vector2i(0,0))
+		tile_selector_blue.set_tile(player1_tiles[0])
+		tile_selector_red.set_tile(player2_tiles[0])
 		pick_object_ui.hide()
 		
 	if Global.is_chase_phase():

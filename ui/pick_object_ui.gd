@@ -22,7 +22,7 @@ var y_pull : Array[float] = []
 var player1_items_left: int = 3
 var player2_items_left: int = 3
 
-var distance_from_cursor:float = 50
+var distance_from_cursor:float = 80
 
 func _ready() -> void:
 	Global.tile_select_timeout.connect(select_random_tiles)
@@ -85,13 +85,11 @@ func select_item(player1: bool):
 		if child.visible == false or child is Cursor: 
 			continue
 			
-		if player1 \
-		and cursor_p_1.visible \
+		if player1 and cursor_p_1.visible \
 		and child.global_position.distance_to(cursor_p_1.global_position - cursor_p_1.get_rect().size/2) < distance_from_cursor:
 			player1_pick_tile(child)
 					
-		if not player1\
-		and cursor_p_2.visible\
+		if not player1 and cursor_p_2.visible\
 		and child.global_position.distance_to(cursor_p_2.global_position - cursor_p_2.get_rect().size/2) < distance_from_cursor:
 			player2_pick_tile(child)
 				
@@ -116,7 +114,7 @@ func player1_pick_tile(child):
 	tween.parallel().tween_property(child, "position:y", 2000, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
 	await get_tree().create_timer(0.5).timeout
 	child.queue_free()
-	if not cursor_p_1.visible and not cursor_p_1.visible: 
+	if not cursor_p_1.visible and not cursor_p_2.visible: 
 		cursors_hidden()
 		
 func player2_pick_tile(child):
@@ -138,6 +136,7 @@ func player2_pick_tile(child):
 	tween.parallel().tween_property(child, "scale", Vector2.ZERO, 0.3).set_trans(Tween.TRANS_LINEAR)
 	tween.parallel().tween_property(child, "position:y", 2000, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
 	await get_tree().create_timer(0.5).timeout
+	
 	child.queue_free()
 	if not cursor_p_1.visible and not cursor_p_1.visible: 
 		cursors_hidden()

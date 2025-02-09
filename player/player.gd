@@ -15,7 +15,6 @@ const GRAVITY = 17
 @export var player_blue : bool
 
 func _ready() -> void:
-	var material = StandardMaterial3D.new()
 	if player_blue:
 		$RotationPoint/wizardNPC/pCone1.set_surface_override_material(0, CLOTHES_BLUE)
 		$RotationPoint/wizardNPC/pCone2.set_surface_override_material(0, HAT_BLUE)

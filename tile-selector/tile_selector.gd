@@ -12,22 +12,52 @@ var pos = Vector2(0, 0)
 var lvl: int = 0
 var active: bool = false
 
-var tile_not_selected: bool = true
 var tile : Tile
 
 func clear_tile():
-	if tile:
-		tile.queue_free()
 	tile = null
 
 func set_tile(t: PackedScene):
-	if tile:
-		tile.queue_free()
-	else:
-		tile = t.instantiate()
-		add_child(tile)
+	tile = t.instantiate()
+	add_child(tile)
 
-func _process(delta: float) -> void:
+	
+func _input(event: InputEvent) -> void:
+	if Global.is_building_phase():
+		if on_free_tile():
+			
+			if (InputManager.place_real_blue(event) and player_blue) \
+			or (InputManager.place_real_red(event) and not player_blue) and active:
+				SoundManager.play_sound_string("select")
+				get_parent().place_obstacle(self, true)
+			
+			if (InputManager.place_fake_blue(event) and player_blue) \
+			or (InputManager.place_fake_red(event) and not player_blue) and active:
+				SoundManager.play_sound_string("select")
+				get_parent().place_obstacle(self, false)
+					
+					
+		if (InputManager.tile_selected_blue(event) and player_blue)\
+			or (InputManager.tile_selected_red(event) and not player_blue) and active:
+			SoundManager.play_sound_string("select")
+			Global.finished_placement+=1
+			if Global.finished_placement == 6:
+				Global.set_chase_phase()
+			
+			if (player_blue and get_parent().player1_tiles.is_empty())\
+			or (not player_blue and get_parent().player2_tiles.is_empty()):
+				hide()
+				active = false
+		
+		if (InputManager.tile_rot_blue(event) and player_blue)\
+			or (InputManager.tile_rot_red(event) and not player_blue) and active:
+			SoundManager.play_sound_string("rotate")
+			rotate_obstacle()
+			
+func rotate_obstacle():
+	tile.global_rotation.y += PI/2
+
+func _process(_delta: float) -> void:
 	if Global.is_building_phase() and active:
 		move()
 
