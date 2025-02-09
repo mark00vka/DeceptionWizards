@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dy5dhqsapevyg"]
+
+[ext_resource type="Script" path="res://tiles/bomb/bomb.gd" id="1_m1n1e"]
+[ext_resource type="PackedScene" uid="uid://brghpk00xspym" path="res://tiles/bomb/bomb.fbx" id="2_fsyo3"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_854gr"]
+height = 2.05628
+
+[node name="Bomb" type="Node3D"]
+script = ExtResource("1_m1n1e")
+
+[node name="bomb" parent="." instance=ExtResource("2_fsyo3")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1287, 0)
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(2.41722, 0, 0, 0, 1.37937, 0, 0, 0, 3.33398, 0.0437798, 0.176438, 0)
+shape = SubResource("CylinderShape3D_854gr")
