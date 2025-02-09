@@ -1,26 +1,29 @@
-[gd_scene load_steps=15 format=3 uid="uid://cvfn3hkhbl5dw"]
+[gd_scene load_steps=16 format=3 uid="uid://cvfn3hkhbl5dw"]
 
 [ext_resource type="Script" path="res://levels/start_screen.gd" id="1_xstd2"]
-[ext_resource type="Texture2D" uid="uid://bcag2h0uf1f5o" path="res://levels/sky.hdr" id="2_urcdx"]
 [ext_resource type="PackedScene" uid="uid://efhli5mx1ocb" path="res://player/player.tscn" id="3_ldii8"]
 [ext_resource type="Resource" uid="uid://dutd1sptby8aw" path="res://player/p1_controls.tres" id="4_481ip"]
 [ext_resource type="Resource" uid="uid://c1bs0xj1k2bgb" path="res://player/p2_controls.tres" id="5_l85kh"]
 [ext_resource type="PackedScene" uid="uid://hni7dct4exvb" path="res://models/board/boardnoplane.fbx" id="6_pcjed"]
 [ext_resource type="PackedScene" uid="uid://b6g4slnf3sti0" path="res://models/islands/smallisland.fbx" id="8_kuj14"]
 [ext_resource type="Script" path="res://ui/camera_3d.gd" id="9_aq543"]
+[ext_resource type="Texture2D" uid="uid://c2syw6go0aqcl" path="res://ui/quit.png" id="10_dftou"]
 [ext_resource type="Shader" path="res://shaders/dither_screen.gdshader" id="11_eyel1"]
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_1da2x"]
-panorama = ExtResource("2_urcdx")
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_pmay5"]
+load_path = "res://.godot/imported/sky.hdr-9d66ead5bae0793d543047dca498778f.bptc.ctex"
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ihb4h"]
+panorama = SubResource("CompressedTexture2D_pmay5")
 energy_multiplier = 0.5
 
-[sub_resource type="Sky" id="Sky_1bi71"]
-sky_material = SubResource("PanoramaSkyMaterial_1da2x")
+[sub_resource type="Sky" id="Sky_nc5j2"]
+sky_material = SubResource("PanoramaSkyMaterial_ihb4h")
 
-[sub_resource type="Environment" id="Environment_ljaor"]
+[sub_resource type="Environment" id="Environment_n4eol"]
 background_mode = 2
 background_energy_multiplier = 0.5
-sky = SubResource("Sky_1bi71")
+sky = SubResource("Sky_nc5j2")
 sky_custom_fov = 100.0
 tonemap_mode = 2
 glow_enabled = true
@@ -45,10 +48,11 @@ script = ExtResource("1_xstd2")
 map_size = Vector3i(6, 4, 6)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_ljaor")
+environment = SubResource("Environment_n4eol")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.339597, -0.804549, 0.487213, -0.00206689, 0.518634, 0.854994, -0.940569, 0.289346, -0.17779, 0, 0, 0)
+light_energy = 0.5
 shadow_enabled = true
 
 [node name="BuildingCamera" type="Camera3D" parent="."]
@@ -98,20 +102,21 @@ transform = Transform3D(0.707107, -0.454519, 0.541675, 0, 0.766044, 0.642788, -0
 fov = 59.0
 script = ExtResource("9_aq543")
 
-[node name="Button" type="Button" parent="."]
-anchors_preset = 8
+[node name="Quit" type="TextureButton" parent="."]
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 0.761
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -15.5
-offset_right = 20.0
-offset_bottom = 15.5
+anchor_bottom = 0.761
+offset_left = -503.0
+offset_top = -368.92
+offset_right = 521.0
+offset_bottom = 346.08
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 86
-text = "Start"
+scale = Vector2(0.6, 0.6)
+pivot_offset = Vector2(512, 308)
+texture_normal = ExtResource("10_dftou")
 
 [node name="DitheringShader" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_tblxm")
@@ -121,5 +126,3 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

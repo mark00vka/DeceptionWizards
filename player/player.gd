@@ -25,8 +25,6 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if Global.is_chase_phase():
-		return
-
 		if not is_on_floor():
 			var gravity = Vector3.DOWN * GRAVITY
 			if(velocity.y < 0): gravity*=2

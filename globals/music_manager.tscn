@@ -1,27 +1,35 @@
-[gd_scene load_steps=8 format=3 uid="uid://diarbwmvvt7ey"]
+[gd_scene load_steps=10 format=3 uid="uid://diarbwmvvt7ey"]
 
 [ext_resource type="Script" path="res://globals/music_manager.gd" id="1_l5pko"]
-[ext_resource type="AudioStream" uid="uid://dvoqhrthuljr1" path="res://audio/Build01.wav" id="2_bea6d"]
-[ext_resource type="AudioStream" uid="uid://ba1h3658pcro7" path="res://audio/Build02.wav" id="3_es3xi"]
-[ext_resource type="AudioStream" uid="uid://7ukqja8083nd" path="res://audio/Chase01.wav" id="4_q1mmp"]
+[ext_resource type="AudioStream" uid="uid://ci2o6ammv6np0" path="res://audio/Build_01.wav" id="2_hekr7"]
+[ext_resource type="AudioStream" uid="uid://ds5v5a3cjbhvh" path="res://audio/Build_02.wav" id="3_6dj8f"]
+[ext_resource type="AudioStream" uid="uid://vln8sl6k2mw3" path="res://audio/Build_03.wav" id="4_7otrk"]
+[ext_resource type="AudioStream" uid="uid://out5ulvn2wi2" path="res://audio/Chase_01.wav" id="5_1juft"]
 [ext_resource type="AudioStream" uid="uid://bgbpgaphhj2ad" path="res://audio/Stop_01.wav" id="5_87d3h"]
-[ext_resource type="AudioStream" uid="uid://b47uq0xkgq6kk" path="res://audio/Chase02.wav" id="5_kwivo"]
 [ext_resource type="AudioStream" uid="uid://b7fmffljr3jt2" path="res://audio/TransitionTo02.wav" id="6_llrrm"]
+[ext_resource type="AudioStream" uid="uid://dtphgkds4knrp" path="res://audio/Chase_02.wav" id="6_ut6vu"]
+[ext_resource type="AudioStream" uid="uid://dw6yh4bbno53d" path="res://audio/Chase_03.wav" id="7_ogly5"]
 
 [node name="MusicManager" type="Node"]
 script = ExtResource("1_l5pko")
 
 [node name="Build1Player" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_bea6d")
+stream = ExtResource("2_hekr7")
 
 [node name="Build2Player" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_es3xi")
+stream = ExtResource("3_6dj8f")
+
+[node name="Build3Player" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_7otrk")
 
 [node name="Chase1Player" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_q1mmp")
+stream = ExtResource("5_1juft")
 
 [node name="Chase2Player" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_kwivo")
+stream = ExtResource("6_ut6vu")
+
+[node name="Chase3Player" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_ogly5")
 
 [node name="StopPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_87d3h")

@@ -20,7 +20,7 @@ var phase : Phase:
 var starting_screen: bool:
 	set(value):
 		starting_screen = value
-		$Label.visible = not starting_screen
+		$Control.visible = not starting_screen
 		
 		
 var level : int = 0
@@ -39,7 +39,7 @@ func _process(_delta: float) -> void:
 	if is_chase_phase():
 		text = chase_timer.time_left
 		
-	$Label.text = "%02d." % (int(text)) + "%02d" % (int(text*100)%100)
+	$Control/Label.text = "%02d." % (int(text)) + "%02d" % (int(text*100)%100)
 
 func is_building_phase():
 	return phase == Phase.BUILDING
