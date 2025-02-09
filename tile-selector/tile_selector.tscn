@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://tile-selector/tile_selector.gd" id="1_xwxhf"]
 [ext_resource type="PackedScene" uid="uid://dkqgdigaspjw" path="res://tile-selector/cursor.fbx" id="2_y240n"]
-[ext_resource type="Material" uid="uid://ddomc4g00i55y" path="res://tile-selector/white.tres" id="3_nuxw2"]
+[ext_resource type="Material" uid="uid://b263ptkeoi0qs" path="res://tile-selector/white.tres" id="3_nuxw2"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ctca4"]
 resource_local_to_scene = true
