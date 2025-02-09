@@ -20,7 +20,7 @@ var y_pull : Array[float] = []
 var player1_items_left: int = 3
 var player2_items_left: int = 3
 
-var distance_from_cursor:float = 80
+var distance_from_cursor:float = 50
 
 func _ready() -> void:
 	Global.tile_select_timeout.connect(select_random_tiles)
@@ -44,7 +44,8 @@ func show_ui():
 		place_items(x_pull, y_pull)
 	
 func place_items(x_p, y_p):
-	for i in range(randi() % 3 + 7):
+	await get_tree().create_timer(0.3).timeout
+	for i in range(randi() % 2 + 7):
 		var inst
 		var t = randf()
 		if t < 0.5:
@@ -61,6 +62,7 @@ func place_items(x_p, y_p):
 		x_p.erase(x)
 		y_p.erase(y)
 		inst.set_pos(x, y)
+		await get_tree().create_timer(0.1).timeout
 
 func animate_ui(end_y_position: int):
 	var tween = get_tree().create_tween()
@@ -88,28 +90,42 @@ func select_item(player1: bool):
 			player2_pick_tile(child)
 				
 func player1_pick_tile(child):
+	SoundManager.play_sound_string("select")
+	SoundManager.play_sound_string("click")
+	
+	child.selected = true
 	player1_picked_tile.emit(child.tile.tile)
 	player1_items_left-=1
 	if player1_items_left == 0:
 		cursor_p_1.hide()
+		
 	var tween = get_tree().create_tween()
 	tween.parallel().tween_property(child, "scale", Vector2.ZERO, 0.3).set_trans(Tween.TRANS_LINEAR)
 	tween.parallel().tween_property(child, "position:y", 2000, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
 	await get_tree().create_timer(0.5).timeout
-	child.queue_free()
+	
+	if child:
+		child.queue_free()
 	if not cursor_p_2.visible: 
 		cursors_hidden.emit()
 		
 func player2_pick_tile(child):
+	SoundManager.play_sound_string("select")
+	SoundManager.play_sound_string("click")
+	
+	child.selected = true
 	player2_picked_tile.emit(child.tile.tile)
 	player2_items_left-=1
 	if player2_items_left == 0:
 		cursor_p_2.hide()
+		
 	var tween = get_tree().create_tween()
 	tween.parallel().tween_property(child, "scale", Vector2.ZERO, 0.3).set_trans(Tween.TRANS_LINEAR)
 	tween.parallel().tween_property(child, "position:y", 2000, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
 	await get_tree().create_timer(0.5).timeout
-	child.queue_free()
+
+	if child:
+		child.queue_free.call_deferred()
 	if not cursor_p_1.visible: 
 		cursors_hidden.emit()
 
@@ -122,10 +138,13 @@ func get_rand_tile():
 	var i = randi_range(0, $Panel/ObjectHolder.get_children().size()-1)
 	var rand_tile = $Panel/ObjectHolder.get_children()[i]
 	
-	while rand_tile.visible == false or rand_tile is Cursor:
-		i = randi_range(0, $Panel/ObjectHolder.get_children().size()-1)
-		rand_tile = $Panel/ObjectHolder.get_children()[i]
+	while rand_tile.visible == false or rand_tile is Cursor or rand_tile.has_method("set_pos"):
+		if not rand_tile.selected:
+			i = randi_range(0, $Panel/ObjectHolder.get_children().size()-1)
+			rand_tile = $Panel/ObjectHolder.get_children()[i]
 	
+	SoundManager.play_sound_string("select")
+	SoundManager.play_sound_string("click")
 	return rand_tile
 
 func select_random_tiles():
@@ -133,8 +152,10 @@ func select_random_tiles():
 	
 	while cursor_p_1.visible:
 		rand_tile  = get_rand_tile()
-		player1_pick_tile(rand_tile)		
+		player1_pick_tile(rand_tile)	
+		await get_tree().create_timer(0.2).timeout
 			
 	while cursor_p_2.visible:
 		rand_tile  = get_rand_tile()
 		player2_pick_tile(rand_tile)
+		await get_tree().create_timer(0.2).timeout

@@ -58,12 +58,14 @@ func update_pos():
 		lvl_input = int(Input.is_action_just_pressed(InputManager.p2_controls.up)) - int(Input.is_action_just_pressed(InputManager.p2_controls.down))
 		
 	if input or lvl_input:
-		pos += input
 		lvl += lvl_input		
 		lvl = clamp(lvl, 0, get_parent().map_size.y-1)
+		
+		pos += input
 		pos.x = clamp(pos.x, 0, get_parent().map_size.x-1)
 		pos.y = clamp(pos.y, 0, get_parent().map_size.z-1)
 		
+		SoundManager.play_sound_string("click")
 		var tween = get_tree().create_tween()
 		tween.tween_property(self, "global_position", get_parent().tilemap_to_global(pos, lvl), 0.1).set_trans(Tween.TRANS_CUBIC)
 
