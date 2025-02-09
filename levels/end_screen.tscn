@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bly2ixmr755gj"]
+[gd_scene load_steps=19 format=3 uid="uid://ctofi67q3n1vl"]
 
 [ext_resource type="Script" path="res://levels/end_screen.gd" id="1_c8g6x"]
 [ext_resource type="PackedScene" uid="uid://efhli5mx1ocb" path="res://player/player.tscn" id="1_tq5pt"]
@@ -129,7 +129,7 @@ position = Vector2(644, 422)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("9_pj7wu")
 
-[node name="Quit" type="TextureButton" parent="."]
+[node name="Replay" type="TextureButton" parent="."]
 anchors_preset = -1
 anchor_left = 0.591
 anchor_top = 1.05
@@ -163,3 +163,5 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[connection signal="pressed" from="Replay" to="." method="_on_replay_pressed"]
