@@ -1,8 +1,22 @@
 extends Node3D
 
+const BLUE = preload("res://tile-selector/blue.tres")
+const RED = preload("res://tile-selector/red.tres")
+const WHITE = preload("res://tile-selector/white.tres")
+
+@onready var cursor: MeshInstance3D = $cursor/group/pasted__group3/pasted__pasted__group2/pasted__pasted__pasted__group_001/Cursor
+
 var pos = Vector2(0, 0)
 var lvl: int = 0
 var active: bool = false
+
+func change_color(i : int):
+	if i == 0:
+		cursor.mesh.surface_set_material(0, BLUE)
+	if i == 1:
+		cursor.mesh.surface_set_material(0, RED)
+	if i == 2:
+		cursor.mesh.surface_set_material(0, WHITE)
 
 func move():
 	update_pos()
