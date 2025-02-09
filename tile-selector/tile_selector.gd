@@ -4,7 +4,7 @@ const BLUE = preload("res://tile-selector/blue.tres")
 const RED = preload("res://tile-selector/red.tres")
 const WHITE = preload("res://tile-selector/white.tres")
 
-@onready var cursor: MeshInstance3D = $cursor/group/pasted__group3/pasted__pasted__group2/pasted__pasted__pasted__group_001/Cursor
+@onready var cursor: MeshInstance3D = $cursor/group/pasted__group3/pasted__pasted__group2/pasted__pasted__pasted__group_001/Cursor2
 
 var pos = Vector2(0, 0)
 var lvl: int = 0
@@ -21,8 +21,10 @@ func change_color(i : int):
 func move():
 	update_pos()
 	if not get_parent().selected_tile_free(get_parent().grid, pos, lvl): 
-		#TODO: PROMENI BOJU
-		pass
+		change_color(2)
+	elif cursor.mesh.surface_get_material(0) == WHITE:
+		get_parent().changed_player.emit()
+			
 	global_position = get_parent().tilemap_to_global(pos, lvl)
 
 func update_pos():
