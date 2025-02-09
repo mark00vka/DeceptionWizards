@@ -1,9 +1,141 @@
-[gd_scene load_steps=3 format=3 uid="uid://cpckp83tgoy88"]
+[gd_scene load_steps=26 format=3 uid="uid://cpckp83tgoy88"]
 
 [ext_resource type="Script" path="res://tiles/base_tile/base_tile.gd" id="1_m16iv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wmvdf"]
 size = Vector3(5, 2.5, 5)
+
+[sub_resource type="Curve" id="Curve_jpqqc"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ihfm8"]
+curve = SubResource("Curve_jpqqc")
+
+[sub_resource type="Curve" id="Curve_xyp7x"]
+_data = [Vector2(0, 1), 0.0, -0.958802, 0, 0, Vector2(1, 0), -1.9495, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_jkpca"]
+curve = SubResource("Curve_xyp7x")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ahd6l"]
+emission_shape_scale = Vector3(2, 1, 2)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(0, 1, 0)
+spread = 58.012
+initial_velocity_min = 8.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, -20, 0)
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_jkpca")
+alpha_curve = SubResource("CurveTexture_ihfm8")
+turbulence_enabled = true
+turbulence_noise_strength = 0.0
+turbulence_noise_scale = 0.0
+turbulence_influence_min = 0.02
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h1tt1"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.301961)
+
+[sub_resource type="SphereMesh" id="SphereMesh_y1ru0"]
+material = SubResource("StandardMaterial3D_h1tt1")
+radial_segments = 5
+rings = 3
+
+[sub_resource type="Curve" id="Curve_wn7nf"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_gjghw"]
+curve = SubResource("Curve_wn7nf")
+
+[sub_resource type="Curve" id="Curve_dwbq1"]
+_data = [Vector2(0, 1), 0.0, -0.958802, 0, 0, Vector2(1, 0), -1.9495, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_w83cy"]
+curve = SubResource("Curve_dwbq1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2v2tn"]
+emission_shape_scale = Vector3(2, 1, 2)
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 1, 0)
+spread = 38.493
+initial_velocity_min = 8.0
+initial_velocity_max = 15.15
+scale_min = 0.7
+scale_curve = SubResource("CurveTexture_w83cy")
+alpha_curve = SubResource("CurveTexture_gjghw")
+turbulence_enabled = true
+turbulence_noise_strength = 0.0
+turbulence_noise_scale = 0.0
+turbulence_influence_min = 0.02
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6p571"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.27, 0.27, 0.27, 0.588235)
+
+[sub_resource type="SphereMesh" id="SphereMesh_rk7vb"]
+material = SubResource("StandardMaterial3D_6p571")
+radial_segments = 5
+rings = 3
+
+[sub_resource type="Curve" id="Curve_ll78r"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.778592, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_xl4hb"]
+curve = SubResource("Curve_ll78r")
+
+[sub_resource type="Gradient" id="Gradient_on5gg"]
+offsets = PackedFloat32Array(0, 0.649123, 1)
+colors = PackedColorArray(0.407, 0, 0.66, 1, 0.48, 0, 0.312, 1, 0.25, 0.233333, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rxc3f"]
+gradient = SubResource("Gradient_on5gg")
+use_hdr = true
+
+[sub_resource type="Curve" id="Curve_h7kdu"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.991202, 0.0563202), -2.5607, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_wgh4q"]
+curve = SubResource("Curve_h7kdu")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6lnef"]
+emission_shape_scale = Vector3(2, 1, 2)
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 1, 0)
+spread = 55.843
+initial_velocity_min = 20.0
+initial_velocity_max = 25.0
+gravity = Vector3(0, 0, 0)
+damping_min = 20.0
+damping_max = 70.0
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_wgh4q")
+color = Color(0.488165, 0.3293, 0.89, 1)
+color_ramp = SubResource("GradientTexture1D_rxc3f")
+alpha_curve = SubResource("CurveTexture_xl4hb")
+turbulence_enabled = true
+turbulence_noise_strength = 0.0
+turbulence_noise_scale = 0.0
+turbulence_influence_min = 0.02
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6pslr"]
+transparency = 1
+vertex_color_use_as_albedo = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_guht1"]
+material = SubResource("StandardMaterial3D_6pslr")
+radial_segments = 5
+rings = 3
 
 [node name="BaseTile" type="Node3D"]
 script = ExtResource("1_m16iv")
@@ -15,5 +147,38 @@ collision_mask = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 shape = SubResource("BoxShape3D_wmvdf")
+
+[node name="DisappearParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.73444, 0)
+emitting = false
+amount = 100
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.94
+randomness = 0.35
+process_material = SubResource("ParticleProcessMaterial_ahd6l")
+draw_pass_1 = SubResource("SphereMesh_y1ru0")
+
+[node name="ExplSmoke" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16146, 0)
+emitting = false
+amount = 50
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.94
+randomness = 0.35
+process_material = SubResource("ParticleProcessMaterial_2v2tn")
+draw_pass_1 = SubResource("SphereMesh_rk7vb")
+
+[node name="ExplosionParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16146, 0)
+emitting = false
+amount = 100
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 0.36
+process_material = SubResource("ParticleProcessMaterial_6lnef")
+draw_pass_1 = SubResource("SphereMesh_guht1")
 
 [connection signal="body_entered" from="Area3D" to="." method="player_entered"]

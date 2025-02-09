@@ -5,8 +5,7 @@ var p2_controls: PlayerControls = preload("res://player/p2_controls.tres")
 var controler_sens: float = 0.1
 
 func tile_selected_blue(event: InputEvent) -> bool:
-	return event.is_action_pressed(p1_controls.jump)
-	
+	return event.is_action_pressed(p1_controls.jump)	
 
 func tile_selected_red(event: InputEvent) -> bool:
 	return event.is_action_pressed(p2_controls.jump)

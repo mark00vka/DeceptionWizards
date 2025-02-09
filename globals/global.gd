@@ -12,6 +12,9 @@ enum Phase {TILE_SELECT, BUILDING, CHASE}
 var phase : Phase:
 	set(value):
 		phase = value
+		tile_select_timer.stop()
+		building_timer.stop()
+		chase_timer.stop()
 		change_phase.emit()
 		
 var level : int = 1
@@ -32,6 +35,7 @@ func is_building_phase():
 	return phase == Phase.BUILDING
 	
 func set_building_phase():
+	print("aaa")
 	phase = Phase.BUILDING
 	finished_placement = 0
 	building_timer.start()	
