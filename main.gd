@@ -15,6 +15,8 @@ var tile_selector
 
 @onready var pick_object_ui: Control = $PickObjectUI
 
+signal changed_player
+
 func _ready() -> void:
 	tile_selector = TILE_SELECTOR.instantiate()
 	add_child(tile_selector, true)
@@ -31,20 +33,25 @@ func _process(delta: float) -> void:
 				tile_selector.move()
 			
 func _input(event: InputEvent) -> void:
+
 	if Global.is_building_phase():
-		if InputManager.place_real(event) and tile_selector.active:
-			place_obstacle(true)
-			tile_selector.active = false
-		
-		if InputManager.place_fake(event) and tile_selector.active:
-			place_obstacle(false)
-			tile_selector.active = false
-		
+		if tile_selector.on_free_tile():
+			if InputManager.place_real(event) and tile_selector.active:
+				place_obstacle(true)
+				tile_selector.active = false
+			
+			if InputManager.place_fake(event) and tile_selector.active:
+				place_obstacle(false)
+				tile_selector.active = false
+			
 		if InputManager.tile_selected(event):
-			if not tile_selector.active: 
-				if not Global.player1: end_building_phase()
-				Global.player1 = !Global.player1
-				tile_selector.active = true
+				if not tile_selector.active: 
+					if not Global.player1: 
+						end_building_phase()
+					else:
+						tile_selector.active = true
+					Global.player1 = !Global.player1
+					changed_player.emit()
 		
 		if InputManager.rotation(event):
 			if not tile_selector.active:
@@ -107,3 +114,10 @@ func selected_tile_free(grid: Dictionary, tile_pos: Vector2i, tile_lvl: int) -> 
 
 func pos_lvl_to_vector3i(pos: Vector2i, lvl: int) -> Vector3i:
 	return Vector3i(pos.x, lvl, pos.y)
+
+
+func _on_changed_player() -> void:
+	if Global.player1:
+		tile_selector.change_color(0)
+	else:
+		tile_selector.change_color(1)

@@ -56,3 +56,5 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.7351
 
 [node name="PickObjectUI" parent="." instance=ExtResource("7_usn2y")]
 visible = false
+
+[connection signal="changed_player" from="." to="." method="_on_changed_player"]

@@ -1,7 +1,9 @@
 class_name Tile
 extends Node
 
-var real = 1
+var real = true
 
 func player_entered(body: Node3D) -> void:
-	pass
+	if not real: 
+		await get_tree().create_timer(1).timeout
+		queue_free()
