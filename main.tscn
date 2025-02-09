@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cm6byh8geuxup"]
+[gd_scene load_steps=17 format=3 uid="uid://cm6byh8geuxup"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_b5th3"]
 [ext_resource type="PackedScene" uid="uid://efhli5mx1ocb" path="res://player/player.tscn" id="1_gx7nr"]
@@ -6,9 +6,11 @@
 [ext_resource type="Resource" uid="uid://dutd1sptby8aw" path="res://player/p1_controls.tres" id="3_mi2kk"]
 [ext_resource type="Script" path="res://ui/camera_3d.gd" id="4_2ybbk"]
 [ext_resource type="Resource" uid="uid://c1bs0xj1k2bgb" path="res://player/p2_controls.tres" id="4_3ab4h"]
+[ext_resource type="Shader" path="res://shaders/dither_screen.gdshader" id="4_371af"]
 [ext_resource type="PackedScene" uid="uid://hni7dct4exvb" path="res://models/board/boardnoplane.fbx" id="5_w4thp"]
 [ext_resource type="PackedScene" uid="uid://cpn2ympvqfo3q" path="res://ui/pick_object_ui.tscn" id="7_4x0s1"]
 [ext_resource type="PackedScene" uid="uid://d0rh4dbxufpbq" path="res://tile-selector/tile_selector.tscn" id="9_htbmn"]
+[ext_resource type="PackedScene" uid="uid://odx7a17ireag" path="res://models/islands/bigisland.fbx" id="10_mafkg"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_dagti"]
 panorama = ExtResource("2_exf2y")
@@ -25,6 +27,21 @@ sky_custom_fov = 100.0
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ovimu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kiyha"]
+shader = ExtResource("4_371af")
+shader_parameter/quantize_size = 1.0
+shader_parameter/handle_scale = null
+shader_parameter/handle_subpixels = true
+shader_parameter/dither_enabled = true
+shader_parameter/bayer_pattern = 3.0
+shader_parameter/divisions = 4.0
+shader_parameter/contrast = 1.0
+shader_parameter/shift = 0.0
+shader_parameter/grayscale = null
+shader_parameter/use_palette = null
+
 [node name="Main" type="Node3D"]
 script = ExtResource("1_b5th3")
 
@@ -35,12 +52,8 @@ environment = SubResource("Environment_3p8xg")
 transform = Transform3D(-0.339597, -0.804549, 0.487213, -0.00206689, 0.518634, 0.854994, -0.940569, 0.289346, -0.17779, 0, 0, 0)
 shadow_enabled = true
 
-[node name="MainCamera" type="Camera3D" parent="."]
-transform = Transform3D(0.707107, -0.353553, 0.612372, 0, 0.866026, 0.5, -0.707107, -0.353553, 0.612372, 35.413, 23.849, 33.548)
-fov = 35.0
-script = ExtResource("4_2ybbk")
-
 [node name="BuildingCamera" type="Camera3D" parent="."]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 0.632516, 0.774547, 0, -0.774547, 0.632516, 5.62736, 48.7606, 45.9308)
 visible = false
 fov = 35.0
@@ -59,15 +72,46 @@ controls = ExtResource("4_3ab4h")
 [node name="boardnoplane" parent="." instance=ExtResource("5_w4thp")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.73518, -0.171568, 6.24596)
 
-[node name="PickObjectUI" parent="." instance=ExtResource("7_4x0s1")]
-visible = false
-
 [node name="TileSelectorRed" parent="." instance=ExtResource("9_htbmn")]
 player_blue = false
 
 [node name="TileSelectorBlue" parent="." instance=ExtResource("9_htbmn")]
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="bigisland" parent="." instance=ExtResource("10_mafkg")]
+transform = Transform3D(-648.758, 0, 760.995, 0, 1000, 0, -760.995, 0, -648.758, 6.09583, -13.6038, 7.28959)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+material = SubResource("ShaderMaterial_ovimu")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="MainCamera" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
+transform = Transform3D(0.707107, -0.353553, 0.612373, 0, 0.866026, 0.499999, -0.707107, -0.353553, 0.612373, 35.413, 23.849, 33.548)
+fov = 35.0
+script = ExtResource("4_2ybbk")
+
+[node name="PickObjectUI" parent="." instance=ExtResource("7_4x0s1")]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_kiyha")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [connection signal="changed_player" from="." to="." method="_on_changed_player"]
 [connection signal="player1_picked_tile" from="PickObjectUI" to="." method="_on_pick_object_ui_player_1_picked_tile"]

@@ -139,10 +139,10 @@ func place_obstacle_on_tilecursor():
 func phase_changed():
 	if Global.is_tile_select_phase():
 		pick_object_ui.show_ui()
-		$MainCamera.building()
+		%MainCamera.building()
 		
 	if Global.is_building_phase():
-		$MainCamera.building()
+		%MainCamera.building()
 		tile_selector_blue.show()
 		tile_selector_blue.active = true
 		tile_selector_red.show()
