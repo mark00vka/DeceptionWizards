@@ -18,6 +18,7 @@ config/features=PackedStringArray("4.3", "Forward Plus")
 
 Global="*res://globals/global.tscn"
 InputManager="*res://globals/input_manager.gd"
+MusicManager="*res://globals/music_manager.tscn"
 SoundManager="*res://globals/sound_manager.tscn"
 
 [display]

@@ -6,6 +6,7 @@ extends Control
 @onready var stairs: TextureRect = $Panel/ObjectHolder/Stairs
 @onready var wall: TextureRect = $Panel/ObjectHolder/Wall
 @onready var platform: TextureRect = $Panel/ObjectHolder/Platform
+@onready var bomb: TextureRect = $Panel/ObjectHolder/Bomb
 
 @onready var sprite_blue: Sprite2D = $SpriteBlue
 @onready var sprite_red: Sprite2D = $SpriteRed
@@ -62,8 +63,10 @@ func place_items(x_p, y_p):
 			inst = stairs.duplicate()
 		elif t < 0.75:
 			inst = wall.duplicate()
-		else:
+		elif t < 0.9:
 			inst = platform.duplicate()
+		else:
+			inst = bomb.duplicate()
 		object_holder.add_child(inst)
 		inst.show()
 		
@@ -194,7 +197,6 @@ func show_build_now_banner():
 	
 func show_chase_now_banner():
 	show()
-	print("TU sam")
 	color_rect.hide()
 	panel.hide()
 	sprite_blue.hide()
