@@ -10,7 +10,8 @@ func change_phase():
 	if Global.is_tile_select_phase():
 		match Global.level:
 			1:
-				build_1_player.play()
+				pass
+				#build_1_player.play()
 			2:
 				transition.play()
 				await transition.finished

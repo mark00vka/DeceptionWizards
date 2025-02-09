@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bsdlhcl1kn4wx" path="res://ui/cursor.png" id="9_almei"]
 [ext_resource type="Script" path="res://ui/cursor.gd" id="9_bjhg1"]
 [ext_resource type="PackedScene" uid="uid://dcfke5xyd1r0j" path="res://tiles/platform_tile/platform.fbx" id="9_t2qdu"]
-[ext_resource type="Resource" uid="uid://dutd1sptby8aw" path="res://player/p1_controls.tres" id="11_evdjb"]
+[ext_resource type="Resource" uid="uid://deu0peg282uw6" path="res://player/p1_controls.tres" id="11_evdjb"]
 [ext_resource type="Resource" uid="uid://c1bs0xj1k2bgb" path="res://player/p2_controls.tres" id="12_dylk1"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sp7fk"]
@@ -140,6 +140,7 @@ expand_mode = 1
 script = ExtResource("9_bjhg1")
 controls = ExtResource("12_dylk1")
 
+[connection signal="cursors_hidden" from="." to="." method="_on_cursors_hidden"]
 [connection signal="gui_input" from="Panel/ObjectHolder/Stairs" to="Panel/ObjectHolder/Stairs" method="_on_gui_input"]
 [connection signal="gui_input" from="Panel/ObjectHolder/Wall" to="Panel/ObjectHolder/Wall" method="_on_gui_input"]
 [connection signal="gui_input" from="Panel/ObjectHolder/Platform" to="Panel/ObjectHolder/Platform" method="_on_gui_input"]

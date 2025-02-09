@@ -25,7 +25,7 @@ func _ready() -> void:
 	place_item(STAIRS, Vector2i(0, 1),  0, 1)
 	place_item(FINISH_TILE, Vector2i(0, 0),  1, 0)
 	start_building_phase()
-	#pick_object_ui.show_ui()
+	pick_object_ui.show_ui()
 	
 func _process(delta: float) -> void:
 		if Global.is_building_phase():
@@ -44,7 +44,7 @@ func _input(event: InputEvent) -> void:
 				place_obstacle(false)
 				tile_selector.active = false
 			
-		if InputManager.tile_selected(event):
+		if InputManager.selected(event):
 				if not tile_selector.active: 
 					if not Global.player1: 
 						end_building_phase()
