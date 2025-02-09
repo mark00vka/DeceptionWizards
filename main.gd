@@ -25,10 +25,10 @@ signal changed_player
 
 func _ready() -> void:
 	generate_grid()
-	place_item(STAIRS, Vector2i(0, 1),  0, 1)
+	#place_item(STAIRS, Vector2i(0, 1),  0, 1)
 	place_item(FINISH_TILE, Vector2i(0, 0),  1, 0)
 	Global.change_phase.connect(phase_changed)
-	Global.set_building_phase()
+	Global.set_tile_select_phase()
 	
 func tile_selector_input(event, tile_selector):
 	if tile_selector.on_free_tile():
@@ -57,8 +57,7 @@ func _input(event: InputEvent) -> void:
 		
 func place_obstacle(tile_selector, real: bool):
 	if(selected_tile_free(grid, tile_selector.pos, tile_selector.lvl)):
-		place_item(STAIRS, tile_selector.pos, tile_selector.lvl, real)
-		if tile_selector == tile_selector_blue:
+		if tile_selector.player_blue:
 			place_item(player1_tile, tile_selector.pos, tile_selector.lvl, real)
 		else:
 			place_item(player2_tile, tile_selector.pos, tile_selector.lvl, real)

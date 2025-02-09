@@ -12,6 +12,10 @@ var pos = Vector2(0, 0)
 var lvl: int = 0
 var active: bool = false
 
+func _ready() -> void:
+	if player_blue: change_color(0)
+	else: change_color(1)
+
 func _process(delta: float) -> void:
 	if Global.is_building_phase() and active:
 		move()

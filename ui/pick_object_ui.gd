@@ -59,13 +59,13 @@ func select_item(player1: bool):
 			continue
 			
 		if player1 and child.global_position.distance_to(cursor_p_1.global_position - cursor_p_1.get_rect().size/2) < distance_from_cursor:
-			player1_picked_tile.emit(child)
+			player1_picked_tile.emit(child.tile.tile)
 			child.queue_free()
 			cursor_p_1.hide()
 			if not cursor_p_2.visible: cursors_hidden.emit()
 			
 		if (not player1) and child.global_position.distance_to(cursor_p_2.global_position - cursor_p_2.get_rect().size/2) < distance_from_cursor:
-			player2_picked_tile.emit(child)
+			player2_picked_tile.emit(child.tile.tile)
 			child.queue_free()
 			cursor_p_2.hide()
 			if not cursor_p_1.visible: cursors_hidden.emit()
@@ -75,3 +75,4 @@ func _on_cursors_hidden() -> void:
 	animate_ui(900)
 	await get_tree().create_timer(1).timeout
 	hide()
+	Global.set_building_phase()
