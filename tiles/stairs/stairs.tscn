@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cm8gyi4lp50xt"]
 
 [ext_resource type="PackedScene" uid="uid://cfasp8gth34eb" path="res://tiles/stairs/stairs.fbx" id="1_4spbn"]
-[ext_resource type="PackedScene" uid="uid://b8wfo3u7311gh" path="res://tiles/base_tile/base_tile.tscn" id="1_jougs"]
+[ext_resource type="PackedScene" uid="uid://cpckp83tgoy88" path="res://tiles/base_tile/base_tile.tscn" id="1_jougs"]
 [ext_resource type="Script" path="res://tiles/stairs/stairs.gd" id="2_se1og"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0sto0"]

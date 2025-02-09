@@ -17,9 +17,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-MusicManager="*res://globals/music_manager.tscn"
+Global="*res://globals/global.gd"
 InputManager="*res://globals/input_manager.gd"
-Global="*res://globals/global.tscn"
+MusicManager="*res://globals/music_manager.tscn"
 
 [display]
 

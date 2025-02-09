@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://cn5jvedw70iv3"]
+
+[ext_resource type="PackedScene" uid="uid://cpckp83tgoy88" path="res://tiles/base_tile/base_tile.tscn" id="1_r4efy"]
+[ext_resource type="Script" path="res://tiles/stairs/stairs.gd" id="2_pwde6"]
+[ext_resource type="PackedScene" uid="uid://dcfke5xyd1r0j" path="res://tiles/platform_tile/platform.fbx" id="3_2wi4d"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0sto0"]
+points = PackedVector3Array(2, 0, 0, 0, 0, 0, 2, 2.5, 5, 0, 2.5, 5, 0, 0, 5, 2, 0, 5)
+
+[node name="Platform" instance=ExtResource("1_r4efy")]
+script = ExtResource("2_pwde6")
+
+[node name="platform" parent="." index="0" instance=ExtResource("3_2wi4d")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="2"]
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.48924, 0, 0.94449)
+shape = SubResource("ConvexPolygonShape3D_0sto0")
