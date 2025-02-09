@@ -11,6 +11,7 @@ const WHITE = preload("res://tile-selector/white.tres")
 var pos = Vector2(0, 0)
 var lvl: int = 0
 var active: bool = false
+var tile_not_selected: bool = true
 
 func _process(delta: float) -> void:
 	if Global.is_building_phase() and active:

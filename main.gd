@@ -63,6 +63,7 @@ func tile_selector_input(event, tile_selector):
 				
 			place_obstacle(tile_selector, false)
 			tile_selector.active = false
+			tile_selector.tile_not_selected = true
 				
 	if (InputManager.tile_selected_blue(event) and tile_selector.player_blue)\
 		or (InputManager.tile_selected_red(event) and not tile_selector.player_blue):
@@ -72,9 +73,10 @@ func tile_selector_input(event, tile_selector):
 			if Global.finished_placement == 2:
 				Global.set_chase_phase()
 			tile_selector.hide()
+			tile_selector.tile_not_selected = false
 	
-	if (InputManager.tile_rot_blue(event) and tile_selector.player_blue)\
-		or (InputManager.tile_rot_red(event) and not tile_selector.player_blue):
+	if (InputManager.tile_rot_blue(event) and tile_selector.player_blue and tile_selector.tile_not_selected)\
+		or (InputManager.tile_rot_red(event) and not tile_selector.player_blue and tile_selector.tile_not_selected):
 		
 		if not tile_selector.active:
 			rotate_placed_obstacle(tile_selector)
