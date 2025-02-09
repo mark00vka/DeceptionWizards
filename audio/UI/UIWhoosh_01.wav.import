@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://bgbpgaphhj2ad"
-path="res://.godot/imported/Stop_01.wav-762cd86d9b554c80c7a0a8b51f61f1e3.sample"
+uid="uid://xsfmh365wmtn"
+path="res://.godot/imported/UIWhoosh_01.wav-67bb7e128820c57bd761af21799f4aec.sample"
 
 [deps]
 
-source_file="res://audio/Stop_01.wav"
-dest_files=["res://.godot/imported/Stop_01.wav-762cd86d9b554c80c7a0a8b51f61f1e3.sample"]
+source_file="res://audio/UI/UIWhoosh_01.wav"
+dest_files=["res://.godot/imported/UIWhoosh_01.wav-67bb7e128820c57bd761af21799f4aec.sample"]
 
 [params]
 

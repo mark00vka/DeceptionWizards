@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://dw6yh4bbno53d"
-path="res://.godot/imported/Chase_03.wav-fa7ca0907d951a5590755a3b0c5d1182.sample"
+uid="uid://d1fvcfry5xoxn"
+path="res://.godot/imported/UIClick_03.wav-170daaf6ebb006dda284f368255d8dd4.sample"
 
 [deps]
 
-source_file="res://audio/Chase_03.wav"
-dest_files=["res://.godot/imported/Chase_03.wav-fa7ca0907d951a5590755a3b0c5d1182.sample"]
+source_file="res://audio/UI/UIClick_03.wav"
+dest_files=["res://.godot/imported/UIClick_03.wav-170daaf6ebb006dda284f368255d8dd4.sample"]
 
 [params]
 
