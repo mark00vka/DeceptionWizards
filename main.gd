@@ -106,8 +106,9 @@ func generate_tile(x: int, y: int):
 	add_child(ground_tile, true)		
 	ground_tile.global_position = tilemap_to_global(Vector2i(x, y))
 	
-	if ((x == 0 and y == 0) or (x == map_size.x-1 and y == map_size.y - 1)) and ground_tile.get_children().size() > 3:
+	if ((x == 0 and y == 0) or (x == map_size.x-1 and y == map_size.y-1)) and ground_tile.get_children().size() > 3:
 		ground_tile.get_children()[0].queue_free()
+		ground_tile.has_obstacle = false
 		
 	if ground_tile.has_obstacle:
 		grid[Vector3i(x, 0, y)] = ground_tile
