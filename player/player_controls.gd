@@ -9,3 +9,5 @@ extends Resource
 @export var down: String
 @export var jump: String
 @export var rot: String
+@export var real: String
+@export var fake: String

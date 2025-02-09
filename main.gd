@@ -31,22 +31,28 @@ func _process(delta: float) -> void:
 			
 func _input(event: InputEvent) -> void:
 	if Global.building_phase:
+		if InputManager.place_real(event) and tile_selector.active:
+			place_obstacle(true)
+			tile_selector.active = false
+		
+		if InputManager.place_fake(event) and tile_selector.active:
+			place_obstacle(false)
+			tile_selector.active = false
+		
 		if InputManager.tile_selected(event):
-			if tile_selector.active: 
-				place_obstacle()
-			else:
+			if not tile_selector.active: 
 				if not Global.player1: end_building_phase()
 				Global.player1 = !Global.player1
-			tile_selector.active = !tile_selector.active
+				tile_selector.active = true
 		
 		if InputManager.rotation(event):
 			if not tile_selector.active:
 				rotate_placed_obstacle()
 		
 		
-func place_obstacle():
+func place_obstacle(real: bool):
 	if(selected_tile_free(grid, tile_selector.pos, tile_selector.lvl)):
-		place_item(STAIRS, tile_selector.pos, tile_selector.lvl)
+		place_item(STAIRS, tile_selector.pos, tile_selector.lvl, real)
 		
 func rotate_placed_obstacle():
 	grid[pos_lvl_to_vector3i(tile_selector.pos, tile_selector.lvl)].global_rotation.y += PI/2
@@ -71,12 +77,14 @@ func generate_boundary_tile(x: int, y: int):
 	add_child(boundary_tile, true)		
 	boundary_tile.global_position = tilemap_to_global(Vector2i(x, y))
 
-func place_item(item : PackedScene, pos : Vector2i, level : int, rot: int = 0):
-	var inst = item.instantiate()
+func place_item(item : PackedScene, pos : Vector2i, level : int, real: bool = true, rot: int = 0):
+	var inst : Tile = item.instantiate()
 	add_child(inst, true)
 	inst.global_position = tilemap_to_global(pos, level)
 	inst.global_rotation.y = rot * PI / 2
+	inst.real = real
 	grid[pos_lvl_to_vector3i(pos, level)] = inst
+	print("STAIRS REAL: ", inst.real)
 
 func start_building_phase():
 	$Camera3D.building()

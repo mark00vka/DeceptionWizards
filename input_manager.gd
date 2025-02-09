@@ -8,6 +8,14 @@ func tile_selected(event: InputEvent) -> bool:
 	return (Global.player1 and event.is_action_pressed(p1_controls.jump)) \
 	or (!Global.player1 and event.is_action_pressed(p2_controls.jump))
 	
+func place_real(event: InputEvent):
+	return (Global.player1 and event.is_action_pressed(p1_controls.real)) \
+	or (!Global.player1 and event.is_action_pressed(p2_controls.real))
+	
+func place_fake(event: InputEvent):
+	return (Global.player1 and event.is_action_pressed(p1_controls.fake)) \
+	or (!Global.player1 and event.is_action_pressed(p2_controls.fake))
+	
 func rotation(event:InputEvent) -> bool:
 	return (Global.player1 and event.is_action_pressed(p1_controls.rot)) \
 	or (!Global.player1 and event.is_action_pressed(p2_controls.rot))
