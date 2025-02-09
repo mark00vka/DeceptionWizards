@@ -11,6 +11,8 @@ const WHITE = preload("res://tile-selector/white.tres")
 var pos = Vector2(0, 0)
 var lvl: int = 0
 var active: bool = false
+
+var tile_not_selected: bool = true
 var tile : Tile
 
 func clear_tile():
