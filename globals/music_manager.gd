@@ -6,6 +6,9 @@ extends Node
 @onready var stop_player: AudioStreamPlayer = $StopPlayer
 @onready var transition: AudioStreamPlayer = $Transition
 
+func _ready() -> void:
+	Global.change_phase.connect(change_phase)
+
 func change_phase():
 	if Global.is_tile_select_phase():
 		match Global.level:

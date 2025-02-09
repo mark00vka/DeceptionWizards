@@ -4,65 +4,58 @@ const GROUND_TILE = preload("res://tiles/ground_tile/ground_tile.tscn")
 const BOUNDARY_TILE = preload("res://tiles/boundary_tile/boundary_tile.tscn")
 const STAIRS = preload("res://tiles/stairs/stairs.tscn")
 const FINISH_TILE = preload("res://tiles/finish_tile/finish_tile.tscn")
-const TILE_SELECTOR = preload("res://tile-selector/tile_selector.tscn")
 
 @export var map_size : Vector3i = Vector3i(4, 4, 4)
 @export var tile_size : float = 5.0
 @export var tile_height : float = 2.5
 
 var grid : Dictionary = {}
-var tile_selector
 
 @onready var pick_object_ui: Control = $PickObjectUI
+@onready var tile_selector_blue: Node3D = $TileSelectorBlue
+@onready var tile_selector_red: Node3D = $TileSelectorRed
 
 signal changed_player
 
 func _ready() -> void:
-	tile_selector = TILE_SELECTOR.instantiate()
-	add_child(tile_selector, true)
-	tile_selector.active = false
 	generate_grid()
 	place_item(STAIRS, Vector2i(0, 1),  0, 1)
 	place_item(FINISH_TILE, Vector2i(0, 0),  1, 0)
-	start_building_phase()
-	#pick_object_ui.show_ui()
+	Global.change_phase.connect(phase_changed)
+	Global.set_tile_select_phase()
 	
-func _process(delta: float) -> void:
-		if Global.is_building_phase():
-			if tile_selector.active:
-				tile_selector.move()
+func tile_selector_input(event, tile_selector):
+	if tile_selector.on_free_tile():
+		if InputManager.place_real(event) and tile_selector.active:
+			place_obstacle(tile_selector, true)
+			tile_selector.active = false
+		
+		if InputManager.place_fake(event) and tile_selector.active:
+			place_obstacle(tile_selector, false)
+			tile_selector.active = false
+				
+	if InputManager.tile_selected(event):
+		if not tile_selector.active: 
+			Global.finished_placement+=1
+			if Global.finished_placement == 2:
+				Global.set_chase_phase()
+	
+	if InputManager.rotation(event):
+		if not tile_selector.active:
+			rotate_placed_obstacle(tile_selector)
 			
 func _input(event: InputEvent) -> void:
-
 	if Global.is_building_phase():
-		if tile_selector.on_free_tile():
-			if InputManager.place_real(event) and tile_selector.active:
-				place_obstacle(true)
-				tile_selector.active = false
-			
-			if InputManager.place_fake(event) and tile_selector.active:
-				place_obstacle(false)
-				tile_selector.active = false
-			
-		if InputManager.tile_selected(event):
-				if not tile_selector.active: 
-					if not Global.player1: 
-						end_building_phase()
-					else:
-						tile_selector.active = true
-					Global.player1 = !Global.player1
-					changed_player.emit()
-		
-		if InputManager.rotation(event):
-			if not tile_selector.active:
-				rotate_placed_obstacle()
+		tile_selector_input(event, tile_selector_blue)
+		tile_selector_input(event, tile_selector_red)
+
 		
 		
-func place_obstacle(real: bool):
+func place_obstacle(tile_selector, real: bool):
 	if(selected_tile_free(grid, tile_selector.pos, tile_selector.lvl)):
 		place_item(STAIRS, tile_selector.pos, tile_selector.lvl, real)
 		
-func rotate_placed_obstacle():
+func rotate_placed_obstacle(tile_selector):
 	grid[pos_lvl_to_vector3i(tile_selector.pos, tile_selector.lvl)].global_rotation.y += PI/2
 
 func generate_grid():
@@ -94,17 +87,21 @@ func place_item(item : PackedScene, pos : Vector2i, level : int, real: bool = tr
 	grid[pos_lvl_to_vector3i(pos, level)] = inst
 	print("STAIRS REAL: ", inst.real)
 
-func start_building_phase():
-	$Camera3D.building()
-	Global.set_building_phase()
-	tile_selector.active = true
-	tile_selector.global_position = tilemap_to_global(Vector2i(0,0))
-	
-func end_building_phase():
-	$Camera3D.chase()
-	Global.set_chase_phase()
-	tile_selector.active = false
-	tile_selector.visible = false
+func phase_changed():
+	if Global.is_tile_select_phase():
+		$MainCamera.building()
+	if Global.is_building_phase():
+		$MainCamera.building()
+		tile_selector_blue.active = true
+		tile_selector_blue.global_position = tilemap_to_global(Vector2i(0,0))
+		tile_selector_red.active = true
+		tile_selector_red.global_position = tilemap_to_global(Vector2i(0,0))
+	if Global.is_chase_phase():
+		$MainCamera.chase()
+		tile_selector_blue.active = false
+		tile_selector_blue.visible = false
+		tile_selector_red.active = false
+		tile_selector_red.visible = false
 	
 func tilemap_to_global(pos: Vector2i, level : int = 0):
 	return Vector3(pos.x, 0, pos.y) * tile_size + Vector3.UP * level * tile_height
@@ -114,10 +111,3 @@ func selected_tile_free(grid: Dictionary, tile_pos: Vector2i, tile_lvl: int) -> 
 
 func pos_lvl_to_vector3i(pos: Vector2i, lvl: int) -> Vector3i:
 	return Vector3i(pos.x, lvl, pos.y)
-
-
-func _on_changed_player() -> void:
-	if Global.player1:
-		tile_selector.change_color(0)
-	else:
-		tile_selector.change_color(1)

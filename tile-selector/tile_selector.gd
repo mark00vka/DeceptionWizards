@@ -1,5 +1,7 @@
 extends Node3D
 
+@export var player_blue : bool = true
+
 const BLUE = preload("res://tile-selector/blue.tres")
 const RED = preload("res://tile-selector/red.tres")
 const WHITE = preload("res://tile-selector/white.tres")
@@ -9,6 +11,11 @@ const WHITE = preload("res://tile-selector/white.tres")
 var pos = Vector2(0, 0)
 var lvl: int = 0
 var active: bool = false
+
+func _process(delta: float) -> void:
+		if Global.is_building_phase():
+			if active:
+				move()
 
 func change_color(i : int):
 	if i == 0:

@@ -2,10 +2,11 @@ extends Camera3D
 
 var building_transform: Transform3D
 var chase_transform: Transform3D
-@onready var camera_pos_2: Camera3D = $"../CameraPos2"
+@onready var building_camera: Camera3D = $"../BuildingCamera"
+
 
 func _ready():
-	building_transform = camera_pos_2.transform
+	building_transform = building_camera.transform
 	chase_transform = transform
 	building()
 

@@ -139,7 +139,3 @@ texture = ExtResource("9_almei")
 expand_mode = 1
 script = ExtResource("9_bjhg1")
 controls = ExtResource("12_dylk1")
-
-[connection signal="gui_input" from="Panel/ObjectHolder/Stairs" to="Panel/ObjectHolder/Stairs" method="_on_gui_input"]
-[connection signal="gui_input" from="Panel/ObjectHolder/Wall" to="Panel/ObjectHolder/Wall" method="_on_gui_input"]
-[connection signal="gui_input" from="Panel/ObjectHolder/Platform" to="Panel/ObjectHolder/Platform" method="_on_gui_input"]

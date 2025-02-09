@@ -1,15 +1,17 @@
-extends Node
+extends Control
+
+signal change_phase
 
 enum Phase {TILE_SELECT, BUILDING, CHASE}
 
 var phase : Phase:
 	set(value):
 		phase = value
-		MusicManager.change_phase()
+		change_phase.emit()
 		
 var level : int = 1
 var building_phase: bool = false
-var player1: bool = true
+var finished_placement : int = 0
 
 func _ready() -> void:
 	set_tile_select_phase()
@@ -19,6 +21,7 @@ func is_building_phase():
 	
 func set_building_phase():
 	phase = Phase.BUILDING
+	finished_placement = 0
 	
 func is_tile_select_phase():
 	return phase == Phase.TILE_SELECT
