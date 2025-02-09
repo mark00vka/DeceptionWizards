@@ -84,7 +84,6 @@ func select_item(player1: bool):
 				
 func player1_pick_tile(child):
 	player1_picked_tile.emit(child.tile.tile)
-	#TODO animacija za pickupovanje u inventory
 	cursor_p_1.hide()
 	var tween = get_tree().create_tween()
 	tween.parallel().tween_property(child, "scale", Vector2.ZERO, 0.3).set_trans(Tween.TRANS_LINEAR)
@@ -96,7 +95,6 @@ func player1_pick_tile(child):
 		
 func player2_pick_tile(child):
 	player2_picked_tile.emit(child.tile.tile)
-	#TODO animacija za pickupovanje u inventory
 	cursor_p_2.hide()
 	var tween = get_tree().create_tween()
 	tween.parallel().tween_property(child, "scale", Vector2.ZERO, 0.3).set_trans(Tween.TRANS_LINEAR)

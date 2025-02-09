@@ -1,18 +1,27 @@
 class_name Player
 extends CharacterBody3D
 
+const CLOTHES_BLUE = preload("res://player/clothes_blue.tres")
+const CLOTHES_RED = preload("res://player/clothes_red.tres")
+const HAT_BLUE = preload("res://player/hat_blue.tres")
+const HAT_RED = preload("res://player/hat_red.tres")
+
 const LERP_SPEED = 2.0
 const SPEED = 10.0
 const JUMP_VELOCITY = 7
 const GRAVITY = 17
 
 @export var controls: PlayerControls
-@export var color : Color
+@export var player_blue : bool
 
 func _ready() -> void:
 	var material = StandardMaterial3D.new()
-	material.albedo_color = color
-	$MeshInstance3D.mesh.material = material
+	if player_blue:
+		$wizardNPC/pCone1.set_surface_override_material(0, CLOTHES_BLUE)
+		$wizardNPC/pCone2.set_surface_override_material(0, HAT_BLUE)
+	else:
+		$wizardNPC/pCone1.set_surface_override_material(0, CLOTHES_RED)
+		$wizardNPC/pCone2.set_surface_override_material(0, HAT_RED)
 
 func _physics_process(delta: float) -> void:
 	if Global.is_building_phase() or Global.is_tile_select_phase():
@@ -35,10 +44,10 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity.x = direction.x * SPEED
 			velocity.z = direction.z * SPEED
-			
+		input_dir.x = -input_dir.x
+		$wizardNPC.rotation.y = lerp_angle($wizardNPC.rotation.y, input_dir.angle(), delta * LERP_SPEED * 5)
 	else:
 		velocity.x = move_toward(velocity.x, 0, LERP_SPEED)
 		velocity.z = move_toward(velocity.z, 0, LERP_SPEED)
-
 	move_and_slide()
 	
