@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cpckp83tgoy88" path="res://tiles/base_tile/base_tile.tscn" id="1_ghghg"]
 [ext_resource type="Script" path="res://tiles/finish_tile/finish_tile.gd" id="2_tqr37"]
-[ext_resource type="PackedScene" uid="uid://bmk2tquld1eqj" path="res://models/flag/flagg.fbx" id="4_0po5f"]
+[ext_resource type="PackedScene" uid="uid://86sjjbnh51p8" path="res://models/flag/flagy.fbx" id="4_2os06"]
 [ext_resource type="PackedScene" uid="uid://dcfke5xyd1r0j" path="res://tiles/platform_tile/platform.fbx" id="4_uma30"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_j8vfq"]
@@ -30,7 +30,7 @@ collision_mask = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0799565, 0.2307, 0)
 shape = SubResource("CylinderShape3D_wb8ha")
 
-[node name="flagg" parent="." index="6" instance=ExtResource("4_0po5f")]
-transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 1.63821, 0)
+[node name="flagy" parent="." index="6" instance=ExtResource("4_2os06")]
+transform = Transform3D(60, 0, 0, 0, 60, 0, 0, 0, 60, 0, 1.66734, 0)
 
-[editable path="flagg"]
+[editable path="flagy"]

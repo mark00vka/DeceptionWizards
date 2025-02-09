@@ -11,7 +11,21 @@ const WHITE = preload("res://tile-selector/white.tres")
 var pos = Vector2(0, 0)
 var lvl: int = 0
 var active: bool = false
+
 var tile_not_selected: bool = true
+var tile : Tile
+
+func clear_tile():
+	if tile:
+		tile.queue_free()
+	tile = null
+
+func set_tile(t: PackedScene):
+	if tile:
+		tile.queue_free()
+	else:
+		tile = t.instantiate()
+		add_child(tile)
 
 func _process(delta: float) -> void:
 	if Global.is_building_phase() and active:
@@ -46,9 +60,9 @@ func update_pos():
 	if input or lvl_input:
 		pos += input
 		lvl += lvl_input		
-		lvl = clamp(lvl, 0, get_parent().map_size.z-1)
+		lvl = clamp(lvl, 0, get_parent().map_size.y-1)
 		pos.x = clamp(pos.x, 0, get_parent().map_size.x-1)
-		pos.y = clamp(pos.y, 0, get_parent().map_size.y-1)
+		pos.y = clamp(pos.y, 0, get_parent().map_size.z-1)
 		
 		var tween = get_tree().create_tween()
 		tween.tween_property(self, "global_position", get_parent().tilemap_to_global(pos, lvl), 0.1).set_trans(Tween.TRANS_CUBIC)

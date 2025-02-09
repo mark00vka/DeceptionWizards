@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="BlokejdGJ"
-run/main_scene="res://main.tscn"
+run/main_scene="res://levels/main.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 
 [autoload]
@@ -24,6 +24,7 @@ MusicManager="*res://globals/music_manager.tscn"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/stretch/mode="viewport"
 
 [editor_plugins]
 
@@ -34,6 +35,7 @@ enabled=PackedStringArray("res://addons/script-ide/plugin.cfg")
 folder_colors={
 "res://audio/": "pink",
 "res://globals/": "green",
+"res://levels/": "teal",
 "res://models/": "orange",
 "res://player/": "blue",
 "res://tile-selector/": "purple",

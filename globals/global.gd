@@ -16,9 +16,16 @@ var phase : Phase:
 		building_timer.stop()
 		chase_timer.stop()
 		change_phase.emit()
+
+var starting_screen: bool:
+	set(value):
+		starting_screen = value
+		$Label.visible = not starting_screen
+		
 		
 var level : int = 0
 var finished_placement : int = 0
+
 
 signal tile_select_timeout
 signal build_timeout
