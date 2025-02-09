@@ -49,10 +49,10 @@ func place_items(x_p, y_p):
 		object_holder.add_child(inst)
 		inst.show()
 		
-		var x = x_pull.pick_random()
-		var y = y_pull.pick_random()
-		x_pull.erase(x)
-		y_pull.erase(y)
+		var x = x_p.pick_random()
+		var y = y_p.pick_random()
+		x_p.erase(x)
+		y_p.erase(y)
 		inst.set_pos(x, y)
 
 func animate_ui(end_y_position: int):
