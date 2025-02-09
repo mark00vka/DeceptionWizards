@@ -31,8 +31,8 @@ signal changed_player
 
 func _ready() -> void:
 	generate_grid()
-	$Player.global_position = tilemap_to_global(Vector2i(map_size.x-1, map_size.y-1))
-	$Player2.global_position = tilemap_to_global(Vector2i(map_size.x-1, map_size.y-1)) + Vector3(1, 0, 0)
+	$Player.global_position = tilemap_to_global(Vector2i(map_size.x-1, map_size.z-1))
+	$Player2.global_position = tilemap_to_global(Vector2i(map_size.x-1, map_size.z-1)) + Vector3(1, 0, 0)
 	place_item(FINISH_TILE, Vector2i(0, 0),  1, 1)
 	Global.change_phase.connect(phase_changed)
 	Global.build_timeout.connect(place_obstacle_on_tilecursor)
@@ -92,8 +92,8 @@ func rotate_placed_obstacle(tile_selector):
 
 func generate_grid():
 	for i in range(-1, map_size.x+1):
-		for j in range(-1, map_size.y+1):
-			if(i in range(map_size.x) and j in range(map_size.y)):
+		for j in range(-1, map_size.z+1):
+			if(i in range(map_size.x) and j in range(map_size.z)):
 				generate_tile(i, j)
 				await get_tree().create_timer(0.1).timeout
 			else:
@@ -107,7 +107,7 @@ func generate_tile(x: int, y: int):
 	var tween = get_tree().create_tween()
 	tween.tween_property(ground_tile, "scale", Vector3.ONE, 0.1).set_trans(Tween.TRANS_SINE)
 	
-	if ((x == 0 and y == 0) or (x == map_size.x-1 and y == map_size.y-1)) and ground_tile.has_obstacle:
+	if ((x == 0 and y == 0) or (x == map_size.x-1 and y == map_size.z-1)) and ground_tile.has_obstacle:
 		ground_tile.get_children()[0].queue_free()
 		ground_tile.has_obstacle = false
 		
