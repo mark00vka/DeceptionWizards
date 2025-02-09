@@ -1,8 +1,8 @@
 [gd_scene load_steps=17 format=3 uid="uid://cm6byh8geuxup"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_b5th3"]
+[ext_resource type="Script" path="res://levels/main.gd" id="1_b5th3"]
 [ext_resource type="PackedScene" uid="uid://efhli5mx1ocb" path="res://player/player.tscn" id="1_gx7nr"]
-[ext_resource type="Texture2D" uid="uid://bcag2h0uf1f5o" path="res://sky.hdr" id="2_exf2y"]
+[ext_resource type="Texture2D" uid="uid://bcag2h0uf1f5o" path="res://levels/sky.hdr" id="2_exf2y"]
 [ext_resource type="Resource" uid="uid://dutd1sptby8aw" path="res://player/p1_controls.tres" id="3_mi2kk"]
 [ext_resource type="Script" path="res://ui/camera_3d.gd" id="4_2ybbk"]
 [ext_resource type="Resource" uid="uid://c1bs0xj1k2bgb" path="res://player/p2_controls.tres" id="4_3ab4h"]
@@ -16,13 +16,13 @@
 panorama = ExtResource("2_exf2y")
 energy_multiplier = 0.5
 
-[sub_resource type="Sky" id="Sky_1bi71"]
+[sub_resource type="Sky" id="Sky_1oya2"]
 sky_material = SubResource("PanoramaSkyMaterial_dagti")
 
 [sub_resource type="Environment" id="Environment_3p8xg"]
 background_mode = 2
 background_energy_multiplier = 0.5
-sky = SubResource("Sky_1bi71")
+sky = SubResource("Sky_1oya2")
 sky_custom_fov = 100.0
 tonemap_mode = 2
 glow_enabled = true
@@ -83,8 +83,6 @@ player_blue = false
 [node name="smallisland" parent="." instance=ExtResource("8_na8dw")]
 transform = Transform3D(-1462.07, 0, -2619.61, 0, 3000, 0, 2619.61, 0, -1462.07, 0.734699, -40.4271, 8.20241)
 
-[node name="CameraRotationPoint" type="Node3D" parent="."]
-
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 material = SubResource("ShaderMaterial_ovimu")
 anchors_preset = 15
@@ -109,12 +107,14 @@ script = ExtResource("4_2ybbk")
 visible = false
 
 [node name="DitheringShader" type="ColorRect" parent="."]
+z_index = 1
 material = SubResource("ShaderMaterial_kiyha")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [connection signal="changed_player" from="." to="." method="_on_changed_player"]
 [connection signal="player1_picked_tile" from="PickObjectUI" to="." method="_on_pick_object_ui_player_1_picked_tile"]

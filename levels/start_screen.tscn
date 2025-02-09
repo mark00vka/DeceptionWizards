@@ -1,0 +1,125 @@
+[gd_scene load_steps=15 format=3 uid="uid://cvfn3hkhbl5dw"]
+
+[ext_resource type="Script" path="res://levels/start_screen.gd" id="1_xstd2"]
+[ext_resource type="Texture2D" uid="uid://bcag2h0uf1f5o" path="res://levels/sky.hdr" id="2_urcdx"]
+[ext_resource type="PackedScene" uid="uid://efhli5mx1ocb" path="res://player/player.tscn" id="3_ldii8"]
+[ext_resource type="Resource" uid="uid://dutd1sptby8aw" path="res://player/p1_controls.tres" id="4_481ip"]
+[ext_resource type="Resource" uid="uid://c1bs0xj1k2bgb" path="res://player/p2_controls.tres" id="5_l85kh"]
+[ext_resource type="PackedScene" uid="uid://hni7dct4exvb" path="res://models/board/boardnoplane.fbx" id="6_pcjed"]
+[ext_resource type="PackedScene" uid="uid://b6g4slnf3sti0" path="res://models/islands/smallisland.fbx" id="8_kuj14"]
+[ext_resource type="Script" path="res://ui/camera_3d.gd" id="9_aq543"]
+[ext_resource type="Shader" path="res://shaders/dither_screen.gdshader" id="11_eyel1"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_1da2x"]
+panorama = ExtResource("2_urcdx")
+energy_multiplier = 0.5
+
+[sub_resource type="Sky" id="Sky_1bi71"]
+sky_material = SubResource("PanoramaSkyMaterial_1da2x")
+
+[sub_resource type="Environment" id="Environment_ljaor"]
+background_mode = 2
+background_energy_multiplier = 0.5
+sky = SubResource("Sky_1bi71")
+sky_custom_fov = 100.0
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o7nfv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tblxm"]
+shader = ExtResource("11_eyel1")
+shader_parameter/quantize_size = 1.0
+shader_parameter/handle_scale = null
+shader_parameter/handle_subpixels = true
+shader_parameter/dither_enabled = true
+shader_parameter/bayer_pattern = 3.0
+shader_parameter/divisions = 4.0
+shader_parameter/contrast = 1.0
+shader_parameter/shift = 0.0
+shader_parameter/grayscale = null
+shader_parameter/use_palette = null
+
+[node name="StartScreen" type="Node3D"]
+script = ExtResource("1_xstd2")
+map_size = Vector3i(6, 4, 6)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ljaor")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.339597, -0.804549, 0.487213, -0.00206689, 0.518634, 0.854994, -0.940569, 0.289346, -0.17779, 0, 0, 0)
+shadow_enabled = true
+
+[node name="BuildingCamera" type="Camera3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.642788, 0.766044, 0, -0.766044, 0.642788, 13.3608, 24.4912, 35.9447)
+visible = false
+fov = 59.0
+
+[node name="Player" parent="." instance=ExtResource("3_ldii8")]
+transform = Transform3D(1.06066, 0, 1.06066, 0, 1.5, 0, -1.06066, 0, 1.06066, 25, 0, 25)
+motion_mode = 0
+controls = ExtResource("4_481ip")
+player_blue = true
+
+[node name="Player2" parent="." instance=ExtResource("3_ldii8")]
+transform = Transform3D(1.06066, 0, 1.06066, 0, 1.5, 0, -1.06066, 0, 1.06066, 26, 0, 25)
+motion_mode = 0
+controls = ExtResource("5_l85kh")
+
+[node name="boardnoplane" parent="." instance=ExtResource("6_pcjed")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.73518, -0.171568, 6.24596)
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="smallisland" parent="." instance=ExtResource("8_kuj14")]
+transform = Transform3D(-1462.07, 0, -2619.61, 0, 3000, 0, 2619.61, 0, -1462.07, 0.734699, -40.4271, 8.20241)
+
+[node name="CameraRotationPoint" type="Node3D" parent="."]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+material = SubResource("ShaderMaterial_o7nfv")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="MainCamera" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
+transform = Transform3D(0.707107, -0.454519, 0.541675, 0, 0.766044, 0.642788, -0.707107, -0.454519, 0.541675, 34, 23.803, 34)
+fov = 59.0
+script = ExtResource("9_aq543")
+
+[node name="Button" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -15.5
+offset_right = 20.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 86
+text = "Start"
+
+[node name="DitheringShader" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_tblxm")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
