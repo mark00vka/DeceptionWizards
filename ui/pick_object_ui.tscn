@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cpn2ympvqfo3q"]
+[gd_scene load_steps=23 format=3 uid="uid://cpn2ympvqfo3q"]
 
 [ext_resource type="Script" path="res://ui/pick_object_ui.gd" id="1_1l0jk"]
 [ext_resource type="Texture2D" uid="uid://nalopa1mbntn" path="res://tiles/ground_tile/light_ground.png" id="1_t1rhl"]
@@ -12,10 +12,12 @@
 [ext_resource type="Texture2D" uid="uid://dvcv840xr6gny" path="res://ui/cursor.png" id="9_almei"]
 [ext_resource type="Script" path="res://ui/cursor.gd" id="9_bjhg1"]
 [ext_resource type="PackedScene" uid="uid://bl2cbrwnavqyl" path="res://tiles/platform_tile/platform.tscn" id="10_nuims"]
-[ext_resource type="Resource" uid="uid://dutd1sptby8aw" path="res://player/p1_controls.tres" id="11_evdjb"]
+[ext_resource type="Resource" uid="uid://deu0peg282uw6" path="res://player/p1_controls.tres" id="11_evdjb"]
 [ext_resource type="Resource" uid="uid://c1bs0xj1k2bgb" path="res://player/p2_controls.tres" id="12_dylk1"]
 [ext_resource type="Texture2D" uid="uid://bevm03vfh0jk8" path="res://ui/3.png" id="15_ha2xv"]
 [ext_resource type="Texture2D" uid="uid://b4mrqmhr2b5o4" path="res://ui/3red.png" id="16_g7vf5"]
+[ext_resource type="Texture2D" uid="uid://def5wljml0r4c" path="res://ui/titles/build_now.png" id="17_rais7"]
+[ext_resource type="Texture2D" uid="uid://bxnrjqqmjxe07" path="res://ui/titles/chase_now.png" id="18_7nfto"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sp7fk"]
 texture = ExtResource("1_t1rhl")
@@ -160,6 +162,23 @@ modulate = Color(0.53, 0.53, 0.53, 1)
 position = Vector2(833.05, 606.72)
 scale = Vector2(0.03, 0.03)
 texture = ExtResource("16_g7vf5")
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+visible = false
+offset_top = 160.0
+offset_right = 1272.0
+offset_bottom = 528.0
+color = Color(0, 0, 0, 0.372549)
+
+[node name="SpriteBuild" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(608, 328)
+texture = ExtResource("17_rais7")
+
+[node name="SpriteChase" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(647, 340.5)
+texture = ExtResource("18_7nfto")
 
 [connection signal="gui_input" from="Panel/ObjectHolder/Stairs" to="Panel/ObjectHolder/Stairs" method="_on_gui_input"]
 [connection signal="gui_input" from="Panel/ObjectHolder/Wall" to="Panel/ObjectHolder/Wall" method="_on_gui_input"]

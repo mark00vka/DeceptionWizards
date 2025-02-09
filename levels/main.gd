@@ -175,8 +175,6 @@ func phase_changed():
 		%MainCamera.building()
 		
 	if Global.is_building_phase():
-		print(banner_ui)
-		#banner_ui.show_build_now_banner()
 		%MainCamera.building()
 		tile_selector_blue.show()
 		tile_selector_blue.active = true
@@ -184,15 +182,15 @@ func phase_changed():
 		tile_selector_blue.global_position = tilemap_to_global(Vector2i(0,0))
 		tile_selector_red.active = true
 		tile_selector_red.global_position = tilemap_to_global(Vector2i(0,0))
-		pick_object_ui.hide()
+		pick_object_ui.show_build_now_banner()
 		
 	if Global.is_chase_phase():
 		%MainCamera.chase()
-		#banner_ui.show_chase_now_banner()
 		tile_selector_blue.active = false
 		tile_selector_blue.visible = false
 		tile_selector_red.active = false
 		tile_selector_red.visible = false
+		pick_object_ui.show_chase_now_banner()
 	
 func tilemap_to_global(pos: Vector2i, level : int = 0):
 	return Vector3(pos.x, 0, pos.y) * tile_size + Vector3.UP * level * tile_height

@@ -299,6 +299,8 @@ script = ExtResource("4_2ybbk")
 [node name="PickObjectUI" parent="." instance=ExtResource("7_4x0s1")]
 visible = false
 
+[node name="BannerUI" parent="PickObjectUI" instance=ExtResource("10_f6jtm")]
+
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_kiyha")
 anchors_preset = 15
@@ -306,8 +308,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="BannerUI" parent="." instance=ExtResource("10_f6jtm")]
 
 [connection signal="changed_player" from="." to="." method="_on_changed_player"]
 [connection signal="player1_picked_tile" from="PickObjectUI" to="." method="_on_pick_object_ui_player_1_picked_tile"]
