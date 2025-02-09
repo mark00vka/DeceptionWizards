@@ -20,7 +20,7 @@ func change_color(i : int):
 
 func move():
 	update_pos()
-	if not get_parent().selected_tile_free(get_parent().grid, pos, lvl): 
+	if not on_free_tile(): 
 		change_color(2)
 	elif cursor.mesh.surface_get_material(0) == WHITE:
 		get_parent().changed_player.emit()
@@ -38,3 +38,6 @@ func update_pos():
 	pos.x = clamp(pos.x, 0, get_parent().map_size.x-1)
 	pos.y = clamp(pos.y, 0, get_parent().map_size.y-1)
 	lvl = clamp(lvl, 0, get_parent().map_size.z-1)
+
+func on_free_tile():
+	return get_parent().selected_tile_free(get_parent().grid, pos, lvl)

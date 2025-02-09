@@ -34,22 +34,23 @@ func _process(delta: float) -> void:
 			
 func _input(event: InputEvent) -> void:
 	if Global.building_phase:
-		if InputManager.place_real(event) and tile_selector.active:
-			place_obstacle(true)
-			tile_selector.active = false
-		
-		if InputManager.place_fake(event) and tile_selector.active:
-			place_obstacle(false)
-			tile_selector.active = false
-		
+		if tile_selector.on_free_tile():
+			if InputManager.place_real(event) and tile_selector.active:
+				place_obstacle(true)
+				tile_selector.active = false
+			
+			if InputManager.place_fake(event) and tile_selector.active:
+				place_obstacle(false)
+				tile_selector.active = false
+			
 		if InputManager.tile_selected(event):
-			if not tile_selector.active: 
-				if not Global.player1: 
-					end_building_phase()
-				else:
-					tile_selector.active = true
-				Global.player1 = !Global.player1
-				changed_player.emit()
+				if not tile_selector.active: 
+					if not Global.player1: 
+						end_building_phase()
+					else:
+						tile_selector.active = true
+					Global.player1 = !Global.player1
+					changed_player.emit()
 		
 		if InputManager.rotation(event):
 			if not tile_selector.active:
