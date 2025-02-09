@@ -54,4 +54,4 @@ func update_pos():
 
 
 func on_free_tile():
-	return get_parent().selected_tile_free(get_parent().grid, pos, lvl)
+	return get_parent().selected_tile_free(pos, lvl)
