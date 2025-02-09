@@ -75,23 +75,28 @@ func select_item(player1: bool):
 		if player1 \
 		and cursor_p_1.visible \
 		and child.global_position.distance_to(cursor_p_1.global_position - cursor_p_1.get_rect().size/2) < distance_from_cursor:
-			player1_picked_tile.emit(child.tile.tile)
-			child.queue_free()
-			cursor_p_1.hide()
-			if not cursor_p_2.visible: 
-				cursors_hidden.emit()
-				break
-			
+			player1_pick_tile(child)
+					
 		if not player1\
 		and cursor_p_2.visible\
 		and child.global_position.distance_to(cursor_p_2.global_position - cursor_p_2.get_rect().size/2) < distance_from_cursor:
-			player2_picked_tile.emit(child.tile.tile)
-			child.queue_free()
-			cursor_p_2.hide()
-			if not cursor_p_1.visible: 
-				cursors_hidden.emit()
-				break
-
+			player1_pick_tile(child)
+				
+func player1_pick_tile(child):
+	player1_picked_tile.emit(child.tile.tile)
+	#TODO animacija za pickupovanje u inventory
+	child.queue_free()
+	cursor_p_1.hide()
+	if not cursor_p_2.visible: 
+		cursors_hidden.emit()
+		
+func player2_pick_tile(child):
+	player2_picked_tile.emit(child.tile.tile)
+	#TODO animacija za pickupovanje u inventory
+	child.queue_free()
+	cursor_p_2.hide()
+	if not cursor_p_1.visible: 
+		cursors_hidden.emit()
 
 func _on_cursors_hidden() -> void:
 	animate_ui(900)
@@ -107,11 +112,7 @@ func select_random_tiles():
 		rand_tile = $Panel/ObjectHolder.get_children()[i]
 	
 	if cursor_p_1.visible:
-		player1_picked_tile.emit(rand_tile.tile.tile)
-		rand_tile.queue_free()
-		cursor_p_1.hide()
-		if not cursor_p_2.visible: 
-			cursors_hidden.emit()
+		player1_pick_tile(rand_tile)
 			
 	i = randi_range(0, $Panel/ObjectHolder.get_children().size()-1)
 	rand_tile = $Panel/ObjectHolder.get_children()[i]
@@ -121,8 +122,4 @@ func select_random_tiles():
 		rand_tile = $Panel/ObjectHolder.get_children()[i]			
 			
 	if cursor_p_2.visible:
-		player2_picked_tile.emit(rand_tile.tile.tile)
-		rand_tile.queue_free()
-		cursor_p_2.hide()
-		if not cursor_p_1.visible: 
-			cursors_hidden.emit()
+		player2_pick_tile(rand_tile)
