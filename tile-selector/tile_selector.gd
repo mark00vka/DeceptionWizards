@@ -12,10 +12,6 @@ var pos = Vector2(0, 0)
 var lvl: int = 0
 var active: bool = false
 
-func _ready() -> void:
-	if player_blue: change_color(0)
-	else: change_color(1)
-
 func _process(delta: float) -> void:
 	if Global.is_building_phase() and active:
 		move()
@@ -33,12 +29,11 @@ func move():
 	if not on_free_tile(): 
 		change_color(2)
 	elif cursor.mesh.surface_get_material(0) == WHITE:
-		get_parent().changed_player.emit()
+		change_color(int(not player_blue))
 			
 	global_position = get_parent().tilemap_to_global(pos, lvl)
 
 func update_pos():
-	print("Aa")
 	if player_blue:
 		pos += InputManager.get_player1_input()
 		lvl += int(Input.is_action_just_pressed(InputManager.p1_controls.up)) - int(Input.is_action_just_pressed(InputManager.p1_controls.down))

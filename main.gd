@@ -25,35 +25,50 @@ signal changed_player
 
 func _ready() -> void:
 	generate_grid()
-	#place_item(STAIRS, Vector2i(0, 1),  0, 1)
+	place_item(STAIRS, Vector2i(0, 1),  0, 1)
 	place_item(FINISH_TILE, Vector2i(0, 0),  1, 0)
 	Global.change_phase.connect(phase_changed)
 	Global.set_tile_select_phase()
+	tile_selector_blue.change_color(0)
+	tile_selector_blue.player_blue = true
+	tile_selector_red.change_color(1)
+	tile_selector_red.player_blue = false
+	
+func _input(event: InputEvent) -> void:
+	if Global.is_building_phase():
+		tile_selector_input(event, tile_selector_blue)
+		tile_selector_input(event, tile_selector_red)
 	
 func tile_selector_input(event, tile_selector):
 	if tile_selector.on_free_tile():
-		if InputManager.place_real(event) and tile_selector.active:
+		if (InputManager.place_real_blue(event) and tile_selector.player_blue) \
+			or (InputManager.place_real_red(event) and not tile_selector.player_blue) \
+			and tile_selector.active:
+				
 			place_obstacle(tile_selector, true)
 			tile_selector.active = false
 		
-		if InputManager.place_fake(event) and tile_selector.active:
+		if (InputManager.place_fake_blue(event) and tile_selector.player_blue) \
+			or (InputManager.place_fake_red(event) and not tile_selector.player_blue) \
+			and tile_selector.active:
+				
 			place_obstacle(tile_selector, false)
 			tile_selector.active = false
 				
-	if InputManager.tile_selected(event):
+	if (InputManager.tile_selected_blue(event) and tile_selector.player_blue)\
+		or (InputManager.tile_selected_red(event) and not tile_selector.player_blue):
+		
 		if not tile_selector.active: 
 			Global.finished_placement+=1
 			if Global.finished_placement == 2:
 				Global.set_chase_phase()
 	
-	if InputManager.rotation(event):
+	if (InputManager.tile_rot_blue(event) and tile_selector.player_blue)\
+		or (InputManager.tile_rot_red(event) and not tile_selector.player_blue):
+		
 		if not tile_selector.active:
 			rotate_placed_obstacle(tile_selector)
 			
-func _input(event: InputEvent) -> void:
-	if Global.is_building_phase():
-		tile_selector_input(event, tile_selector_blue)
-		tile_selector_input(event, tile_selector_red)
 		
 func place_obstacle(tile_selector, real: bool):
 	if(selected_tile_free(grid, tile_selector.pos, tile_selector.lvl)):

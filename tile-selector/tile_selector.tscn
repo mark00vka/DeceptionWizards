@@ -5,6 +5,7 @@
 [ext_resource type="Material" uid="uid://b263ptkeoi0qs" path="res://tile-selector/white.tres" id="3_nuxw2"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ctca4"]
+resource_local_to_scene = true
 resource_name = "Mesh_006"
 _surfaces = [{
 "aabb": AABB(-0.0279654, -0.115129, -0.0479159, 0.033028, 0.12023, 0.0529159),
