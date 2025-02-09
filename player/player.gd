@@ -33,8 +33,13 @@ func _physics_process(delta: float) -> void:
 	var input_dir := Input.get_vector(controls.left, controls.right, controls.fwd, controls.back)
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
+		if velocity.y > 0:
+			velocity.x += direction.x * SPEED * delta
+			velocity.z += direction.z * SPEED * delta
+		else:
+			velocity.x = direction.x * SPEED
+			velocity.z = direction.z * SPEED
+			
 	else:
 		velocity.x = move_toward(velocity.x, 0, LERP_SPEED)
 		velocity.z = move_toward(velocity.z, 0, LERP_SPEED)

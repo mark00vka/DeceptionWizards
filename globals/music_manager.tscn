@@ -1,23 +1,27 @@
-[gd_scene load_steps=7 format=3 uid="uid://diarbwmvvt7ey"]
+[gd_scene load_steps=8 format=3 uid="uid://diarbwmvvt7ey"]
 
 [ext_resource type="Script" path="res://globals/music_manager.gd" id="1_l5pko"]
-[ext_resource type="AudioStream" uid="uid://xtgegwf8e2q7" path="res://audio/Build_01.wav" id="2_rqp28"]
-[ext_resource type="AudioStream" uid="uid://bmj5q4k36yrly" path="res://audio/Build_02_unfinished.wav" id="3_0p3uj"]
-[ext_resource type="AudioStream" uid="uid://cxvdvwooc3b4i" path="res://audio/Chase_01.wav" id="4_jiun7"]
+[ext_resource type="AudioStream" uid="uid://dvoqhrthuljr1" path="res://audio/Build01.wav" id="2_bea6d"]
+[ext_resource type="AudioStream" uid="uid://ba1h3658pcro7" path="res://audio/Build02.wav" id="3_es3xi"]
+[ext_resource type="AudioStream" uid="uid://7ukqja8083nd" path="res://audio/Chase01.wav" id="4_q1mmp"]
 [ext_resource type="AudioStream" uid="uid://bgbpgaphhj2ad" path="res://audio/Stop_01.wav" id="5_87d3h"]
+[ext_resource type="AudioStream" uid="uid://b47uq0xkgq6kk" path="res://audio/Chase02.wav" id="5_kwivo"]
 [ext_resource type="AudioStream" uid="uid://b7fmffljr3jt2" path="res://audio/TransitionTo02.wav" id="6_llrrm"]
 
 [node name="MusicManager" type="Node"]
 script = ExtResource("1_l5pko")
 
 [node name="Build1Player" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_rqp28")
+stream = ExtResource("2_bea6d")
 
 [node name="Build2Player" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_0p3uj")
+stream = ExtResource("3_es3xi")
 
 [node name="Chase1Player" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_jiun7")
+stream = ExtResource("4_q1mmp")
+
+[node name="Chase2Player" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_kwivo")
 
 [node name="StopPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_87d3h")
