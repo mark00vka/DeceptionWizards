@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://dvcv840xr6gny" path="res://ui/cursor.png" id="9_almei"]
 [ext_resource type="Script" path="res://ui/cursor.gd" id="9_bjhg1"]
 [ext_resource type="PackedScene" uid="uid://bl2cbrwnavqyl" path="res://tiles/platform_tile/platform.tscn" id="10_nuims"]
-[ext_resource type="Resource" uid="uid://dutd1sptby8aw" path="res://player/p1_controls.tres" id="11_evdjb"]
+[ext_resource type="Resource" uid="uid://deu0peg282uw6" path="res://player/p1_controls.tres" id="11_evdjb"]
 [ext_resource type="Resource" uid="uid://c1bs0xj1k2bgb" path="res://player/p2_controls.tres" id="12_dylk1"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sp7fk"]

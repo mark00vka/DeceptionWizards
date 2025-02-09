@@ -12,6 +12,8 @@ const WALL = preload("res://tiles/wall_tile/wall.tscn")
 
 var BUILD_TILES = [STAIRS, PLATFORM, WALL]
 
+const PLAYER = preload("res://player/player.tscn")
+
 @export var map_size : Vector3i = Vector3i(4, 4, 4)
 @export var tile_size : float = 5.0
 @export var tile_height : float = 2.5
@@ -29,7 +31,9 @@ signal changed_player
 
 func _ready() -> void:
 	generate_grid()
-	place_item(FINISH_TILE, Vector2i(0, 0),  1, 0)
+	$Player.global_position = tilemap_to_global(Vector2i(map_size.x-1, map_size.y-1))
+	$Player2.global_position = tilemap_to_global(Vector2i(map_size.x-1, map_size.y-1)) + Vector3(1, 0, 0)
+	place_item(FINISH_TILE, Vector2i(0, 0),  1, 1)
 	Global.change_phase.connect(phase_changed)
 	Global.build_timeout.connect(place_obstacle_on_tilecursor)
 	Global.set_tile_select_phase()
@@ -160,6 +164,11 @@ func phase_changed():
 	
 func tilemap_to_global(pos: Vector2i, level : int = 0):
 	return Vector3(pos.x, 0, pos.y) * tile_size + Vector3.UP * level * tile_height
+	
+func global_to_tilemap(pos: Vector3):
+	var pos1 = pos - Vector3.UP * tile_height
+	pos1 /= tile_size
+	return Vector2i(pos1.x, pos1.z)
 
 func selected_tile_free(grid: Dictionary, tile_pos: Vector2i, tile_lvl: int) -> bool:
 	return !grid.has(pos_lvl_to_vector3i(tile_pos, tile_lvl))
