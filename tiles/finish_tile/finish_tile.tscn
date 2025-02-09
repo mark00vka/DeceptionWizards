@@ -1,35 +1,27 @@
-[gd_scene load_steps=8 format=3 uid="uid://dmjkckpsgs8p3"]
+[gd_scene load_steps=6 format=3 uid="uid://dmjkckpsgs8p3"]
 
-[ext_resource type="PackedScene" uid="uid://b8wfo3u7311gh" path="res://tiles/base_tile/base_tile.tscn" id="1_ghghg"]
+[ext_resource type="PackedScene" uid="uid://cpckp83tgoy88" path="res://tiles/base_tile/base_tile.tscn" id="1_ghghg"]
 [ext_resource type="Script" path="res://tiles/finish_tile/finish_tile.gd" id="2_tqr37"]
-[ext_resource type="Texture2D" uid="uid://nalopa1mbntn" path="res://tiles/ground_tile/light_ground.png" id="3_xjwwb"]
 [ext_resource type="PackedScene" uid="uid://0p2w532t5rle" path="res://models/signpost/signpost.fbx" id="4_d7wfk"]
+[ext_resource type="PackedScene" uid="uid://dcfke5xyd1r0j" path="res://tiles/platform_tile/platform.fbx" id="4_uma30"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_8lkxf"]
-size = Vector3(5, 0.001, 5)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vrk68"]
-resource_local_to_scene = true
-transparency = 1
-albedo_texture = ExtResource("3_xjwwb")
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_cqwuy"]
-resource_local_to_scene = true
-material = SubResource("StandardMaterial3D_vrk68")
-size = Vector2(5, 5)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_wb8ha"]
+height = 0.302978
+radius = 2.3399
 
 [node name="FinishTile" instance=ExtResource("1_ghghg")]
 script = ExtResource("2_tqr37")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+[node name="signpost" parent="." index="1" instance=ExtResource("4_d7wfk")]
+transform = Transform3D(0.157001, 0, -1.49176, 0, 1.5, 0, 1.49176, 0, 0.157001, 0.0762806, 2.99254, -0.0876441)
+
+[node name="platform" parent="." index="2" instance=ExtResource("4_uma30")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.23666, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16386, 0)
 collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.000499994, 0)
-shape = SubResource("BoxShape3D_8lkxf")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="2"]
-mesh = SubResource("PlaneMesh_cqwuy")
-
-[node name="signpost" parent="." index="3" instance=ExtResource("4_d7wfk")]
-transform = Transform3D(0.157001, 0, -1.49176, 0, 1.5, 0, 1.49176, 0, 0.157001, 0.0762806, 1.30309, -0.0876441)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0799565, 0.2307, 0)
+shape = SubResource("CylinderShape3D_wb8ha")

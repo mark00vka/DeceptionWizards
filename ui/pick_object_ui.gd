@@ -14,8 +14,8 @@ signal cursors_hidden
 signal player1_picked_tile(tile : PackedScene)
 signal player2_picked_tile(tile : PackedScene)
 
-var x_pull : Array[float] = [0.0, 0.15, 0.3, 0.4, 0.45, 0.6, 0.65, 0.75]
-var y_pull : Array[float] = [0.0, 0.1, 0.15, 0.3, 0.4, 0.45, 0.6, 0.75]
+var x_pull : Array[float] = []
+var y_pull : Array[float] = []
 
 var distance_from_cursor:float = 50
 
@@ -25,6 +25,15 @@ func show_ui():
 	panel.position.y = 900
 	animate_ui(38)
 	
+	x_pull.clear()
+	y_pull.clear()
+	for i in range(8):
+		x_pull.append(i*0.75/8)
+		y_pull.append(i*0.75/8)
+
+	place_items(x_pull, y_pull)
+	
+func place_items(x_p, y_p):
 	for i in range(randi() % 3 + 6):
 		var inst
 		var t = randf()
@@ -37,10 +46,10 @@ func show_ui():
 		object_holder.add_child(inst)
 		inst.show()
 		
-		var x = x_pull.pick_random()
-		x_pull.erase(x)
-		var y = y_pull.pick_random()
-		y_pull.erase(y)
+		var x = x_p.pick_random()
+		x_p.erase(x)
+		var y = y_p.pick_random()
+		y_p.erase(y)
 		inst.set_pos(x, y)
 
 func animate_ui(end_y_position: int):
