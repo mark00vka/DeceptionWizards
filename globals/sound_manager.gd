@@ -16,6 +16,8 @@ extends Node
 @onready var chase_2_player: AudioStreamPlayer = $Chase2Player
 @onready var chase_3_player: AudioStreamPlayer = $Chase3Player
 
+@onready var main_menu: AudioStreamPlayer = $MainMenu
+
 var instance : AudioStreamPlayer
 
 func play_sound(stream: AudioStream, volume: float):

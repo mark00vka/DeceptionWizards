@@ -63,3 +63,8 @@ process_material = SubResource("ParticleProcessMaterial_ntcni")
 draw_pass_1 = SubResource("SphereMesh_vfon7")
 
 [node name="bomb" parent="." index="5" instance=ExtResource("3_prbjw")]
+
+[node name="ExplodeTimer" type="Timer" parent="." index="6"]
+one_shot = true
+
+[connection signal="timeout" from="ExplodeTimer" to="." method="_on_explode_timer_timeout"]

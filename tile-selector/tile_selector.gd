@@ -28,8 +28,35 @@ func set_tile(t: PackedScene):
 	
 func _input(event: InputEvent) -> void:
 	if Global.is_building_phase():
-		if on_free_tile():
+		if tile is Bomb and not on_free_tile():
+			if (InputManager.place_real_blue(event) and player_blue) \
+			or (InputManager.place_real_red(event) and not player_blue) and active:
+				SoundManager.play_sound_string("select")
+				get_parent().place_obstacle(self, true)
 			
+			if (InputManager.place_fake_blue(event) and player_blue) \
+			or (InputManager.place_fake_red(event) and not player_blue) and active:
+				SoundManager.play_sound_string("select")
+				get_parent().place_obstacle(self, false)
+					
+			if (InputManager.tile_selected_blue(event) and player_blue)\
+				or (InputManager.tile_selected_red(event) and not player_blue) and active:
+				SoundManager.play_sound_string("select")
+				Global.finished_placement+=1
+				if Global.finished_placement == 6:
+					Global.set_chase_phase()
+				
+				if (player_blue and get_parent().player1_tiles.is_empty())\
+				or (not player_blue and get_parent().player2_tiles.is_empty()):
+					hide()
+					active = false
+			
+			if (InputManager.tile_rot_blue(event) and player_blue)\
+				or (InputManager.tile_rot_red(event) and not player_blue) and active:
+				SoundManager.play_sound_string("rotate")
+				rotate_obstacle()
+				
+		elif on_free_tile():
 			if (InputManager.place_real_blue(event) and player_blue) \
 			or (InputManager.place_real_red(event) and not player_blue) and active:
 				SoundManager.play_sound_string("select")
@@ -77,7 +104,7 @@ func move():
 	update_pos()
 	if not on_free_tile(): 
 		change_color(2)
-	elif cursor.mesh.surface_get_material(0) == WHITE:
+	elif cursor.mesh.surface_get_material(0) == WHITE or tile is Bomb:
 		change_color(int(not player_blue))
 
 func update_pos():

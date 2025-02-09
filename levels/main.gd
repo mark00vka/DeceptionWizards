@@ -50,7 +50,7 @@ func _ready() -> void:
 
 		
 func place_obstacle(tile_selector, real: bool):
-	if(selected_tile_free(tile_selector.pos, tile_selector.lvl)):
+	if(selected_tile_free(tile_selector.pos, tile_selector.lvl) or tile_selector.tile is Bomb):
 		SoundManager.play_sound_string("select")
 		var tile = tile_selector.tile
 		if tile_selector.player_blue:
@@ -110,15 +110,21 @@ func move_child_to_new_parent(child: Node, new_parent: Node):
 	print(child.global_position)
 
 func place_item(item : Tile, pos : Vector2i, level : int, real: bool = true, rot: int = 0):
-	if 
 	move_child_to_new_parent(item, $TileHolder)
 	item.global_position = tilemap_to_global(pos, level)
-	item.real = real
 	if rot != 0:
 		item.global_rotation.y = rot * PI / 2
-	
-	if item is FinishTile: item.end.connect(the_end)
-	grid[pos_lvl_to_vector3(pos, level)] = item
+		
+	if item is Bomb:
+		var expl_pos = pos_lvl_to_vector3(pos, level)
+		if grid.has(expl_pos):
+			grid[expl_pos].queue_free()
+			grid.erase(expl_pos)
+			item.explode()
+	else:
+		item.real = real
+		if item is FinishTile: item.end.connect(the_end)
+		grid[pos_lvl_to_vector3(pos, level)] = item
 		
 func place_obstacle_on_tilecursor():
 	if tile_selector_blue.active:

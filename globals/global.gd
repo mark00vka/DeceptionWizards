@@ -8,6 +8,7 @@ enum Phase {TILE_SELECT, BUILDING, CHASE}
 @onready var building_timer: Timer = $BuildingTimer
 @onready var chase_timer: Timer = $ChaseTimer
 var winner_player1 = true
+var drawing = false
 @onready var control: Control = $Control
 
 var phase : Phase:
@@ -22,9 +23,13 @@ var starting_screen: bool:
 	set(value):
 		starting_screen = value
 		$Control.visible = not starting_screen
+		if starting_screen:
+			SoundManager.main_menu.play()
+		else:
+			SoundManager.main_menu.stop()
 		
 		
-var level : int = 0
+var level : int = 3
 var finished_placement : int = 0
 
 

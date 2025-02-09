@@ -44,7 +44,7 @@ func show_ui():
 	cursor_p_2.show()
 	color_rect.modulate.a = 0
 	panel.position.y = 900
-	animate_ui(38)
+	animate_ui.call_deferred(38)
 	
 	x_pull.clear()
 	y_pull.clear()

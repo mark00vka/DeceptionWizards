@@ -4,6 +4,8 @@ extends Node3D
 
 func _ready() -> void:
 	Global.control.hide()
+	if Global.drawing:
+		winner.texture = preload("res://ui/titles/draw.png")
 	if not Global.winner_player1:
 		winner.texture = preload("res://ui/player2won.png")
 

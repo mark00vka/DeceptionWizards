@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://diarbwmvvt7ey"]
+[gd_scene load_steps=40 format=3 uid="uid://diarbwmvvt7ey"]
 
 [ext_resource type="Script" path="res://globals/sound_manager.gd" id="1_m7kc7"]
 [ext_resource type="AudioStream" uid="uid://ci2o6ammv6np0" path="res://audio/Music/Build_01.wav" id="2_74tus"]
@@ -31,6 +31,7 @@
 [ext_resource type="AudioStream" uid="uid://dsqud3qkxsfao" path="res://audio/Explosion/ExplosionAccent_05.wav" id="23_rdlhd"]
 [ext_resource type="AudioStream" uid="uid://b1dx3lfl0b5xx" path="res://audio/Explosion/ExplosionAccent_06.wav" id="24_sa6wb"]
 [ext_resource type="AudioStream" uid="uid://c0ow2hsrr6o34" path="res://audio/Explosion/ExplosionAccent_01.wav" id="25_j3rni"]
+[ext_resource type="AudioStream" uid="uid://do8rtpmgvn82x" path="res://audio/Music/MenuMusic.wav" id="32_6f1yh"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_254ds"]
 random_pitch = 1.1
@@ -109,3 +110,6 @@ stream = ExtResource("6_uf2gl")
 
 [node name="Chase3Player" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_v22k3")
+
+[node name="MainMenu" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("32_6f1yh")

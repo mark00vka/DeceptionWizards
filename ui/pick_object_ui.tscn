@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cpn2ympvqfo3q"]
+[gd_scene load_steps=26 format=3 uid="uid://cpn2ympvqfo3q"]
 
 [ext_resource type="Script" path="res://ui/pick_object_ui.gd" id="1_1l0jk"]
 [ext_resource type="Texture2D" uid="uid://nalopa1mbntn" path="res://tiles/ground_tile/light_ground.png" id="1_t1rhl"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://ui/object.gd" id="4_j0pxk"]
 [ext_resource type="Script" path="res://tiles/base_tile/tile_resource.gd" id="5_m0jn7"]
 [ext_resource type="PackedScene" uid="uid://cm8gyi4lp50xt" path="res://tiles/stairs/stairs.tscn" id="6_h6as3"]
+[ext_resource type="PackedScene" uid="uid://dg1fpbhyh5ur8" path="res://tiles/bomb/bomb.tscn" id="7_0p454"]
 [ext_resource type="Texture2D" uid="uid://b1t3fgybnilcg" path="res://ui/wall_icon.png" id="7_qtsts"]
 [ext_resource type="Texture2D" uid="uid://b53xisjj1ynj3" path="res://tiles/bomb/boom.png" id="7_v3tmm"]
 [ext_resource type="PackedScene" uid="uid://c7cne23micuh4" path="res://tiles/wall_tile/wall.tscn" id="8_l7qon"]
@@ -23,10 +24,15 @@
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sp7fk"]
 texture = ExtResource("1_t1rhl")
 
-[sub_resource type="Resource" id="Resource_uhw60"]
+[sub_resource type="Resource" id="Resource_c0ivy"]
 script = ExtResource("5_m0jn7")
 tile = ExtResource("6_h6as3")
 sprite = ExtResource("3_s8hha")
+
+[sub_resource type="Resource" id="Resource_uhw60"]
+script = ExtResource("5_m0jn7")
+tile = ExtResource("7_0p454")
+sprite = ExtResource("7_v3tmm")
 
 [sub_resource type="Resource" id="Resource_qxiql"]
 script = ExtResource("5_m0jn7")
@@ -90,7 +96,7 @@ pivot_offset = Vector2(50, 50)
 texture = ExtResource("3_s8hha")
 expand_mode = 1
 script = ExtResource("4_j0pxk")
-tile = SubResource("Resource_uhw60")
+tile = SubResource("Resource_c0ivy")
 
 [node name="Bomb" type="TextureRect" parent="Panel/ObjectHolder"]
 visible = false
