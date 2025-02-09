@@ -24,3 +24,5 @@ stream = ExtResource("5_87d3h")
 
 [node name="Transition" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_llrrm")
+
+[connection signal="finished" from="Build1Player" to="." method="_on_build_1_player_finished"]

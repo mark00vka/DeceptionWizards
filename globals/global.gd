@@ -52,12 +52,12 @@ func set_chase_phase():
 
 
 func _on_tile_select_timer_timeout() -> void:
-	pass # Replace with function body.
+	set_building_phase()
 
 
 func _on_building_timer_timeout() -> void:
-	pass # Replace with function body.
+	set_chase_phase()
 
 
 func _on_chase_timer_timeout() -> void:
-	pass # Replace with function body.
+	set_tile_select_phase()

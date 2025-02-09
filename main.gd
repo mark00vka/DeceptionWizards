@@ -97,12 +97,15 @@ func phase_changed():
 	if Global.is_tile_select_phase():
 		pick_object_ui.show_ui()
 		$MainCamera.building()
+		
 	if Global.is_building_phase():
 		$MainCamera.building()
 		tile_selector_blue.active = true
 		tile_selector_blue.global_position = tilemap_to_global(Vector2i(0,0))
 		tile_selector_red.active = true
 		tile_selector_red.global_position = tilemap_to_global(Vector2i(0,0))
+		pick_object_ui.hide()
+		
 	if Global.is_chase_phase():
 		$MainCamera.chase()
 		tile_selector_blue.active = false

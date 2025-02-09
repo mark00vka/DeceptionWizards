@@ -74,5 +74,4 @@ func select_item(player1: bool):
 func _on_cursors_hidden() -> void:
 	animate_ui(900)
 	await get_tree().create_timer(1).timeout
-	hide()
 	Global.set_building_phase()

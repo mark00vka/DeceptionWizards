@@ -13,8 +13,7 @@ func change_phase():
 	if Global.is_tile_select_phase():
 		match Global.level:
 			1:
-				pass
-				#build_1_player.play()
+				build_1_player.play()
 			2:
 				transition.play()
 				await transition.finished
@@ -25,7 +24,6 @@ func change_phase():
 	elif Global.is_chase_phase():
 		match Global.level:
 			1:
-				stop_player.play()
 				await stop_player.finished
 				chase_1_player.play()
 			2:
@@ -34,3 +32,7 @@ func change_phase():
 				build_2_player.play()
 			3:
 				pass
+
+
+func _on_build_1_player_finished() -> void:
+	stop_player.play()
