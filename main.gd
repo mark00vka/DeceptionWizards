@@ -11,11 +11,12 @@ const TILE_SELECTOR = preload("res://tile-selector/tile_selector.tscn")
 @export var tile_height : float = 2.5
 
 var grid : Dictionary = {}
-var tile_selector = TILE_SELECTOR.instantiate()
+var tile_selector
 
 @onready var pick_object_ui: Control = $PickObjectUI
 
 func _ready() -> void:
+	tile_selector = TILE_SELECTOR.instantiate()
 	add_child(tile_selector, true)
 	tile_selector.active = false
 	generate_grid()
