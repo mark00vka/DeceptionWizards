@@ -30,6 +30,7 @@ var grid : Dictionary = {}
 signal changed_player
 
 func _ready() -> void:
+	grid = {}
 	generate_grid()
 	$Player.global_position = tilemap_to_global(Vector2i(map_size.x-1, map_size.z-1))
 	$Player2.global_position = tilemap_to_global(Vector2i(map_size.x-1, map_size.z-1)) + Vector3(1, 0, 0)
@@ -68,7 +69,6 @@ func tile_selector_input(event, tile_selector):
 		
 		if not tile_selector.active: 
 			Global.finished_placement+=1
-			print(Global.finished_placement)
 			if Global.finished_placement == 2:
 				Global.set_chase_phase()
 			tile_selector.hide()
@@ -81,14 +81,14 @@ func tile_selector_input(event, tile_selector):
 			
 		
 func place_obstacle(tile_selector, real: bool):
-	if(selected_tile_free(grid, tile_selector.pos, tile_selector.lvl)):
+	if(selected_tile_free(tile_selector.pos, tile_selector.lvl)):
 		if tile_selector.player_blue:
 			place_item(player1_tile, tile_selector.pos, tile_selector.lvl, real)
 		else:
 			place_item(player2_tile, tile_selector.pos, tile_selector.lvl, real)
 		
 func rotate_placed_obstacle(tile_selector):
-	grid[pos_lvl_to_vector3i(tile_selector.pos, tile_selector.lvl)].global_rotation.y += PI/2
+	grid[pos_lvl_to_vector3(tile_selector.pos, tile_selector.lvl)].global_rotation.y += PI/2
 
 func generate_grid():
 	for i in range(-1, map_size.x+1):
@@ -128,7 +128,7 @@ func place_item(item : PackedScene, pos : Vector2i, level : int, real: bool = tr
 	inst.global_position = tilemap_to_global(pos, level)
 	inst.global_rotation.y = rot * PI / 2
 	inst.real = real
-	grid[pos_lvl_to_vector3i(pos, level)] = inst
+	grid[pos_lvl_to_vector3(pos, level)] = inst
 		
 func place_obstacle_on_tilecursor():
 	if tile_selector_blue.active:
@@ -166,15 +166,15 @@ func tilemap_to_global(pos: Vector2i, level : int = 0):
 	return Vector3(pos.x, 0, pos.y) * tile_size + Vector3.UP * level * tile_height
 	
 func global_to_tilemap(pos: Vector3):
-	var pos1 = pos - Vector3.UP * tile_height
+	var pos1 = pos - Vector3.UP * pos.y * tile_height
 	pos1 /= tile_size
-	return Vector2i(pos1.x, pos1.z)
+	return Vector3i(pos1.x, pos1.y, pos1.z)
 
-func selected_tile_free(grid: Dictionary, tile_pos: Vector2i, tile_lvl: int) -> bool:
-	return !grid.has(pos_lvl_to_vector3i(tile_pos, tile_lvl))
+func selected_tile_free(tile_pos: Vector2i, tile_lvl: int) -> bool:
+	return not grid.has(pos_lvl_to_vector3(tile_pos, tile_lvl))
 
-func pos_lvl_to_vector3i(pos: Vector2i, lvl: int) -> Vector3i:
-	return Vector3i(pos.x, lvl, pos.y)
+func pos_lvl_to_vector3(pos: Vector2i, lvl: int) -> Vector3i:
+	return Vector3(pos.x, lvl, pos.y)
 	
 func _on_pick_object_ui_player_1_picked_tile(tile: PackedScene) -> void:
 	player1_tile = tile

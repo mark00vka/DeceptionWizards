@@ -51,4 +51,4 @@ func update_pos():
 	lvl = clamp(lvl, 0, get_parent().map_size.z-1)
 
 func on_free_tile():
-	return get_parent().selected_tile_free(get_parent().grid, pos, lvl)
+	return get_parent().selected_tile_free(pos, lvl)
