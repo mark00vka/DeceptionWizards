@@ -194,7 +194,7 @@ func show_build_now_banner():
 	
 func show_chase_now_banner():
 	show()
-	print("TU")
+	print("TU sam")
 	color_rect.hide()
 	panel.hide()
 	sprite_blue.hide()
