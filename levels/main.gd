@@ -26,8 +26,12 @@ var player2_tiles: Array[PackedScene]
 var grid : Dictionary = {}
 
 @onready var pick_object_ui: Control = $PickObjectUI
+@onready var banner_ui: Control = $BannerUI
 @onready var tile_selector_blue: Node3D = $TileSelectorBlue
 @onready var tile_selector_red: Node3D = $TileSelectorRed
+
+signal changed_player
+signal change_winner
 
 func _ready() -> void:
 	grid = {}
@@ -144,7 +148,7 @@ func phase_changed():
 		tile_selector_red.global_position = tilemap_to_global(Vector2i(0,0))
 		tile_selector_blue.set_tile(player1_tiles[0])
 		tile_selector_red.set_tile(player2_tiles[0])
-		pick_object_ui.hide()
+		pick_object_ui.show_build_now_banner()
 		
 	if Global.is_chase_phase():
 		%MainCamera.chase()
@@ -152,6 +156,7 @@ func phase_changed():
 		tile_selector_blue.visible = false
 		tile_selector_red.active = false
 		tile_selector_red.visible = false
+		pick_object_ui.show_chase_now_banner()
 	
 func tilemap_to_global(pos: Vector2i, level : int = 0):
 	return Vector3(pos.x, 0, pos.y) * tile_size + Vector3.UP * level * tile_height
@@ -176,4 +181,6 @@ func _on_pick_object_ui_player_2_picked_tile(tile: PackedScene) -> void:
 func the_end(body: Node3D):
 	Global.chase_timer.stop()
 	await get_tree().create_timer(1).timeout
-	get_tree().change_scene_to_file("res://levels/end_screen.tscn")
+	if body is Player:
+		Global.winner_player1 = body.player_blue
+		get_tree().change_scene_to_file("res://levels/end_screen.tscn")

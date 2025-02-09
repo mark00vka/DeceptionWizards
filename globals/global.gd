@@ -7,7 +7,7 @@ enum Phase {TILE_SELECT, BUILDING, CHASE}
 @onready var tile_select_timer: Timer = $TileSelectTimer
 @onready var building_timer: Timer = $BuildingTimer
 @onready var chase_timer: Timer = $ChaseTimer
-
+var winner_player1 = true
 @onready var control: Control = $Control
 
 var phase : Phase:

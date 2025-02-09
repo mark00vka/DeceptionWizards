@@ -10,6 +10,10 @@ extends Control
 @onready var sprite_blue: Sprite2D = $SpriteBlue
 @onready var sprite_red: Sprite2D = $SpriteRed
 
+@onready var color_rect_2: ColorRect = $ColorRect2
+@onready var sprite_build: Sprite2D = $SpriteBuild
+@onready var sprite_chase: Sprite2D = $SpriteChase
+
 @onready var cursor_p_1: Cursor = $Panel/ObjectHolder/CursorP1
 @onready var cursor_p_2: Cursor = $Panel/ObjectHolder/CursorP2
 
@@ -144,7 +148,6 @@ func player2_pick_tile(child):
 func cursors_hidden() -> void:
 	sprite_blue.hide()
 	sprite_red.hide()
-	await get_tree().create_timer(1).timeout
 	animate_ui(900)
 	if not Global.is_building_phase():
 		Global.set_building_phase()
@@ -173,3 +176,39 @@ func select_random_tiles():
 		rand_tile  = get_rand_tile()
 		player2_pick_tile(rand_tile)
 		await get_tree().create_timer(0.2).timeout
+		
+func show_build_now_banner():
+	color_rect.hide()
+	panel.hide()
+	sprite_blue.hide()
+	sprite_red.hide()
+	color_rect_2.show()
+	sprite_build.show()
+	var tween = get_tree().create_tween()
+	tween.tween_property(sprite_build, "scale", Vector2(1.5, 1.5), 0.2).set_trans(Tween.TRANS_LINEAR)
+	tween.tween_property(sprite_build, "scale", Vector2(1, 1), 0.2).set_trans(Tween.TRANS_LINEAR)
+	await get_tree().create_timer(1.5).timeout
+	color_rect_2.hide()
+	sprite_build.hide()
+	hide()
+	
+func show_chase_now_banner():
+	show()
+	print("TU")
+	color_rect.hide()
+	panel.hide()
+	sprite_blue.hide()
+	sprite_red.hide()
+	color_rect_2.show()
+	sprite_chase.show()
+	var tween = get_tree().create_tween()
+	tween.tween_property(sprite_chase, "scale", Vector2(1.5, 1.5), 0.2).set_trans(Tween.TRANS_LINEAR)
+	tween.tween_property(sprite_chase, "scale", Vector2(1, 1), 0.2).set_trans(Tween.TRANS_LINEAR)
+	await get_tree().create_timer(1.5).timeout
+	color_rect_2.hide()
+	sprite_chase.hide()
+	color_rect.show()
+	panel.show()
+	sprite_blue.show()
+	sprite_red.show()
+	hide()

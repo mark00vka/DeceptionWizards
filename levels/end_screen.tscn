@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bly2ixmr755gj"]
+[gd_scene load_steps=19 format=3 uid="uid://bly2ixmr755gj"]
 
 [ext_resource type="Script" path="res://levels/end_screen.gd" id="1_c8g6x"]
 [ext_resource type="PackedScene" uid="uid://efhli5mx1ocb" path="res://player/player.tscn" id="1_tq5pt"]
@@ -8,8 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://b6g4slnf3sti0" path="res://models/islands/smallisland.fbx" id="5_naxnl"]
 [ext_resource type="Script" path="res://levels/camera_rotation_point.gd" id="6_jlgil"]
 [ext_resource type="Texture2D" uid="uid://bchg422kply44" path="res://ui/start_menu/deceptionwizards.png" id="7_bny0j"]
-[ext_resource type="Texture2D" uid="uid://bdnd1ksavg43" path="res://ui/start_menu/start.png" id="8_qf2ku"]
-[ext_resource type="Texture2D" uid="uid://bjwe0wet2jt4j" path="res://ui/start_menu/starthighlighted.png" id="9_xtwk5"]
+[ext_resource type="Texture2D" uid="uid://dslpkla24p5ix" path="res://ui/player1won.png" id="9_pj7wu"]
 [ext_resource type="Texture2D" uid="uid://c2syw6go0aqcl" path="res://ui/start_menu/quit.png" id="10_4psgp"]
 [ext_resource type="Texture2D" uid="uid://dvs3e5op0xp7p" path="res://ui/start_menu/quithighighlighted.png" id="11_vkbdr"]
 [ext_resource type="Shader" path="res://shaders/dither_screen.gdshader" id="12_cqiky"]
@@ -125,22 +124,10 @@ scale = Vector2(0.6, 0.6)
 pivot_offset = Vector2(512, 308)
 texture = ExtResource("7_bny0j")
 
-[node name="Winner" type="TextureButton" parent="."]
-anchors_preset = -1
-anchor_left = 0.591
-anchor_top = 0.806
-anchor_right = 0.591
-anchor_bottom = 0.806
-offset_left = -503.0
-offset_top = -368.92
-offset_right = 521.0
-offset_bottom = 346.08
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Winner" type="Sprite2D" parent="."]
+position = Vector2(644, 422)
 scale = Vector2(0.6, 0.6)
-pivot_offset = Vector2(512, 308)
-texture_normal = ExtResource("8_qf2ku")
-texture_hover = ExtResource("9_xtwk5")
+texture = ExtResource("9_pj7wu")
 
 [node name="Quit" type="TextureButton" parent="."]
 anchors_preset = -1
