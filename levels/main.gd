@@ -110,8 +110,8 @@ func move_child_to_new_parent(child: Node, new_parent: Node):
 	print(child.global_position)
 
 func place_item(item : Tile, pos : Vector2i, level : int, real: bool = true, rot: int = 0):
+	if 
 	move_child_to_new_parent(item, $TileHolder)
-	
 	item.global_position = tilemap_to_global(pos, level)
 	item.real = real
 	if rot != 0:
