@@ -17,11 +17,11 @@ const GRAVITY = 17
 func _ready() -> void:
 	var material = StandardMaterial3D.new()
 	if player_blue:
-		$wizardNPC/pCone1.set_surface_override_material(0, CLOTHES_BLUE)
-		$wizardNPC/pCone2.set_surface_override_material(0, HAT_BLUE)
+		$RotationPoint/wizardNPC/pCone1.set_surface_override_material(0, CLOTHES_BLUE)
+		$RotationPoint/wizardNPC/pCone2.set_surface_override_material(0, HAT_BLUE)
 	else:
-		$wizardNPC/pCone1.set_surface_override_material(0, CLOTHES_RED)
-		$wizardNPC/pCone2.set_surface_override_material(0, HAT_RED)
+		$RotationPoint/wizardNPC/pCone1.set_surface_override_material(0, CLOTHES_RED)
+		$RotationPoint/wizardNPC/pCone2.set_surface_override_material(0, HAT_RED)
 
 func _physics_process(delta: float) -> void:
 	if Global.is_building_phase() or Global.is_tile_select_phase():
@@ -45,7 +45,7 @@ func _physics_process(delta: float) -> void:
 			velocity.x = direction.x * SPEED
 			velocity.z = direction.z * SPEED
 		input_dir.x = -input_dir.x
-		$wizardNPC.rotation.y = lerp_angle($wizardNPC.rotation.y, input_dir.angle(), delta * LERP_SPEED * 5)
+		$RotationPoint.rotation.y = lerp_angle($RotationPoint.rotation.y, input_dir.angle(), delta * LERP_SPEED * 5)
 	else:
 		velocity.x = move_toward(velocity.x, 0, LERP_SPEED)
 		velocity.z = move_toward(velocity.z, 0, LERP_SPEED)
