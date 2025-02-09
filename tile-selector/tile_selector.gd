@@ -33,22 +33,25 @@ func move():
 
 func update_pos():
 	var input
+	var lvl_input
+	
 	if player_blue:
 		input = InputManager.get_player1_input()
-		lvl += int(Input.is_action_just_pressed(InputManager.p1_controls.up)) - int(Input.is_action_just_pressed(InputManager.p1_controls.down))
+		lvl_input = int(Input.is_action_just_pressed(InputManager.p1_controls.up)) - int(Input.is_action_just_pressed(InputManager.p1_controls.down))
 	else:
 		input = InputManager.get_player2_input()
-		lvl += int(Input.is_action_just_pressed(InputManager.p2_controls.up)) - int(Input.is_action_just_pressed(InputManager.p2_controls.down))
+		lvl_input = int(Input.is_action_just_pressed(InputManager.p2_controls.up)) - int(Input.is_action_just_pressed(InputManager.p2_controls.down))
 		
-	if input:
+	if input or lvl_input:
 		pos += input
+		lvl += lvl_input		
+		lvl = clamp(lvl, 0, get_parent().map_size.z-1)
 		pos.x = clamp(pos.x, 0, get_parent().map_size.x-1)
 		pos.y = clamp(pos.y, 0, get_parent().map_size.y-1)
 		
 		var tween = get_tree().create_tween()
 		tween.tween_property(self, "global_position", get_parent().tilemap_to_global(pos, lvl), 0.1).set_trans(Tween.TRANS_CUBIC)
-		
-	lvl = clamp(lvl, 0, get_parent().map_size.z-1)
+
 
 func on_free_tile():
 	return get_parent().selected_tile_free(get_parent().grid, pos, lvl)

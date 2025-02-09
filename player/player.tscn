@@ -3,13 +3,13 @@
 [ext_resource type="Script" path="res://player/player.gd" id="1_uxt2i"]
 [ext_resource type="PackedScene" uid="uid://xb0lsx5qjmvq" path="res://player/wizardNPC.fbx" id="2_cn88o"]
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wxlbw"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bb140"]
 resource_local_to_scene = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ut7ke"]
 resource_local_to_scene = true
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wxlbw"]
 
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(1.06066, 0, 1.06066, 0, 1.5, 0, -1.06066, 0, 1.06066, 0, 0, 0)
@@ -18,17 +18,19 @@ collision_mask = 7
 motion_mode = 1
 script = ExtResource("1_uxt2i")
 
-[node name="wizardNPC" parent="." instance=ExtResource("2_cn88o")]
-transform = Transform3D(0.34, 0, 0, 0, 0.34, 0, 0, 0, 0.34, -0.628262, 0, 0.158949)
-
-[node name="pCone1" parent="wizardNPC" index="0"]
-surface_material_override/0 = SubResource("StandardMaterial3D_bb140")
-
-[node name="pCone2" parent="wizardNPC" index="1"]
-surface_material_override/0 = SubResource("StandardMaterial3D_ut7ke")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_wxlbw")
 
-[editable path="wizardNPC"]
+[node name="RotationPoint" type="Node3D" parent="."]
+
+[node name="wizardNPC" parent="RotationPoint" instance=ExtResource("2_cn88o")]
+transform = Transform3D(0.34, 0, 0, 0, 0.34, 0, 0, 0, 0.34, -0.628262, 0, 0.158949)
+
+[node name="pCone1" parent="RotationPoint/wizardNPC" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_bb140")
+
+[node name="pCone2" parent="RotationPoint/wizardNPC" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_ut7ke")
+
+[editable path="RotationPoint/wizardNPC"]

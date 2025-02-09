@@ -44,7 +44,7 @@ shader_parameter/use_palette = null
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_b5th3")
-map_size = Vector3i(6, 6, 6)
+map_size = Vector3i(6, 6, 4)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_3p8xg")
