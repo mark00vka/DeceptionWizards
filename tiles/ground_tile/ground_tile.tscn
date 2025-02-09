@@ -1,7 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://bl4ojbvq6ubvb"]
+[gd_scene load_steps=14 format=3 uid="uid://bl4ojbvq6ubvb"]
 
 [ext_resource type="PackedScene" uid="uid://cpckp83tgoy88" path="res://tiles/base_tile/base_tile.tscn" id="1_vrcwq"]
+[ext_resource type="Script" path="res://tiles/ground_tile/ground_tile.gd" id="2_3qpmy"]
+[ext_resource type="PackedScene" uid="uid://cgnmksfakq5xw" path="res://models/bush/bush.fbx" id="2_7ylkd"]
 [ext_resource type="Texture2D" uid="uid://nalopa1mbntn" path="res://tiles/ground_tile/light_ground.png" id="2_l7deo"]
+[ext_resource type="PackedScene" uid="uid://bwj73yy6u0dan" path="res://models/flag/flag.fbx" id="3_80tlt"]
+[ext_resource type="PackedScene" uid="uid://b0tn5vpayxgvx" path="res://models/road_thingy/roadthingy.fbx" id="4_52moo"]
+[ext_resource type="PackedScene" uid="uid://di7psrva7a4lx" path="res://models/television/television.fbx" id="6_kscef"]
+[ext_resource type="PackedScene" uid="uid://b0ag51ukde6sq" path="res://models/trashcan/trashcanFINAL.fbx" id="7_ytvt6"]
+[ext_resource type="PackedScene" uid="uid://bfptuj5m5b6y8" path="res://models/tree/tree.fbx" id="8_o8r3x"]
+[ext_resource type="PackedScene" uid="uid://cbgibxca4an3" path="res://models/book/book.fbx" id="9_dvgye"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ptod6"]
 size = Vector3(5, 0.0800781, 5)
@@ -17,13 +25,42 @@ material = SubResource("StandardMaterial3D_62k4w")
 size = Vector2(5, 5)
 
 [node name="GroundTile" instance=ExtResource("1_vrcwq")]
+script = ExtResource("2_3qpmy")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+[node name="bush" parent="." index="0" instance=ExtResource("2_7ylkd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+visible = false
+
+[node name="flag" parent="." index="1" instance=ExtResource("3_80tlt")]
+transform = Transform3D(90, 0, 0, 0, 90, 0, 0, 0, 90, -2.06729, 0, 0)
+visible = false
+
+[node name="roadthingy" parent="." index="2" instance=ExtResource("4_52moo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 1.144, -1)
+visible = false
+
+[node name="television" parent="." index="3" instance=ExtResource("6_kscef")]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0.5, 0)
+visible = false
+
+[node name="trashcanFINAL" parent="." index="4" instance=ExtResource("7_ytvt6")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2, 0.5, 0)
+visible = false
+
+[node name="tree" parent="." index="5" instance=ExtResource("8_o8r3x")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+visible = false
+
+[node name="book" parent="." index="6" instance=ExtResource("9_dvgye")]
+transform = Transform3D(200, 0, 0, 0, 141.421, -141.421, 0, 141.421, 141.421, 0, 1, 0)
+visible = false
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="8"]
 collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0400391, 0)
 shape = SubResource("BoxShape3D_ptod6")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="2"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="9"]
 mesh = SubResource("PlaneMesh_paqri")

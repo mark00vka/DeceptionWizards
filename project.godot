@@ -16,9 +16,9 @@ config/features=PackedStringArray("4.3", "Forward Plus")
 
 [autoload]
 
-MusicManager="*res://globals/music_manager.tscn"
-InputManager="*res://globals/input_manager.gd"
 Global="*res://globals/global.tscn"
+InputManager="*res://globals/input_manager.gd"
+MusicManager="*res://globals/music_manager.tscn"
 
 [display]
 

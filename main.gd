@@ -29,7 +29,6 @@ signal changed_player
 
 func _ready() -> void:
 	generate_grid()
-	place_item(STAIRS, Vector2i(0, 1),  0, 1)
 	place_item(FINISH_TILE, Vector2i(0, 0),  1, 0)
 	Global.change_phase.connect(phase_changed)
 	Global.set_tile_select_phase()
@@ -106,6 +105,13 @@ func generate_tile(x: int, y: int):
 	var ground_tile =  GROUND_TILE.instantiate()
 	add_child(ground_tile, true)		
 	ground_tile.global_position = tilemap_to_global(Vector2i(x, y))
+	
+	if ((x == 0 and y == 0) or (x == map_size.x-1 and y == map_size.y - 1)) and ground_tile.get_children().size() > 3:
+		ground_tile.get_children()[0].queue_free()
+		
+	if ground_tile.has_obstacle:
+		grid[Vector3i(x, 0, y)] = ground_tile
+		
 	if (x + y) % 2 == 0:
 		ground_tile.get_node("MeshInstance3D").mesh.material.albedo_texture = preload("res://tiles/ground_tile/dark_ground.png")
 	
@@ -121,6 +127,7 @@ func place_item(item : PackedScene, pos : Vector2i, level : int, real: bool = tr
 	inst.global_rotation.y = rot * PI / 2
 	inst.real = real
 	grid[pos_lvl_to_vector3i(pos, level)] = inst
+		
 
 func phase_changed():
 	if Global.is_tile_select_phase():

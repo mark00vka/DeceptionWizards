@@ -54,6 +54,22 @@ _subresources={
 },
 "PATH:Light_001": {
 "import/skip_import": true
+},
+"PATH:group/pasted__pCube3": {
+"generate/physics": true,
+"physics/mask": 2
+},
+"PATH:pCube1": {
+"generate/physics": true,
+"physics/mask": 2
+},
+"PATH:pCube2": {
+"generate/physics": true,
+"physics/mask": 2
+},
+"PATH:pCube3": {
+"generate/physics": true,
+"physics/mask": 2
 }
 }
 }

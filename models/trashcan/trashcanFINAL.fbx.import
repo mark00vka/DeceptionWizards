@@ -44,6 +44,13 @@ _subresources={
 },
 "PATH:Light_001": {
 "import/skip_import": true
+},
+"PATH:pCube1": {
+"physics/mask": 2
+},
+"PATH:pCube2": {
+"generate/physics": true,
+"physics/mask": 2
 }
 }
 }

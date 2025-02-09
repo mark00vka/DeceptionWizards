@@ -38,6 +38,26 @@ _subresources={
 },
 "PATH:Light": {
 "import/skip_import": true
+},
+"PATH:group/pasted__pPlatonic3": {
+"physics/mask": 3
+},
+"PATH:pCube1": {
+"generate/physics": true,
+"physics/mask": 2
+},
+"PATH:pPlatonic1": {
+"generate/physics": true,
+"physics/mask": 2
+},
+"PATH:pPlatonic2": {
+"physics/mask": 2
+},
+"PATH:pPlatonic3": {
+"physics/mask": 2
+},
+"PATH:pPlatonic4": {
+"physics/mask": 2
 }
 }
 }
