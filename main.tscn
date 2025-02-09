@@ -1,23 +1,26 @@
-[gd_scene load_steps=11 format=3 uid="uid://cm6byh8geuxup"]
+[gd_scene load_steps=13 format=3 uid="uid://cm6byh8geuxup"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_b5th3"]
 [ext_resource type="PackedScene" uid="uid://efhli5mx1ocb" path="res://player/player.tscn" id="1_gx7nr"]
-[ext_resource type="Resource" uid="uid://deu0peg282uw6" path="res://player/p1_controls.tres" id="3_mi2kk"]
+[ext_resource type="Texture2D" uid="uid://bcag2h0uf1f5o" path="res://sky.hdr" id="2_exf2y"]
+[ext_resource type="Resource" uid="uid://dutd1sptby8aw" path="res://player/p1_controls.tres" id="3_mi2kk"]
 [ext_resource type="Script" path="res://camera_3d.gd" id="4_2ybbk"]
 [ext_resource type="Resource" uid="uid://c1bs0xj1k2bgb" path="res://player/p2_controls.tres" id="4_3ab4h"]
 [ext_resource type="PackedScene" uid="uid://hni7dct4exvb" path="res://models/board/boardnoplane.fbx" id="5_w4thp"]
 [ext_resource type="PackedScene" uid="uid://cpn2ympvqfo3q" path="res://ui/pick_object_ui.tscn" id="7_4x0s1"]
+[ext_resource type="PackedScene" uid="uid://d0rh4dbxufpbq" path="res://tile-selector/tile_selector.tscn" id="9_htbmn"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vo3no"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_dagti"]
+panorama = ExtResource("2_exf2y")
 
 [sub_resource type="Sky" id="Sky_1bi71"]
-sky_material = SubResource("ProceduralSkyMaterial_vo3no")
+sky_material = SubResource("PanoramaSkyMaterial_dagti")
 
 [sub_resource type="Environment" id="Environment_3p8xg"]
 background_mode = 2
+background_energy_multiplier = 0.5
 sky = SubResource("Sky_1bi71")
+sky_custom_fov = 117.6
 tonemap_mode = 2
 glow_enabled = true
 
@@ -58,6 +61,11 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.7351
 
 [node name="PickObjectUI" parent="." instance=ExtResource("7_4x0s1")]
 visible = false
+
+[node name="TileSelectorBlue" parent="." instance=ExtResource("9_htbmn")]
+
+[node name="TileSelectorRed" parent="." instance=ExtResource("9_htbmn")]
+player_blue = false
 
 [node name="Timer" type="Timer" parent="."]
 

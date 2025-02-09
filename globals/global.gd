@@ -10,7 +10,6 @@ var phase : Phase:
 		change_phase.emit()
 		
 var level : int = 1
-var building_phase: bool = false
 var finished_placement : int = 0
 
 func _ready() -> void:

@@ -15,7 +15,7 @@ func _ready() -> void:
 	$MeshInstance3D.mesh.material = material
 
 func _physics_process(delta: float) -> void:
-	if Global.is_building_phase():
+	if Global.is_building_phase() or Global.is_tile_select_phase():
 		return
 
 	# Add the gravity.

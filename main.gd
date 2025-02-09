@@ -89,6 +89,7 @@ func place_item(item : PackedScene, pos : Vector2i, level : int, real: bool = tr
 
 func phase_changed():
 	if Global.is_tile_select_phase():
+		pick_object_ui.show_ui()
 		$MainCamera.building()
 	if Global.is_building_phase():
 		$MainCamera.building()
