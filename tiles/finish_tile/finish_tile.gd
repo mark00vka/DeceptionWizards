@@ -1,3 +1,4 @@
+class_name FinishTile
 extends Tile
 
 signal end(body)

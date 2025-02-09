@@ -6,3 +6,9 @@ func _ready() -> void:
 	Global.control.hide()
 	if not Global.winner_player1:
 		winner.texture = preload("res://ui/player2won.png")
+
+
+func _on_replay_pressed() -> void:
+	SoundManager.play_sound_string("click")
+	Global.starting_screen = false
+	get_tree().change_scene_to_file("res://levels/main.tscn")

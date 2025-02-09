@@ -117,7 +117,7 @@ func place_item(item : Tile, pos : Vector2i, level : int, real: bool = true, rot
 	if rot != 0:
 		item.global_rotation.y = rot * PI / 2
 	
-	if(item == FINISH_TILE): item.end.connect(the_end)
+	if item is FinishTile: item.end.connect(the_end)
 	grid[pos_lvl_to_vector3(pos, level)] = item
 		
 func place_obstacle_on_tilecursor():
