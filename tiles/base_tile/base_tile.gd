@@ -5,13 +5,12 @@ var real = true
 
 func player_entered(body: Node3D) -> void:
 	if not real:
-		get_parent().grid.erase(get_parent().global_to_tilemap(global_position))
+		get_parent().get_parent().grid.erase(get_parent().get_parent().global_to_tilemap(global_position))
 		hide_all()
-		SoundManager.play_sound_string("explosion_debris")
 		if randf() < 0.9:
 			$ExplSmoke.restart()
 			$ExplosionParticles.restart()
-			SoundManager.play_sound_string("explosion_main")
+			SoundManager.play_sound_string("explosion")
 			if body is Player:
 				var direction: Vector3 = body.global_position - global_position + Vector3.UP * 0.5
 				direction = direction.normalized()

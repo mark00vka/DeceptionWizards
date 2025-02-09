@@ -6,6 +6,7 @@ extends Node
 @export var tile_rotate: AudioStream
 @export var explosion_debris: AudioStream
 @export var explosion_main: AudioStream
+@export var explosion_accent: AudioStream
 
 @onready var build_1_player: AudioStreamPlayer = $Build1Player
 @onready var build_2_player: AudioStreamPlayer = $Build2Player
@@ -39,10 +40,10 @@ func play_sound_string(sound: String):
 			play_sound(tile_select, 5)
 		"rotate":
 			play_sound(tile_rotate, 7)
-		"explosion_main":
-			play_sound(explosion_main, 5)
-		"explosion_debris":
-			play_sound(explosion_debris, 5)
+		"explosion":
+			play_sound(explosion_main, 15)
+			play_sound(explosion_debris, 15)
+			play_sound(explosion_accent, 15)
 	
 
 func _ready() -> void:

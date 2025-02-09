@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://diarbwmvvt7ey"]
+[gd_scene load_steps=39 format=3 uid="uid://diarbwmvvt7ey"]
 
 [ext_resource type="Script" path="res://globals/sound_manager.gd" id="1_m7kc7"]
 [ext_resource type="AudioStream" uid="uid://ci2o6ammv6np0" path="res://audio/Music/Build_01.wav" id="2_74tus"]
@@ -25,6 +25,12 @@
 [ext_resource type="AudioStream" uid="uid://b6wcku2eqyc3m" path="res://audio/Explosion/ExplosionMain_02.wav" id="17_bp8nf"]
 [ext_resource type="AudioStream" uid="uid://bjpfrgm1wd120" path="res://audio/Explosion/ExplosionMain_03.wav" id="18_cm5cp"]
 [ext_resource type="AudioStream" uid="uid://dmyp1bt2g811l" path="res://audio/Explosion/ExplosionMain_04.wav" id="19_y0yki"]
+[ext_resource type="AudioStream" uid="uid://c70bbw1pcyfa7" path="res://audio/Explosion/ExplosionAccent_02.wav" id="20_prp6q"]
+[ext_resource type="AudioStream" uid="uid://c5s570j0flj3w" path="res://audio/Explosion/ExplosionAccent_03.wav" id="21_0nfmd"]
+[ext_resource type="AudioStream" uid="uid://coognklgm1ioi" path="res://audio/Explosion/ExplosionAccent_04.wav" id="22_30tuh"]
+[ext_resource type="AudioStream" uid="uid://dsqud3qkxsfao" path="res://audio/Explosion/ExplosionAccent_05.wav" id="23_rdlhd"]
+[ext_resource type="AudioStream" uid="uid://b1dx3lfl0b5xx" path="res://audio/Explosion/ExplosionAccent_06.wav" id="24_sa6wb"]
+[ext_resource type="AudioStream" uid="uid://c0ow2hsrr6o34" path="res://audio/Explosion/ExplosionAccent_01.wav" id="25_j3rni"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_254ds"]
 random_pitch = 1.1
@@ -67,6 +73,15 @@ stream_1/stream = ExtResource("17_bp8nf")
 stream_2/stream = ExtResource("18_cm5cp")
 stream_3/stream = ExtResource("19_y0yki")
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mxpbi"]
+streams_count = 6
+stream_0/stream = ExtResource("20_prp6q")
+stream_1/stream = ExtResource("21_0nfmd")
+stream_2/stream = ExtResource("22_30tuh")
+stream_3/stream = ExtResource("23_rdlhd")
+stream_4/stream = ExtResource("24_sa6wb")
+stream_5/stream = ExtResource("25_j3rni")
+
 [node name="SoundManager" type="Node"]
 script = ExtResource("1_m7kc7")
 ui_click = SubResource("AudioStreamRandomizer_254ds")
@@ -75,6 +90,7 @@ tile_select = SubResource("AudioStreamRandomizer_1a25a")
 tile_rotate = SubResource("AudioStreamRandomizer_6hb06")
 explosion_debris = SubResource("AudioStreamRandomizer_xlwdt")
 explosion_main = SubResource("AudioStreamRandomizer_4hyxs")
+explosion_accent = SubResource("AudioStreamRandomizer_mxpbi")
 
 [node name="Build1Player" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_74tus")

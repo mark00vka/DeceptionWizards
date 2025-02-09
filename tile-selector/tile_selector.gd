@@ -15,9 +15,13 @@ var active: bool = false
 var tile : Tile
 
 func clear_tile():
+	if tile.get_parent() == self:
+		tile.queue_free()
 	tile = null
 
 func set_tile(t: PackedScene):
+	if tile and tile.get_parent() == self:
+		tile.queue_free()
 	tile = t.instantiate()
 	add_child(tile)
 

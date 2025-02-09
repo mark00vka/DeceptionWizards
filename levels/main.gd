@@ -26,7 +26,6 @@ var player2_tiles: Array[PackedScene]
 var grid : Dictionary = {}
 
 @onready var pick_object_ui: Control = $PickObjectUI
-@onready var banner_ui: Control = $BannerUI
 @onready var tile_selector_blue: Node3D = $TileSelectorBlue
 @onready var tile_selector_red: Node3D = $TileSelectorRed
 
