@@ -37,23 +37,18 @@ _subresources={
 "import/skip_import": true
 },
 "PATH:group/pasted__pCylinder1": {
-"generate/physics": true,
 "physics/mask": 2
 },
 "PATH:group1/pasted__group/pasted__pasted__pCylinder1": {
-"generate/physics": true,
 "physics/mask": 2
 },
 "PATH:group2/pasted__group_001/pasted__pasted__pCylinder1_001": {
-"generate/physics": true,
 "physics/mask": 2
 },
 "PATH:group3/pasted__pCylinder3": {
-"generate/physics": true,
 "physics/mask": 2
 },
 "PATH:group4/pasted__pSphere1": {
-"generate/physics": true,
 "physics/mask": 2
 },
 "PATH:pCube1": {
@@ -61,15 +56,12 @@ _subresources={
 "physics/mask": 2
 },
 "PATH:pCylinder1": {
-"generate/physics": true,
 "physics/mask": 2
 },
 "PATH:pCylinder2": {
-"generate/physics": true,
 "physics/mask": 2
 },
 "PATH:pCylinder3": {
-"generate/physics": true,
 "physics/mask": 2
 }
 }

@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://baxxk26goaqwe"]
+[gd_scene load_steps=20 format=3 uid="uid://baxxk26goaqwe"]
 
 [ext_resource type="Script" path="res://globals/global.gd" id="1_qgspg"]
 [ext_resource type="Texture2D" uid="uid://t0l1i176hcmy" path="res://ui/controls/W.png" id="2_46y7w"]
+[ext_resource type="Script" path="res://globals/control.gd" id="2_ewlup"]
 [ext_resource type="Texture2D" uid="uid://ds8nalgryqyyy" path="res://ui/controls/A.png" id="3_n2xmq"]
 [ext_resource type="Texture2D" uid="uid://uhoj7hyxctf1" path="res://ui/controls/S.png" id="4_oxinw"]
 [ext_resource type="Texture2D" uid="uid://c8weyfefrqjei" path="res://ui/controls/D.png" id="5_q0poa"]
@@ -10,8 +11,14 @@
 [ext_resource type="Texture2D" uid="uid://18i6h60xgjby" path="res://ui/controls/E.png" id="8_1oxi7"]
 [ext_resource type="Texture2D" uid="uid://b5qnepoldbean" path="res://ui/controls/LEFTSTICK.png" id="9_m7xtu"]
 [ext_resource type="Texture2D" uid="uid://ch2ajmywlh866" path="res://ui/controls/XBUTTON.png" id="10_8o4y0"]
+[ext_resource type="Texture2D" uid="uid://de0rpqnduwkpy" path="res://ui/controls/K.png" id="10_phhch"]
 [ext_resource type="Texture2D" uid="uid://g4ihkdbbeslq" path="res://ui/controls/L2.png" id="11_vhalw"]
+[ext_resource type="Texture2D" uid="uid://d4e86f0jlbwbe" path="res://ui/controls/L.png" id="11_xwd4v"]
 [ext_resource type="Texture2D" uid="uid://cnpx4kwd5lvm2" path="res://ui/controls/R2.png" id="12_6we73"]
+[ext_resource type="Texture2D" uid="uid://pojfroqil6qi" path="res://ui/controls/R.png" id="12_452kw"]
+[ext_resource type="Texture2D" uid="uid://w3lh33ll5uth" path="res://ui/controls/CIRCLEBUTTON.png" id="15_lil2w"]
+[ext_resource type="Texture2D" uid="uid://b80ldvdden578" path="res://ui/controls/SQUAREBUTTON.png" id="16_p11pc"]
+[ext_resource type="Texture2D" uid="uid://b2d3g5gajkfo4" path="res://ui/controls/TRIANGLEBUTTON.png" id="17_6wgfm"]
 
 [node name="Global" type="Control"]
 z_index = 2
@@ -24,15 +31,15 @@ grow_vertical = 2
 script = ExtResource("1_qgspg")
 
 [node name="TileSelectTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 13.0
 one_shot = true
 
 [node name="BuildingTimer" type="Timer" parent="."]
-wait_time = 25.0
+wait_time = 20.0
 one_shot = true
 
 [node name="ChaseTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 15.0
 one_shot = true
 
 [node name="Control" type="Control" parent="."]
@@ -42,6 +49,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("2_ewlup")
 
 [node name="Label" type="Label" parent="Control"]
 layout_mode = 1
@@ -66,71 +74,104 @@ anchor_left = 0.02
 anchor_right = 0.12
 anchor_bottom = 1.0
 grow_vertical = 2
+alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="Control/VBoxContainer"]
+[node name="W" type="TextureRect" parent="Control/VBoxContainer"]
 layout_mode = 2
 texture = ExtResource("2_46y7w")
 expand_mode = 5
 
-[node name="TextureRect2" type="TextureRect" parent="Control/VBoxContainer"]
+[node name="A" type="TextureRect" parent="Control/VBoxContainer"]
 layout_mode = 2
 texture = ExtResource("3_n2xmq")
 expand_mode = 5
 
-[node name="TextureRect3" type="TextureRect" parent="Control/VBoxContainer"]
+[node name="S" type="TextureRect" parent="Control/VBoxContainer"]
 layout_mode = 2
 texture = ExtResource("4_oxinw")
 expand_mode = 5
 
-[node name="TextureRect4" type="TextureRect" parent="Control/VBoxContainer"]
+[node name="D" type="TextureRect" parent="Control/VBoxContainer"]
 layout_mode = 2
 texture = ExtResource("5_q0poa")
 expand_mode = 5
 
-[node name="TextureRect5" type="TextureRect" parent="Control/VBoxContainer"]
+[node name="SPACE" type="TextureRect" parent="Control/VBoxContainer"]
 layout_mode = 2
 texture = ExtResource("6_eb6lb")
 expand_mode = 5
 
-[node name="TextureRect7" type="TextureRect" parent="Control/VBoxContainer"]
+[node name="Q" type="TextureRect" parent="Control/VBoxContainer"]
 layout_mode = 2
 texture = ExtResource("7_7ipbd")
 expand_mode = 5
 
-[node name="TextureRect6" type="TextureRect" parent="Control/VBoxContainer"]
+[node name="E" type="TextureRect" parent="Control/VBoxContainer"]
 layout_mode = 2
 texture = ExtResource("8_1oxi7")
+expand_mode = 5
+
+[node name="K" type="TextureRect" parent="Control/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("10_phhch")
+expand_mode = 5
+
+[node name="L" type="TextureRect" parent="Control/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("11_xwd4v")
+expand_mode = 5
+
+[node name="R" type="TextureRect" parent="Control/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("12_452kw")
 expand_mode = 5
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Control"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.88
-anchor_right = 0.98
+anchor_right = 0.95
 anchor_bottom = 1.0
 grow_horizontal = 0
 grow_vertical = 2
+alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="Control/VBoxContainer2"]
+[node name="LeftStick" type="TextureRect" parent="Control/VBoxContainer2"]
 layout_mode = 2
 texture = ExtResource("9_m7xtu")
 expand_mode = 5
 
-[node name="TextureRect2" type="TextureRect" parent="Control/VBoxContainer2"]
+[node name="X" type="TextureRect" parent="Control/VBoxContainer2"]
 layout_mode = 2
 texture = ExtResource("10_8o4y0")
 expand_mode = 5
 
-[node name="TextureRect4" type="TextureRect" parent="Control/VBoxContainer2"]
+[node name="O" type="TextureRect" parent="Control/VBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("15_lil2w")
+expand_mode = 5
+
+[node name="S" type="TextureRect" parent="Control/VBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("16_p11pc")
+expand_mode = 5
+
+[node name="T" type="TextureRect" parent="Control/VBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("17_6wgfm")
+expand_mode = 5
+
+[node name="L2" type="TextureRect" parent="Control/VBoxContainer2"]
 layout_mode = 2
 texture = ExtResource("11_vhalw")
 expand_mode = 5
 
-[node name="TextureRect3" type="TextureRect" parent="Control/VBoxContainer2"]
+[node name="R2" type="TextureRect" parent="Control/VBoxContainer2"]
 layout_mode = 2
 texture = ExtResource("12_6we73")
 expand_mode = 5
 
+[connection signal="change_phase" from="." to="Control" method="_on_global_change_phase"]
 [connection signal="timeout" from="TileSelectTimer" to="." method="_on_tile_select_timer_timeout"]
 [connection signal="timeout" from="BuildingTimer" to="." method="_on_building_timer_timeout"]
 [connection signal="timeout" from="ChaseTimer" to="." method="_on_chase_timer_timeout"]

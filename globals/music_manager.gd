@@ -2,8 +2,12 @@ extends Node
 
 @onready var build_1_player: AudioStreamPlayer = $Build1Player
 @onready var build_2_player: AudioStreamPlayer = $Build2Player
+@onready var build_3_player: AudioStreamPlayer = $Build3Player
+
 @onready var chase_1_player: AudioStreamPlayer = $Chase1Player
 @onready var chase_2_player: AudioStreamPlayer = $Chase2Player
+@onready var chase_3_player: AudioStreamPlayer = $Chase3Player
+
 @onready var stop_player: AudioStreamPlayer = $StopPlayer
 @onready var transition: AudioStreamPlayer = $Transition
 
@@ -20,20 +24,19 @@ func change_phase():
 				await transition.finished
 				build_2_player.play()
 			3:
-				pass
+				transition.play()
+				await transition.finished
+				build_3_player.play()
 				
 	elif Global.is_chase_phase():
 		match Global.level:
 			1:
-				await stop_player.finished
 				chase_1_player.play()
 			2:
-				transition.play()
-				await transition.finished
 				chase_2_player.play()
 			3:
-				pass
+				chase_3_player.play()
 
 
-func _on_build_1_player_finished() -> void:
+func _on_build_player_finished() -> void:
 	stop_player.play()

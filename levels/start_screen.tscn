@@ -1,11 +1,13 @@
-[gd_scene load_steps=16 format=3 uid="uid://cvfn3hkhbl5dw"]
+[gd_scene load_steps=18 format=3 uid="uid://cvfn3hkhbl5dw"]
 
 [ext_resource type="Script" path="res://levels/start_screen.gd" id="1_xstd2"]
 [ext_resource type="PackedScene" uid="uid://efhli5mx1ocb" path="res://player/player.tscn" id="3_ldii8"]
 [ext_resource type="Resource" uid="uid://dutd1sptby8aw" path="res://player/p1_controls.tres" id="4_481ip"]
 [ext_resource type="Resource" uid="uid://c1bs0xj1k2bgb" path="res://player/p2_controls.tres" id="5_l85kh"]
 [ext_resource type="PackedScene" uid="uid://hni7dct4exvb" path="res://models/board/boardnoplane.fbx" id="6_pcjed"]
+[ext_resource type="Texture2D" uid="uid://bchg422kply44" path="res://ui/deceptionwizards.png" id="8_cfcnm"]
 [ext_resource type="PackedScene" uid="uid://b6g4slnf3sti0" path="res://models/islands/smallisland.fbx" id="8_kuj14"]
+[ext_resource type="Texture2D" uid="uid://bdnd1ksavg43" path="res://ui/start.png" id="9_1ftdh"]
 [ext_resource type="Script" path="res://ui/camera_3d.gd" id="9_aq543"]
 [ext_resource type="Texture2D" uid="uid://c2syw6go0aqcl" path="res://ui/quit.png" id="10_dftou"]
 [ext_resource type="Shader" path="res://shaders/dither_screen.gdshader" id="11_eyel1"]
@@ -102,12 +104,44 @@ transform = Transform3D(0.707107, -0.454519, 0.541675, 0, 0.766044, 0.642788, -0
 fov = 59.0
 script = ExtResource("9_aq543")
 
-[node name="Quit" type="TextureButton" parent="."]
+[node name="DeceptionWizards" type="TextureRect" parent="."]
 anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.761
+anchor_top = 0.284
 anchor_right = 0.5
-anchor_bottom = 0.761
+anchor_bottom = 0.284
+offset_left = -503.0
+offset_top = -368.92
+offset_right = 521.0
+offset_bottom = 346.08
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.6, 0.6)
+pivot_offset = Vector2(512, 308)
+texture = ExtResource("8_cfcnm")
+
+[node name="Start" type="TextureButton" parent="."]
+anchors_preset = -1
+anchor_left = 0.591
+anchor_top = 0.806
+anchor_right = 0.591
+anchor_bottom = 0.806
+offset_left = -503.0
+offset_top = -368.92
+offset_right = 521.0
+offset_bottom = 346.08
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.6, 0.6)
+pivot_offset = Vector2(512, 308)
+texture_normal = ExtResource("9_1ftdh")
+
+[node name="Quit" type="TextureButton" parent="."]
+anchors_preset = -1
+anchor_left = 0.591
+anchor_top = 1.05
+anchor_right = 0.591
+anchor_bottom = 1.1
 offset_left = -503.0
 offset_top = -368.92
 offset_right = 521.0
@@ -117,6 +151,15 @@ grow_vertical = 2
 scale = Vector2(0.6, 0.6)
 pivot_offset = Vector2(512, 308)
 texture_normal = ExtResource("10_dftou")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.105882)
 
 [node name="DitheringShader" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_tblxm")
