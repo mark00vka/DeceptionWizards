@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bchg422kply44"
-path="res://.godot/imported/deceptionwizards.png-9df2e76606bbf951632a6604572de2c2.ctex"
+uid="uid://bdnd1ksavg43"
+path="res://.godot/imported/start.png-a1b41d4be7fc044a5a258e690bc78823.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/deceptionwizards.png"
-dest_files=["res://.godot/imported/deceptionwizards.png-9df2e76606bbf951632a6604572de2c2.ctex"]
+source_file="res://ui/start_menu/start.png"
+dest_files=["res://.godot/imported/start.png-a1b41d4be7fc044a5a258e690bc78823.ctex"]
 
 [params]
 
