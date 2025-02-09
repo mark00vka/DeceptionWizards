@@ -38,7 +38,6 @@ func is_building_phase():
 	return phase == Phase.BUILDING
 	
 func set_building_phase():
-	print("aaa")
 	phase = Phase.BUILDING
 	finished_placement = 0
 	building_timer.start()	
