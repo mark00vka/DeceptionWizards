@@ -4,7 +4,7 @@ const BLUE = preload("res://tile-selector/blue.tres")
 const RED = preload("res://tile-selector/red.tres")
 const WHITE = preload("res://tile-selector/white.tres")
 
-@onready var cursor: MeshInstance3D = $cursor/group/pasted__group3/pasted__pasted__group2/pasted__pasted__pasted__group_001/Cursor
+@onready var cursor: MeshInstance3D = $cursor/group/pasted__group3/pasted__pasted__group2/pasted__pasted__pasted__group_001/Cursor2
 
 var pos = Vector2(0, 0)
 var lvl: int = 0

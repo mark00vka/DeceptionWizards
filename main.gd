@@ -26,12 +26,12 @@ func _ready() -> void:
 	#pick_object_ui.show_ui()
 	
 func _process(delta: float) -> void:
-		if Global.building_phase:
+		if Global.is_building_phase():
 			if tile_selector.active:
 				tile_selector.move()
 			
 func _input(event: InputEvent) -> void:
-	if Global.building_phase:
+	if Global.is_building_phase():
 		if InputManager.place_real(event) and tile_selector.active:
 			place_obstacle(true)
 			tile_selector.active = false
@@ -89,13 +89,13 @@ func place_item(item : PackedScene, pos : Vector2i, level : int, real: bool = tr
 
 func start_building_phase():
 	$Camera3D.building()
-	Global.building_phase = true
+	Global.set_building_phase()
 	tile_selector.active = true
 	tile_selector.global_position = tilemap_to_global(Vector2i(0,0))
 	
 func end_building_phase():
 	$Camera3D.chase()
-	Global.building_phase = false
+	Global.set_chase_phase()
 	tile_selector.active = false
 	tile_selector.visible = false
 	

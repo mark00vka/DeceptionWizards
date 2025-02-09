@@ -1,0 +1,145 @@
+[gd_scene load_steps=19 format=3 uid="uid://cpn2ympvqfo3q"]
+
+[ext_resource type="Script" path="res://ui/pick_object_ui.gd" id="1_1l0jk"]
+[ext_resource type="Texture2D" uid="uid://nalopa1mbntn" path="res://tiles/ground_tile/light_ground.png" id="1_t1rhl"]
+[ext_resource type="Texture2D" uid="uid://b0ivlhdjqiokb" path="res://ui/stairs_icon.png" id="3_s8hha"]
+[ext_resource type="Script" path="res://ui/object.gd" id="4_j0pxk"]
+[ext_resource type="Script" path="res://tiles/base_tile/tile_resource.gd" id="5_m0jn7"]
+[ext_resource type="PackedScene" uid="uid://cm8gyi4lp50xt" path="res://tiles/stairs/stairs.tscn" id="6_h6as3"]
+[ext_resource type="Texture2D" uid="uid://b1t3fgybnilcg" path="res://ui/wall_icon.png" id="7_qtsts"]
+[ext_resource type="PackedScene" uid="uid://xst5bmsoeda1" path="res://tiles/wall_tile/wall.fbx" id="8_4s3ik"]
+[ext_resource type="Texture2D" uid="uid://cp8uxibvnchuu" path="res://ui/platform_icon.png" id="8_oxbrx"]
+[ext_resource type="Texture2D" uid="uid://bsdlhcl1kn4wx" path="res://ui/cursor.png" id="9_almei"]
+[ext_resource type="Script" path="res://ui/cursor.gd" id="9_bjhg1"]
+[ext_resource type="PackedScene" uid="uid://dcfke5xyd1r0j" path="res://tiles/platform_tile/platform.fbx" id="9_t2qdu"]
+[ext_resource type="Resource" uid="uid://dutd1sptby8aw" path="res://player/p1_controls.tres" id="11_evdjb"]
+[ext_resource type="Resource" uid="uid://c1bs0xj1k2bgb" path="res://player/p2_controls.tres" id="12_dylk1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sp7fk"]
+texture = ExtResource("1_t1rhl")
+
+[sub_resource type="Resource" id="Resource_uhw60"]
+script = ExtResource("5_m0jn7")
+tile = ExtResource("6_h6as3")
+sprite = ExtResource("3_s8hha")
+
+[sub_resource type="Resource" id="Resource_qxiql"]
+script = ExtResource("5_m0jn7")
+tile = ExtResource("8_4s3ik")
+sprite = ExtResource("7_qtsts")
+
+[sub_resource type="Resource" id="Resource_rc23q"]
+script = ExtResource("5_m0jn7")
+tile = ExtResource("9_t2qdu")
+sprite = ExtResource("8_oxbrx")
+
+[node name="PickObjectUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1l0jk")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.505882)
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -322.0
+offset_top = -322.0
+offset_right = 322.0
+offset_bottom = 322.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_sp7fk")
+
+[node name="ObjectHolder" type="Control" parent="Panel"]
+layout_mode = 1
+anchor_left = 0.1
+anchor_top = 0.078
+anchor_right = 0.9
+anchor_bottom = 0.943
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Stairs" type="TextureRect" parent="Panel/ObjectHolder"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+offset_right = 100.0
+offset_bottom = 100.0
+texture = ExtResource("3_s8hha")
+expand_mode = 1
+script = ExtResource("4_j0pxk")
+tile = SubResource("Resource_uhw60")
+
+[node name="Wall" type="TextureRect" parent="Panel/ObjectHolder"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+offset_right = 100.0
+offset_bottom = 100.0
+texture = ExtResource("7_qtsts")
+expand_mode = 1
+script = ExtResource("4_j0pxk")
+tile = SubResource("Resource_qxiql")
+
+[node name="Platform" type="TextureRect" parent="Panel/ObjectHolder"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+offset_right = 100.0
+offset_bottom = 100.0
+texture = ExtResource("8_oxbrx")
+expand_mode = 1
+script = ExtResource("4_j0pxk")
+tile = SubResource("Resource_rc23q")
+
+[node name="CursorP1" type="TextureRect" parent="Panel/ObjectHolder"]
+modulate = Color(0, 0.341667, 0.82, 1)
+z_index = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 100.0
+offset_bottom = 100.0
+texture = ExtResource("9_almei")
+expand_mode = 1
+script = ExtResource("9_bjhg1")
+controls = ExtResource("11_evdjb")
+
+[node name="CursorP2" type="TextureRect" parent="Panel/ObjectHolder"]
+modulate = Color(0.81, 0, 0, 1)
+z_index = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 100.0
+offset_bottom = 100.0
+texture = ExtResource("9_almei")
+expand_mode = 1
+script = ExtResource("9_bjhg1")
+controls = ExtResource("12_dylk1")
+
+[connection signal="gui_input" from="Panel/ObjectHolder/Stairs" to="Panel/ObjectHolder/Stairs" method="_on_gui_input"]
+[connection signal="gui_input" from="Panel/ObjectHolder/Wall" to="Panel/ObjectHolder/Wall" method="_on_gui_input"]
+[connection signal="gui_input" from="Panel/ObjectHolder/Platform" to="Panel/ObjectHolder/Platform" method="_on_gui_input"]

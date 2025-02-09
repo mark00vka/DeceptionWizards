@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=4 uid="uid://d0rh4dbxufpbq"]
 
 [ext_resource type="Script" path="res://tile-selector/tile_selector.gd" id="1_xwxhf"]
-[ext_resource type="Material" path="res://tile-selector/blue.tres" id="2_vamf2"]
+[ext_resource type="Material" uid="uid://dd6qs846xq2uh" path="res://tile-selector/blue.tres" id="2_vamf2"]
 [ext_resource type="PackedScene" uid="uid://dkqgdigaspjw" path="res://tile-selector/cursor.fbx" id="2_y240n"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ctca4"]

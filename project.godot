@@ -17,8 +17,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+MusicManager="*res://globals/music_manager.tscn"
 Global="*res://globals/global.gd"
-InputManager="*res://input_manager.gd"
+InputManager="*res://globals/input_manager.gd"
 
 [display]
 
@@ -36,7 +37,9 @@ folder_colors={
 "res://globals/": "green",
 "res://models/": "orange",
 "res://player/": "blue",
-"res://tiles/": "red"
+"res://tile-selector/": "purple",
+"res://tiles/": "red",
+"res://ui/": "yellow"
 }
 
 [input]
