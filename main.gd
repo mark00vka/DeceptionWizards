@@ -78,16 +78,8 @@ func tile_selector_input(event, tile_selector):
 func place_obstacle(tile_selector, real: bool):
 	if(selected_tile_free(grid, tile_selector.pos, tile_selector.lvl)):
 		if tile_selector.player_blue:
-			if not player1_tile:
-				#TODO dodati animaciju
-				var i = randi_range(0, 2)
-				player1_tile = BUILD_TILES[i]
 			place_item(player1_tile, tile_selector.pos, tile_selector.lvl, real)
 		else:
-			if not player2_tile:
-				#TODO dodati animaciju
-				var i = randi_range(0, 2)
-				player2_tile = BUILD_TILES[i]
 			place_item(player2_tile, tile_selector.pos, tile_selector.lvl, real)
 		
 func rotate_placed_obstacle(tile_selector):
