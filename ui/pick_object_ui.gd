@@ -58,17 +58,25 @@ func select_item(player1: bool):
 		if child.visible == false or child is Cursor: 
 			continue
 			
-		if player1 and child.global_position.distance_to(cursor_p_1.global_position - cursor_p_1.get_rect().size/2) < distance_from_cursor:
+		if player1 \
+		and cursor_p_1.visible \
+		and child.global_position.distance_to(cursor_p_1.global_position - cursor_p_1.get_rect().size/2) < distance_from_cursor:
 			player1_picked_tile.emit(child.tile.tile)
 			child.queue_free()
 			cursor_p_1.hide()
-			if not cursor_p_2.visible: cursors_hidden.emit()
+			if not cursor_p_2.visible: 
+				cursors_hidden.emit()
+				break
 			
-		if (not player1) and child.global_position.distance_to(cursor_p_2.global_position - cursor_p_2.get_rect().size/2) < distance_from_cursor:
+		if not player1\
+		and cursor_p_2.visible\
+		and child.global_position.distance_to(cursor_p_2.global_position - cursor_p_2.get_rect().size/2) < distance_from_cursor:
 			player2_picked_tile.emit(child.tile.tile)
 			child.queue_free()
 			cursor_p_2.hide()
-			if not cursor_p_1.visible: cursors_hidden.emit()
+			if not cursor_p_1.visible: 
+				cursors_hidden.emit()
+				break
 
 
 func _on_cursors_hidden() -> void:
