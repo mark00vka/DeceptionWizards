@@ -31,6 +31,7 @@ func _ready() -> void:
 	generate_grid()
 	place_item(FINISH_TILE, Vector2i(0, 0),  1, 0)
 	Global.change_phase.connect(phase_changed)
+	Global.build_timeout.connect(place_obstacle_on_tilecursor)
 	Global.set_tile_select_phase()
 	tile_selector_blue.change_color(0)
 	tile_selector_blue.player_blue = true
@@ -124,6 +125,15 @@ func place_item(item : PackedScene, pos : Vector2i, level : int, real: bool = tr
 	inst.global_rotation.y = rot * PI / 2
 	inst.real = real
 	grid[pos_lvl_to_vector3i(pos, level)] = inst
+		
+func place_obstacle_on_tilecursor():
+	if tile_selector_blue.active:
+		place_obstacle(tile_selector_blue, true)
+		
+	if tile_selector_red.active:
+		place_obstacle(tile_selector_red, true)
+		
+	Global.set_chase_phase()
 		
 
 func phase_changed():
