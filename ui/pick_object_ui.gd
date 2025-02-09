@@ -17,7 +17,7 @@ signal player2_picked_tile(tile : PackedScene)
 var x_pull : Array[float] = []
 var y_pull : Array[float] = []
 
-var distance_from_cursor:float = 50
+var distance_from_cursor:float = 80
 
 func _ready() -> void:
 	Global.tile_select_timeout.connect(select_random_tiles)
