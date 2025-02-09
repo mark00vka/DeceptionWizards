@@ -2,12 +2,18 @@ extends Node3D
 
 const GROUND_TILE = preload("res://tiles/ground_tile/ground_tile.tscn")
 const BOUNDARY_TILE = preload("res://tiles/boundary_tile/boundary_tile.tscn")
-const STAIRS = preload("res://tiles/stairs/stairs.tscn")
 const FINISH_TILE = preload("res://tiles/finish_tile/finish_tile.tscn")
+
+const STAIRS = preload("res://tiles/stairs/stairs.tscn")
+const PLATFORM = preload("res://tiles/platform_tile/platform.tscn")
+const WALL = preload("res://tiles/wall_tile/wall.tscn")
 
 @export var map_size : Vector3i = Vector3i(4, 4, 4)
 @export var tile_size : float = 5.0
 @export var tile_height : float = 2.5
+
+var player1_tile: PackedScene = WALL
+var player2_tile: PackedScene = WALL
 
 var grid : Dictionary = {}
 
@@ -19,7 +25,7 @@ signal changed_player
 
 func _ready() -> void:
 	generate_grid()
-	place_item(STAIRS, Vector2i(0, 1),  0, 1)
+	#place_item(STAIRS, Vector2i(0, 1),  0, 1)
 	place_item(FINISH_TILE, Vector2i(0, 0),  1, 0)
 	Global.change_phase.connect(phase_changed)
 	Global.set_tile_select_phase()
@@ -48,12 +54,13 @@ func _input(event: InputEvent) -> void:
 	if Global.is_building_phase():
 		tile_selector_input(event, tile_selector_blue)
 		tile_selector_input(event, tile_selector_red)
-
-		
 		
 func place_obstacle(tile_selector, real: bool):
 	if(selected_tile_free(grid, tile_selector.pos, tile_selector.lvl)):
-		place_item(STAIRS, tile_selector.pos, tile_selector.lvl, real)
+		if tile_selector.player_blue:
+			place_item(player1_tile, tile_selector.pos, tile_selector.lvl, real)
+		else:
+			place_item(player2_tile, tile_selector.pos, tile_selector.lvl, real)
 		
 func rotate_placed_obstacle(tile_selector):
 	grid[pos_lvl_to_vector3i(tile_selector.pos, tile_selector.lvl)].global_rotation.y += PI/2
@@ -85,7 +92,6 @@ func place_item(item : PackedScene, pos : Vector2i, level : int, real: bool = tr
 	inst.global_rotation.y = rot * PI / 2
 	inst.real = real
 	grid[pos_lvl_to_vector3i(pos, level)] = inst
-	print("STAIRS REAL: ", inst.real)
 
 func phase_changed():
 	if Global.is_tile_select_phase():
@@ -112,3 +118,9 @@ func selected_tile_free(grid: Dictionary, tile_pos: Vector2i, tile_lvl: int) -> 
 
 func pos_lvl_to_vector3i(pos: Vector2i, lvl: int) -> Vector3i:
 	return Vector3i(pos.x, lvl, pos.y)
+	
+func _on_pick_object_ui_player_1_picked_tile(tile: PackedScene) -> void:
+	player1_tile = tile
+
+func _on_pick_object_ui_player_2_picked_tile(tile: PackedScene) -> void:
+	player2_tile = tile
