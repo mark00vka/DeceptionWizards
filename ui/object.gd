@@ -2,8 +2,6 @@ extends TextureRect
 
 @export var tile : TileResource
 
-var select : bool = false
-
 func set_pos(x, y):
 	anchor_left = x
 	anchor_top = y

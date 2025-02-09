@@ -174,8 +174,6 @@ func phase_changed():
 		
 	if Global.is_building_phase():
 		%MainCamera.building()
-		print(player1_tiles)
-		print(player2_tiles)
 		tile_selector_blue.show()
 		tile_selector_blue.active = true
 		tile_selector_red.show()

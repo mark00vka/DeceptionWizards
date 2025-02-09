@@ -13,7 +13,6 @@ extends Control
 @onready var cursor_p_1: Cursor = $Panel/ObjectHolder/CursorP1
 @onready var cursor_p_2: Cursor = $Panel/ObjectHolder/CursorP2
 
-signal cursors_hidden
 signal player1_picked_tile(tile : PackedScene)
 signal player2_picked_tile(tile : PackedScene)
 
@@ -100,9 +99,10 @@ func player1_pick_tile(child):
 	SoundManager.play_sound_string("select")
 	SoundManager.play_sound_string("click")
 	
-	child.selected = true
+	child.flip_h = true
 	player1_picked_tile.emit(child.tile.tile)
 	player1_items_left-=1
+	
 	if(player1_items_left == 2):
 		sprite_blue.texture = preload("res://ui/2.png")
 	if(player1_items_left == 1):
@@ -117,13 +117,13 @@ func player1_pick_tile(child):
 	await get_tree().create_timer(0.5).timeout
 	child.queue_free()
 	if not cursor_p_1.visible and not cursor_p_1.visible: 
-		cursors_hidden.emit()
+		cursors_hidden()
 		
 func player2_pick_tile(child):
 	SoundManager.play_sound_string("select")
 	SoundManager.play_sound_string("click")
-	
-	child.selected = true
+
+	child.flip_h = true
 	player2_picked_tile.emit(child.tile.tile)
 	player2_items_left-=1
 	if(player2_items_left == 2):
@@ -140,20 +140,21 @@ func player2_pick_tile(child):
 	await get_tree().create_timer(0.5).timeout
 	child.queue_free()
 	if not cursor_p_1.visible and not cursor_p_1.visible: 
-		cursors_hidden.emit()
+		cursors_hidden()
 
-func _on_cursors_hidden() -> void:
-	animate_ui(900)
+func cursors_hidden() -> void:
 	sprite_blue.hide()
 	sprite_red.hide()
-	Global.set_building_phase()
+	await get_tree().create_timer(1).timeout
+	animate_ui(900)
+	if not Global.is_building_phase():
+		Global.set_building_phase()
 
 func get_rand_tile():
 	var i = randi_range(0, $Panel/ObjectHolder.get_children().size()-1)
 	var rand_tile = $Panel/ObjectHolder.get_children()[i]
 	
-	while rand_tile.visible == false or rand_tile is Cursor or rand_tile.has_method("set_pos"):
-		if not rand_tile.selected:
+	while rand_tile.visible == false or rand_tile is Cursor or rand_tile.flip_h:
 			i = randi_range(0, $Panel/ObjectHolder.get_children().size()-1)
 			rand_tile = $Panel/ObjectHolder.get_children()[i]
 	
