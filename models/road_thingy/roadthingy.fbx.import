@@ -35,6 +35,34 @@ _subresources={
 "nodes": {
 "PATH:Light": {
 "import/skip_import": true
+},
+"PATH:group/pasted__group3/pasted__pasted__pCube2": {
+"generate/physics": true,
+"physics/mask": 2
+},
+"PATH:group/pasted__pCube1": {
+"generate/physics": true,
+"physics/mask": 2
+},
+"PATH:group/pasted__pasted__pasted__pCube1": {
+"generate/physics": true,
+"physics/mask": 2
+},
+"PATH:group3/pasted__pCube2": {
+"generate/physics": true,
+"physics/mask": 2
+},
+"PATH:pCube1": {
+"generate/physics": true,
+"physics/mask": 2
+},
+"PATH:pCube2": {
+"generate/physics": true,
+"physics/mask": 2
+},
+"PATH:pasted__pasted__pCube1": {
+"generate/physics": true,
+"physics/mask": 2
 }
 }
 }
