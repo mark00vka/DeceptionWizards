@@ -107,7 +107,7 @@ func generate_tile(x: int, y: int):
 	var tween = get_tree().create_tween()
 	tween.tween_property(ground_tile, "scale", Vector3.ONE, 0.1).set_trans(Tween.TRANS_SINE)
 	
-	if ((x == 0 and y == 0) or (x == map_size.x-1 and y == map_size.y-1)) and ground_tile.get_children().size() > 3:
+	if ((x == 0 and y == 0) or (x == map_size.x-1 and y == map_size.y-1)) and ground_tile.has_obstacle:
 		ground_tile.get_children()[0].queue_free()
 		ground_tile.has_obstacle = false
 		
