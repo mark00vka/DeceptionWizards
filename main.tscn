@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c6y6j5d65tesp"]
+[gd_scene load_steps=17 format=3 uid="uid://c6y6j5d65tesp"]
 
 [ext_resource type="PackedScene" uid="uid://efhli5mx1ocb" path="res://player/player.tscn" id="1_gx7nr"]
 [ext_resource type="Resource" uid="uid://deu0peg282uw6" path="res://player/p1_controls.tres" id="3_mi2kk"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://hni7dct4exvb" path="res://models/board/boardnoplane.fbx" id="5_w4thp"]
 [ext_resource type="PackedScene" uid="uid://cpn2ympvqfo3q" path="res://ui/pick_object_ui.tscn" id="7_4x0s1"]
 [ext_resource type="PackedScene" uid="uid://d0rh4dbxufpbq" path="res://tile-selector/tile_selector.tscn" id="9_htbmn"]
+[ext_resource type="PackedScene" uid="uid://bqdpqhnnf7isq" path="res://ui/banner_ui.tscn" id="10_f6jtm"]
 [ext_resource type="PackedScene" uid="uid://odx7a17ireag" path="res://models/islands/bigisland.fbx" id="10_mafkg"]
 
 [sub_resource type="GDScript" id="GDScript_10hql"]
@@ -305,6 +306,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="BannerUI" parent="." instance=ExtResource("10_f6jtm")]
 
 [connection signal="changed_player" from="." to="." method="_on_changed_player"]
 [connection signal="player1_picked_tile" from="PickObjectUI" to="." method="_on_pick_object_ui_player_1_picked_tile"]
