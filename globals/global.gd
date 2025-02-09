@@ -17,7 +17,7 @@ var phase : Phase:
 		chase_timer.stop()
 		change_phase.emit()
 		
-var level : int = 1
+var level : int = 0
 var finished_placement : int = 0
 
 signal tile_select_timeout
@@ -47,6 +47,7 @@ func is_tile_select_phase():
 	return phase == Phase.TILE_SELECT
 	
 func set_tile_select_phase():
+	level += 1
 	phase = Phase.TILE_SELECT
 	tile_select_timer.start()
 	

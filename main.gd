@@ -156,7 +156,7 @@ func phase_changed():
 		pick_object_ui.hide()
 		
 	if Global.is_chase_phase():
-		$MainCamera.chase()
+		%MainCamera.chase()
 		tile_selector_blue.active = false
 		tile_selector_blue.visible = false
 		tile_selector_red.active = false

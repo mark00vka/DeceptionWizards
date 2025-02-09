@@ -35,8 +35,8 @@ func show_ui():
 	for i in range(8):
 		x_pull.append(i*0.75/8)
 		y_pull.append(i*0.75/8)
-
-	place_items(x_pull, y_pull)
+	if Global.level % 3 == 1:
+		place_items(x_pull, y_pull)
 	
 func place_items(x_p, y_p):
 	for i in range(randi() % 3 + 6):
