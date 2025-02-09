@@ -137,7 +137,9 @@ func phase_changed():
 		
 	if Global.is_building_phase():
 		$MainCamera.building()
+		tile_selector_blue.show()
 		tile_selector_blue.active = true
+		tile_selector_red.show()
 		tile_selector_blue.global_position = tilemap_to_global(Vector2i(0,0))
 		tile_selector_red.active = true
 		tile_selector_red.global_position = tilemap_to_global(Vector2i(0,0))

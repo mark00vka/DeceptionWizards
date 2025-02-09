@@ -24,6 +24,8 @@ func _ready() -> void:
 
 func show_ui():
 	show()
+	cursor_p_1.show()
+	cursor_p_2.show()
 	color_rect.modulate.a = 0
 	panel.position.y = 900
 	animate_ui(38)
