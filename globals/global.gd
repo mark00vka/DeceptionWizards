@@ -20,6 +20,8 @@ var phase : Phase:
 var level : int = 1
 var finished_placement : int = 0
 
+signal tile_select_timeout
+
 func _process(_delta: float) -> void:
 	var text
 	if is_building_phase():
@@ -56,6 +58,8 @@ func set_chase_phase():
 
 
 func _on_tile_select_timer_timeout() -> void:
+	tile_select_timeout.emit()
+	await get_tree().create_timer(1).timeout
 	set_building_phase()
 
 
@@ -64,4 +68,5 @@ func _on_building_timer_timeout() -> void:
 
 
 func _on_chase_timer_timeout() -> void:
+	chase_timer.stop()
 	set_tile_select_phase()

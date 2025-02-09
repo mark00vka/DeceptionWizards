@@ -10,12 +10,14 @@ const STAIRS = preload("res://tiles/stairs/stairs.tscn")
 const PLATFORM = preload("res://tiles/platform_tile/platform.tscn")
 const WALL = preload("res://tiles/wall_tile/wall.tscn")
 
+var BUILD_TILES = [STAIRS, PLATFORM, WALL]
+
 @export var map_size : Vector3i = Vector3i(4, 4, 4)
 @export var tile_size : float = 5.0
 @export var tile_height : float = 2.5
 
-var player1_tile: PackedScene = WALL
-var player2_tile: PackedScene = WALL
+var player1_tile: PackedScene 
+var player2_tile: PackedScene 
 
 var grid : Dictionary = {}
 
@@ -64,7 +66,6 @@ func tile_selector_input(event, tile_selector):
 			Global.finished_placement+=1
 			print(Global.finished_placement)
 			if Global.finished_placement == 2:
-				print("kjhfkjgf")
 				Global.set_chase_phase()
 			tile_selector.hide()
 	
@@ -78,8 +79,16 @@ func tile_selector_input(event, tile_selector):
 func place_obstacle(tile_selector, real: bool):
 	if(selected_tile_free(grid, tile_selector.pos, tile_selector.lvl)):
 		if tile_selector.player_blue:
+			if not player1_tile:
+				#TODO dodati animaciju
+				var i = randi_range(0, 2)
+				player1_tile = BUILD_TILES[i]
 			place_item(player1_tile, tile_selector.pos, tile_selector.lvl, real)
 		else:
+			if not player2_tile:
+				#TODO dodati animaciju
+				var i = randi_range(0, 2)
+				player2_tile = BUILD_TILES[i]
 			place_item(player2_tile, tile_selector.pos, tile_selector.lvl, real)
 		
 func rotate_placed_obstacle(tile_selector):
