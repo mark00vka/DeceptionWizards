@@ -7,8 +7,8 @@
 [ext_resource type="Script" path="res://levels/camera_rotation_point.gd" id="6_jlgil"]
 [ext_resource type="Texture2D" uid="uid://bchg422kply44" path="res://ui/start_menu/deceptionwizards.png" id="7_bny0j"]
 [ext_resource type="Texture2D" uid="uid://dslpkla24p5ix" path="res://ui/player1won.png" id="9_pj7wu"]
-[ext_resource type="Texture2D" uid="uid://c2syw6go0aqcl" path="res://ui/start_menu/quit.png" id="10_4psgp"]
-[ext_resource type="Texture2D" uid="uid://dvs3e5op0xp7p" path="res://ui/start_menu/quithighighlighted.png" id="11_vkbdr"]
+[ext_resource type="Texture2D" uid="uid://b7jn7gdryju88" path="res://ui/replay.png" id="10_o4qe7"]
+[ext_resource type="Texture2D" uid="uid://xc7gb1cxuv3l" path="res://ui/replayhighlighted.png" id="11_4hkdo"]
 [ext_resource type="Shader" path="res://shaders/dither_screen.gdshader" id="12_cqiky"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wfwmo"]
@@ -140,8 +140,8 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.6, 0.6)
 pivot_offset = Vector2(512, 308)
-texture_normal = ExtResource("10_4psgp")
-texture_hover = ExtResource("11_vkbdr")
+texture_normal = ExtResource("10_o4qe7")
+texture_hover = ExtResource("11_4hkdo")
 
 [node name="DitheringShader" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_jng53")
