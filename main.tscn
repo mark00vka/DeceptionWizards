@@ -31,7 +31,7 @@ script = ExtResource("1_b5th3")
 environment = SubResource("Environment_3p8xg")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.874172, -0.416134, 0.250311, -0.0020669, 0.518634, 0.854994, -0.485612, 0.746895, -0.454235, 0, 0, 0)
+transform = Transform3D(-0.339597, -0.804549, 0.487213, -0.00206689, 0.518634, 0.854994, -0.940569, 0.289346, -0.17779, 0, 0, 0)
 shadow_enabled = true
 
 [node name="MainCamera" type="Camera3D" parent="."]
