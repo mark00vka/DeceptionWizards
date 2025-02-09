@@ -18,18 +18,14 @@ func _physics_process(delta: float) -> void:
 	if Global.is_building_phase() or Global.is_tile_select_phase():
 		return
 
-	# Add the gravity.
 	if not is_on_floor():
 		var gravity = Vector3.DOWN * GRAVITY
 		if(velocity.y < 0): gravity*=2
 		velocity += gravity * delta
 
-	# Handle jump.
 	if Input.is_action_just_pressed(controls.jump) and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir := Input.get_vector(controls.left, controls.right, controls.fwd, controls.back)
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:

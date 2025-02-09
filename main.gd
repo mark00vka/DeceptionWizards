@@ -90,6 +90,7 @@ func generate_grid():
 		for j in range(-1, map_size.y+1):
 			if(i in range(map_size.x) and j in range(map_size.y)):
 				generate_tile(i, j)
+				await get_tree().create_timer(0.1).timeout
 			else:
 				generate_boundary_tile(i, j)
 
@@ -97,6 +98,9 @@ func generate_tile(x: int, y: int):
 	var ground_tile =  GROUND_TILE.instantiate()
 	add_child(ground_tile, true)		
 	ground_tile.global_position = tilemap_to_global(Vector2i(x, y))
+	ground_tile.scale = Vector3(0.1,0.1,0.1)
+	var tween = get_tree().create_tween()
+	tween.tween_property(ground_tile, "scale", Vector3.ONE, 0.1).set_trans(Tween.TRANS_SINE)
 	
 	if ((x == 0 and y == 0) or (x == map_size.x-1 and y == map_size.y-1)) and ground_tile.get_children().size() > 3:
 		ground_tile.get_children()[0].queue_free()

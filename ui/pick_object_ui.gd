@@ -80,7 +80,7 @@ func select_item(player1: bool):
 		if not player1\
 		and cursor_p_2.visible\
 		and child.global_position.distance_to(cursor_p_2.global_position - cursor_p_2.get_rect().size/2) < distance_from_cursor:
-			player1_pick_tile(child)
+			player2_pick_tile(child)
 				
 func player1_pick_tile(child):
 	player1_picked_tile.emit(child.tile.tile)
