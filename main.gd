@@ -21,8 +21,8 @@ func _ready() -> void:
 	generate_grid()
 	place_item(STAIRS, Vector2i(0, 1),  0, 1)
 	place_item(FINISH_TILE, Vector2i(0, 0),  1, 0)
-	print("asss")
 	Global.change_phase.connect(phase_changed)
+	Global.set_tile_select_phase()
 	
 func tile_selector_input(event, tile_selector):
 	if tile_selector.on_free_tile():
@@ -88,7 +88,6 @@ func place_item(item : PackedScene, pos : Vector2i, level : int, real: bool = tr
 	print("STAIRS REAL: ", inst.real)
 
 func phase_changed():
-	print("jrsa")
 	if Global.is_tile_select_phase():
 		pick_object_ui.show_ui()
 		$MainCamera.building()
