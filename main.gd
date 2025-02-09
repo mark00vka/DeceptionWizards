@@ -62,8 +62,11 @@ func tile_selector_input(event, tile_selector):
 		
 		if not tile_selector.active: 
 			Global.finished_placement+=1
+			print(Global.finished_placement)
 			if Global.finished_placement == 2:
+				print("kjhfkjgf")
 				Global.set_chase_phase()
+			tile_selector.hide()
 	
 	if (InputManager.tile_rot_blue(event) and tile_selector.player_blue)\
 		or (InputManager.tile_rot_red(event) and not tile_selector.player_blue):
