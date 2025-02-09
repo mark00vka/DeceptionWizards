@@ -4,9 +4,8 @@ var p1_controls: PlayerControls = preload("res://player/p1_controls.tres")
 var p2_controls: PlayerControls = preload("res://player/p2_controls.tres")
 var controler_sens: float = 0.1
 
-func selected(event: InputEvent) -> bool:
-	return (Global.player1 and event.is_action_pressed(p1_controls.jump)) \
-	or (!Global.player1 and event.is_action_pressed(p2_controls.jump))
+func tile_selected(event: InputEvent) -> bool:
+	return event.is_action_pressed(p1_controls.jump) or event.is_action_pressed(p2_controls.jump)
 	
 func item_selected(event: InputEvent):
 	return event.is_action_pressed(p1_controls.jump) or  event.is_action_pressed(p2_controls.jump)
@@ -16,16 +15,13 @@ func player1_input(event: InputEvent):
 	return false
 	
 func place_real(event: InputEvent):
-	return (Global.player1 and event.is_action_pressed(p1_controls.real)) \
-	or (!Global.player1 and event.is_action_pressed(p2_controls.real))
+	return event.is_action_pressed(p1_controls.real) or event.is_action_pressed(p2_controls.real)
 	
 func place_fake(event: InputEvent):
-	return (Global.player1 and event.is_action_pressed(p1_controls.fake)) \
-	or (!Global.player1 and event.is_action_pressed(p2_controls.fake))
+	return event.is_action_pressed(p1_controls.fake) or event.is_action_pressed(p2_controls.fake)
 	
 func rotation(event:InputEvent) -> bool:
-	return (Global.player1 and event.is_action_pressed(p1_controls.rot)) \
-	or (!Global.player1 and event.is_action_pressed(p2_controls.rot))
+	return event.is_action_pressed(p1_controls.rot) or event.is_action_pressed(p2_controls.rot)
 
 func get_player2_input():
 	var move_dir = Vector2.ZERO
