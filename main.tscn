@@ -47,13 +47,13 @@ visible = false
 fov = 35.0
 
 [node name="Player" parent="." instance=ExtResource("1_gx7nr")]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 14.523, -3.72529e-08, 15.817)
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 25, 0, 25)
 motion_mode = 0
 controls = ExtResource("3_mi2kk")
 player_blue = true
 
 [node name="Player2" parent="." instance=ExtResource("1_gx7nr")]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 16.091, -3.72529e-08, 14.5044)
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 26, 0, 25)
 motion_mode = 0
 controls = ExtResource("4_3ab4h")
 

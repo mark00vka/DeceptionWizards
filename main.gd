@@ -164,6 +164,11 @@ func phase_changed():
 	
 func tilemap_to_global(pos: Vector2i, level : int = 0):
 	return Vector3(pos.x, 0, pos.y) * tile_size + Vector3.UP * level * tile_height
+	
+func global_to_tilemap(pos: Vector3):
+	var pos1 = pos - Vector3.UP * tile_height
+	pos1 /= tile_size
+	return Vector2i(pos1.x, pos1.z)
 
 func selected_tile_free(grid: Dictionary, tile_pos: Vector2i, tile_lvl: int) -> bool:
 	return !grid.has(pos_lvl_to_vector3i(tile_pos, tile_lvl))

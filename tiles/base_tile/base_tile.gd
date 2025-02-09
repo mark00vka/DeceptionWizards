@@ -5,6 +5,7 @@ var real = true
 
 func player_entered(body: Node3D) -> void:
 	if not real:
+		get_parent().grid.erase(get_parent().global_to_tilemap(global_position))
 		hide_all()
 		if randf() < 0.9:
 			$ExplSmoke.restart()
