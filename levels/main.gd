@@ -59,7 +59,8 @@ func tile_selector_input(event, tile_selector):
 		if (InputManager.place_real_blue(event) and tile_selector.player_blue) \
 		or (InputManager.place_real_red(event) and not tile_selector.player_blue) \
 		and tile_selector.active:
-				
+			
+			SoundManager.play_sound_string("select")
 			place_obstacle(tile_selector, true)
 			tile_selector.active = false
 			tile_selector.tile_not_selected = true
@@ -67,7 +68,8 @@ func tile_selector_input(event, tile_selector):
 		if (InputManager.place_fake_blue(event) and tile_selector.player_blue) \
 		or (InputManager.place_fake_red(event) and not tile_selector.player_blue) \
 		and tile_selector.active:
-				
+			
+			SoundManager.play_sound_string("select")
 			place_obstacle(tile_selector, false)
 			tile_selector.active = false
 			tile_selector.tile_not_selected = true
@@ -75,6 +77,7 @@ func tile_selector_input(event, tile_selector):
 				
 	if (InputManager.tile_selected_blue(event) and tile_selector.player_blue)\
 		or (InputManager.tile_selected_red(event) and not tile_selector.player_blue):
+		SoundManager.play_sound_string("select")
 		
 		if not tile_selector.active: 
 			Global.finished_placement+=1
@@ -91,13 +94,14 @@ func tile_selector_input(event, tile_selector):
 	
 	if (InputManager.tile_rot_blue(event) and tile_selector.player_blue and tile_selector.tile_not_selected)\
 		or (InputManager.tile_rot_red(event) and not tile_selector.player_blue and tile_selector.tile_not_selected):
-		
+		SoundManager.play_sound_string("rotate")
 		if not tile_selector.active:
 			rotate_placed_obstacle(tile_selector)
 			
 		
 func place_obstacle(tile_selector, real: bool):
 	if(selected_tile_free(tile_selector.pos, tile_selector.lvl)):
+		SoundManager.play_sound_string("select")
 		if tile_selector.player_blue:
 			print("PLAYER1: ", player1_tiles)
 			place_item(player1_tiles[0], tile_selector.pos, tile_selector.lvl, real)
@@ -174,8 +178,6 @@ func phase_changed():
 		print(banner_ui)
 		#banner_ui.show_build_now_banner()
 		%MainCamera.building()
-		print(player1_tiles)
-		print(player2_tiles)
 		tile_selector_blue.show()
 		tile_selector_blue.active = true
 		tile_selector_red.show()

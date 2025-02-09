@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://levels/start_screen.gd" id="1_xstd2"]
 [ext_resource type="PackedScene" uid="uid://efhli5mx1ocb" path="res://player/player.tscn" id="3_ldii8"]
-[ext_resource type="Resource" uid="uid://deu0peg282uw6" path="res://player/p1_controls.tres" id="4_481ip"]
+[ext_resource type="Resource" uid="uid://dutd1sptby8aw" path="res://player/p1_controls.tres" id="4_481ip"]
 [ext_resource type="Resource" uid="uid://c1bs0xj1k2bgb" path="res://player/p2_controls.tres" id="5_l85kh"]
 [ext_resource type="PackedScene" uid="uid://hni7dct4exvb" path="res://models/board/boardnoplane.fbx" id="6_pcjed"]
 [ext_resource type="Script" path="res://levels/camera_rotation_point.gd" id="7_puomn"]

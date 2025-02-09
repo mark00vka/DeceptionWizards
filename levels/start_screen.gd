@@ -81,6 +81,7 @@ func pos_lvl_to_vector3(pos: Vector2i, lvl: int) -> Vector3i:
 
 
 func _on_button_pressed() -> void:
+	SoundManager.play_sound_string("click")
 	Global.starting_screen = false
 	get_tree().change_scene_to_file("res://levels/main.tscn")
 
