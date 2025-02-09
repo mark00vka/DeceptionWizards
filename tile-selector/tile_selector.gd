@@ -11,6 +11,19 @@ const WHITE = preload("res://tile-selector/white.tres")
 var pos = Vector2(0, 0)
 var lvl: int = 0
 var active: bool = false
+var tile : Tile
+
+func clear_tile():
+	if tile:
+		tile.queue_free()
+	tile = null
+
+func set_tile(t: PackedScene):
+	if tile:
+		tile.queue_free()
+	else:
+		tile = t.instantiate()
+		add_child(tile)
 
 func _process(delta: float) -> void:
 	if Global.is_building_phase() and active:

@@ -9,8 +9,8 @@
 [ext_resource type="Shader" path="res://shaders/dither_screen.gdshader" id="4_371af"]
 [ext_resource type="PackedScene" uid="uid://hni7dct4exvb" path="res://models/board/boardnoplane.fbx" id="5_w4thp"]
 [ext_resource type="PackedScene" uid="uid://cpn2ympvqfo3q" path="res://ui/pick_object_ui.tscn" id="7_4x0s1"]
+[ext_resource type="PackedScene" uid="uid://b6g4slnf3sti0" path="res://models/islands/smallisland.fbx" id="8_na8dw"]
 [ext_resource type="PackedScene" uid="uid://d0rh4dbxufpbq" path="res://tile-selector/tile_selector.tscn" id="9_htbmn"]
-[ext_resource type="PackedScene" uid="uid://odx7a17ireag" path="res://models/islands/bigisland.fbx" id="10_mafkg"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_dagti"]
 panorama = ExtResource("2_exf2y")
@@ -80,8 +80,8 @@ player_blue = false
 
 [node name="Timer" type="Timer" parent="."]
 
-[node name="bigisland" parent="." instance=ExtResource("10_mafkg")]
-transform = Transform3D(-648.758, 0, 760.995, 0, 1000, 0, -760.995, 0, -648.758, 6.09583, -13.6038, 7.28959)
+[node name="smallisland" parent="." instance=ExtResource("8_na8dw")]
+transform = Transform3D(-1462.07, 0, -2619.61, 0, 3000, 0, 2619.61, 0, -1462.07, 0.734699, -40.4271, 8.20241)
 
 [node name="CameraRotationPoint" type="Node3D" parent="."]
 
@@ -108,7 +108,7 @@ script = ExtResource("4_2ybbk")
 [node name="PickObjectUI" parent="." instance=ExtResource("7_4x0s1")]
 visible = false
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="DitheringShader" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_kiyha")
 anchors_preset = 15
 anchor_right = 1.0

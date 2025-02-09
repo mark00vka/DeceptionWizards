@@ -56,6 +56,7 @@ func tile_selector_input(event, tile_selector):
 				
 			place_obstacle(tile_selector, true)
 			tile_selector.active = false
+			tile_selector.clear_tile()
 		
 		if (InputManager.place_fake_blue(event) and tile_selector.player_blue) \
 			or (InputManager.place_fake_red(event) and not tile_selector.player_blue) \
@@ -63,6 +64,7 @@ func tile_selector_input(event, tile_selector):
 				
 			place_obstacle(tile_selector, false)
 			tile_selector.active = false
+			tile_selector.clear_tile()
 				
 	if (InputManager.tile_selected_blue(event) and tile_selector.player_blue)\
 		or (InputManager.tile_selected_red(event) and not tile_selector.player_blue):
@@ -137,8 +139,7 @@ func place_obstacle_on_tilecursor():
 	if tile_selector_red.active:
 		place_obstacle(tile_selector_red, true)
 		
-	Global.set_chase_phase()
-		
+	Global.set_chase_phase()	
 
 func phase_changed():
 	if Global.is_tile_select_phase():
@@ -147,13 +148,18 @@ func phase_changed():
 		
 	if Global.is_building_phase():
 		%MainCamera.building()
+		pick_object_ui.hide()
+		
 		tile_selector_blue.show()
 		tile_selector_blue.active = true
-		tile_selector_red.show()
-		tile_selector_blue.global_position = tilemap_to_global(Vector2i(0,0))
+		tile_selector_blue.pos = Vector2(2,3)
+		tile_selector_blue.global_position = tilemap_to_global(tile_selector_blue.pos)
+		
 		tile_selector_red.active = true
-		tile_selector_red.global_position = tilemap_to_global(Vector2i(0,0))
-		pick_object_ui.hide()
+		tile_selector_red.pos = Vector2(3,3)
+		tile_selector_red.global_position = tilemap_to_global(tile_selector_red.pos)
+		tile_selector_red.show()
+		
 		
 	if Global.is_chase_phase():
 		%MainCamera.chase()
@@ -178,6 +184,8 @@ func pos_lvl_to_vector3(pos: Vector2i, lvl: int) -> Vector3i:
 	
 func _on_pick_object_ui_player_1_picked_tile(tile: PackedScene) -> void:
 	player1_tile = tile
+	tile_selector_blue.set_tile(tile)
 
 func _on_pick_object_ui_player_2_picked_tile(tile: PackedScene) -> void:
 	player2_tile = tile
+	tile_selector_red.set_tile(tile)
