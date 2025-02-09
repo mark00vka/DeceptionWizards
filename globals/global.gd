@@ -26,7 +26,7 @@ func _process(delta: float) -> void:
 	if is_chase_phase():
 		text = chase_timer.time_left
 		
-	$Label.text = "%02d." % (int(text)) + "%02d" % (int(text*60))
+	$Label.text = "%02d." % (int(text)) + "%02d" % (int(text*100)%100)
 
 func is_building_phase():
 	return phase == Phase.BUILDING

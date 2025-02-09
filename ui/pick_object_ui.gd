@@ -38,8 +38,8 @@ func show_ui():
 		inst.show()
 		
 		var x = x_pull.pick_random()
-		x_pull.erase(x)
 		var y = y_pull.pick_random()
+		x_pull.erase(x)
 		y_pull.erase(y)
 		inst.set_pos(x, y)
 
