@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cpn2ympvqfo3q"]
+[gd_scene load_steps=21 format=3 uid="uid://cpn2ympvqfo3q"]
 
 [ext_resource type="Script" path="res://ui/pick_object_ui.gd" id="1_1l0jk"]
 [ext_resource type="Texture2D" uid="uid://nalopa1mbntn" path="res://tiles/ground_tile/light_ground.png" id="1_t1rhl"]
@@ -14,6 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://bl2cbrwnavqyl" path="res://tiles/platform_tile/platform.tscn" id="10_nuims"]
 [ext_resource type="Resource" uid="uid://dutd1sptby8aw" path="res://player/p1_controls.tres" id="11_evdjb"]
 [ext_resource type="Resource" uid="uid://c1bs0xj1k2bgb" path="res://player/p2_controls.tres" id="12_dylk1"]
+[ext_resource type="Texture2D" uid="uid://bevm03vfh0jk8" path="res://ui/3.png" id="15_ha2xv"]
+[ext_resource type="Texture2D" uid="uid://b4mrqmhr2b5o4" path="res://ui/3red.png" id="16_g7vf5"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sp7fk"]
 texture = ExtResource("1_t1rhl")
@@ -146,6 +148,18 @@ texture = ExtResource("9_almei")
 expand_mode = 1
 script = ExtResource("9_bjhg1")
 controls = ExtResource("12_dylk1")
+
+[node name="SpriteBlue" type="Sprite2D" parent="."]
+modulate = Color(0.53, 0.53, 0.53, 1)
+position = Vector2(433.05, 606.72)
+scale = Vector2(0.03, 0.03)
+texture = ExtResource("15_ha2xv")
+
+[node name="SpriteRed" type="Sprite2D" parent="."]
+modulate = Color(0.53, 0.53, 0.53, 1)
+position = Vector2(833.05, 606.72)
+scale = Vector2(0.03, 0.03)
+texture = ExtResource("16_g7vf5")
 
 [connection signal="cursors_hidden" from="." to="." method="_on_cursors_hidden"]
 [connection signal="gui_input" from="Panel/ObjectHolder/Stairs" to="Panel/ObjectHolder/Stairs" method="_on_gui_input"]
