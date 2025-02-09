@@ -30,19 +30,24 @@ func move():
 		change_color(2)
 	elif cursor.mesh.surface_get_material(0) == WHITE:
 		change_color(int(not player_blue))
-			
-	global_position = get_parent().tilemap_to_global(pos, lvl)
 
 func update_pos():
+	var input
 	if player_blue:
-		pos += InputManager.get_player1_input()
+		input = InputManager.get_player1_input()
 		lvl += int(Input.is_action_just_pressed(InputManager.p1_controls.up)) - int(Input.is_action_just_pressed(InputManager.p1_controls.down))
 	else:
-		pos += InputManager.get_player2_input()
+		input = InputManager.get_player2_input()
 		lvl += int(Input.is_action_just_pressed(InputManager.p2_controls.up)) - int(Input.is_action_just_pressed(InputManager.p2_controls.down))
-
-	pos.x = clamp(pos.x, 0, get_parent().map_size.x-1)
-	pos.y = clamp(pos.y, 0, get_parent().map_size.y-1)
+		
+	if input:
+		pos += input
+		pos.x = clamp(pos.x, 0, get_parent().map_size.x-1)
+		pos.y = clamp(pos.y, 0, get_parent().map_size.y-1)
+		
+		var tween = get_tree().create_tween()
+		tween.tween_property(self, "global_position", get_parent().tilemap_to_global(pos, lvl), 0.1).set_trans(Tween.TRANS_CUBIC)
+		
 	lvl = clamp(lvl, 0, get_parent().map_size.z-1)
 
 func on_free_tile():

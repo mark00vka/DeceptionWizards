@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bwj73yy6u0dan"
-path="res://.godot/imported/flag.fbx-49cbb55f0ef4be30579eba357443ca78.scn"
+uid="uid://b6g4slnf3sti0"
+path="res://.godot/imported/smallisland.fbx-c0eba08ed639a2f8c2be91f7cc58fe48.scn"
 
 [deps]
 
-source_file="res://models/flag/flag.fbx"
-dest_files=["res://.godot/imported/flag.fbx-49cbb55f0ef4be30579eba357443ca78.scn"]
+source_file="res://models/islands/smallisland.fbx"
+dest_files=["res://.godot/imported/smallisland.fbx-c0eba08ed639a2f8c2be91f7cc58fe48.scn"]
 
 [params]
 
@@ -31,18 +31,7 @@ animation/trimming=true
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={
-"nodes": {
-"PATH:pCone1": {
-"generate/physics": true,
-"physics/mask": 2
-},
-"PATH:pCylinder1": {
-"generate/physics": true,
-"physics/mask": 2
-}
-}
-}
+_subresources={}
 fbx/importer=0
 fbx/allow_geometry_helper_nodes=false
 fbx/embedded_image_handling=1
