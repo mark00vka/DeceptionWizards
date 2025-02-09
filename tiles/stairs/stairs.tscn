@@ -19,3 +19,5 @@ collision_mask = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.48924, 0, 0.94449)
 shape = SubResource("ConvexPolygonShape3D_0sto0")
+
+[editable path="stairs"]

@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dkqgdigaspjw"
-path="res://.godot/imported/cursor.fbx-d3a63277c1e7feec11ed2b6bee90765f.scn"
+path="res://.godot/imported/cursor.fbx-df1da9d1523f0038bcfe8ca6be65608b.scn"
 
 [deps]
 
-source_file="res://models/cursor/cursor.fbx"
-dest_files=["res://.godot/imported/cursor.fbx-d3a63277c1e7feec11ed2b6bee90765f.scn"]
+source_file="res://tile-selector/cursor.fbx"
+dest_files=["res://.godot/imported/cursor.fbx-df1da9d1523f0038bcfe8ca6be65608b.scn"]
 
 [params]
 
