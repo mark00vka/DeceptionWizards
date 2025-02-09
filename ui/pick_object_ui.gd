@@ -85,16 +85,24 @@ func select_item(player1: bool):
 func player1_pick_tile(child):
 	player1_picked_tile.emit(child.tile.tile)
 	#TODO animacija za pickupovanje u inventory
-	child.queue_free()
 	cursor_p_1.hide()
+	var tween = get_tree().create_tween()
+	tween.parallel().tween_property(child, "scale", Vector2.ZERO, 0.3).set_trans(Tween.TRANS_LINEAR)
+	tween.parallel().tween_property(child, "position:y", 2000, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+	await get_tree().create_timer(0.5).timeout
+	child.queue_free()
 	if not cursor_p_2.visible: 
 		cursors_hidden.emit()
 		
 func player2_pick_tile(child):
 	player2_picked_tile.emit(child.tile.tile)
 	#TODO animacija za pickupovanje u inventory
-	child.queue_free()
 	cursor_p_2.hide()
+	var tween = get_tree().create_tween()
+	tween.parallel().tween_property(child, "scale", Vector2.ZERO, 0.3).set_trans(Tween.TRANS_LINEAR)
+	tween.parallel().tween_property(child, "position:y", 2000, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+	await get_tree().create_timer(0.5).timeout
+	child.queue_free()
 	if not cursor_p_1.visible: 
 		cursors_hidden.emit()
 
