@@ -20,7 +20,7 @@ sky_material = SubResource("PanoramaSkyMaterial_dagti")
 background_mode = 2
 background_energy_multiplier = 0.5
 sky = SubResource("Sky_1bi71")
-sky_custom_fov = 117.6
+sky_custom_fov = 100.0
 tonemap_mode = 2
 glow_enabled = true
 

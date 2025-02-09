@@ -13,6 +13,7 @@ var level : int = 1
 var finished_placement : int = 0
 
 func _ready() -> void:
+	await get_tree().create_timer(1.0)
 	set_tile_select_phase()
 
 func is_building_phase():

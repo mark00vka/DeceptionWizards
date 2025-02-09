@@ -13,9 +13,8 @@ var lvl: int = 0
 var active: bool = false
 
 func _process(delta: float) -> void:
-		if Global.is_building_phase():
-			if active:
-				move()
+	if Global.is_building_phase() and active:
+		move()
 
 func change_color(i : int):
 	if i == 0:
@@ -35,7 +34,8 @@ func move():
 	global_position = get_parent().tilemap_to_global(pos, lvl)
 
 func update_pos():
-	if Global.player1:
+	print("Aa")
+	if player_blue:
 		pos += InputManager.get_player1_input()
 		lvl += int(Input.is_action_just_pressed(InputManager.p1_controls.up)) - int(Input.is_action_just_pressed(InputManager.p1_controls.down))
 	else:
