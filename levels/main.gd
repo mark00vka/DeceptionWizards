@@ -12,6 +12,8 @@ const WALL = preload("res://tiles/wall_tile/wall.tscn")
 
 var BUILD_TILES = [STAIRS, PLATFORM, WALL]
 
+const END_SCREEN = preload("res://levels/end_screen.tscn")
+
 const PLAYER = preload("res://player/player.tscn")
 
 @export var map_size : Vector3i = Vector3i(4, 4, 4)
@@ -146,6 +148,7 @@ func place_item(item : PackedScene, pos : Vector2i, level : int, real: bool = tr
 	inst.global_position = tilemap_to_global(pos, level)
 	inst.global_rotation.y = rot * PI / 2
 	inst.real = real
+	if(item == FINISH_TILE): inst.end.connect(the_end)
 	grid[pos_lvl_to_vector3(pos, level)] = inst
 		
 func place_obstacle_on_tilecursor():
@@ -178,7 +181,6 @@ func phase_changed():
 		pick_object_ui.hide()
 		
 	if Global.is_chase_phase():
-		print("CHASE")
 		%MainCamera.chase()
 		tile_selector_blue.active = false
 		tile_selector_blue.visible = false
@@ -204,3 +206,8 @@ func _on_pick_object_ui_player_1_picked_tile(tile: PackedScene) -> void:
 
 func _on_pick_object_ui_player_2_picked_tile(tile: PackedScene) -> void:
 	player2_tiles.append(tile)
+
+func the_end(body: Node3D):
+	Global.chase_timer.stop()
+	await get_tree().create_timer(1).timeout
+	get_tree().change_scene_to_file("res://levels/end_screen.tscn")

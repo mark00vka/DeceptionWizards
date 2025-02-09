@@ -8,6 +8,7 @@ enum Phase {TILE_SELECT, BUILDING, CHASE}
 @onready var building_timer: Timer = $BuildingTimer
 @onready var chase_timer: Timer = $ChaseTimer
 
+@onready var control: Control = $Control
 
 var phase : Phase:
 	set(value):

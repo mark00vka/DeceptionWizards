@@ -31,7 +31,9 @@ func _ready() -> void:
 func show_ui():
 	show()
 	sprite_blue.show()
+	sprite_blue.texture = preload("res://ui/3.png")
 	sprite_red.show()
+	sprite_red.texture = preload("res://ui/3red.png")
 	player1_items_left = 3
 	player2_items_left = 3
 	cursor_p_1.show()
@@ -42,14 +44,15 @@ func show_ui():
 	
 	x_pull.clear()
 	y_pull.clear()
-	for i in range(8):
-		x_pull.append(i*0.75/8)
-		y_pull.append(i*0.75/8)
-	if Global.level % 3 == 1:
-		place_items(x_pull, y_pull)
+	for i in range(9):
+		x_pull.append(i*0.75/9)
+		y_pull.append(i*0.75/9)
+	
+	place_items(x_pull, y_pull)
 	
 func place_items(x_p, y_p):
-	for i in range(randi() % 3 + 7):
+	var n = randi() % 3 + 7
+	for i in range(n):
 		var inst
 		var t = randf()
 		if t < 0.5:
@@ -133,7 +136,6 @@ func _on_cursors_hidden() -> void:
 	animate_ui(900)
 	sprite_blue.hide()
 	sprite_red.hide()
-	await get_tree().create_timer(3).timeout
 	Global.set_building_phase()
 
 func get_rand_tile():

@@ -1,40 +1,40 @@
-[gd_scene load_steps=20 format=3 uid="uid://cvfn3hkhbl5dw"]
+[gd_scene load_steps=20 format=3 uid="uid://bly2ixmr755gj"]
 
-[ext_resource type="Script" path="res://levels/start_screen.gd" id="1_xstd2"]
-[ext_resource type="PackedScene" uid="uid://efhli5mx1ocb" path="res://player/player.tscn" id="3_ldii8"]
-[ext_resource type="Resource" uid="uid://deu0peg282uw6" path="res://player/p1_controls.tres" id="4_481ip"]
-[ext_resource type="Resource" uid="uid://c1bs0xj1k2bgb" path="res://player/p2_controls.tres" id="5_l85kh"]
-[ext_resource type="PackedScene" uid="uid://hni7dct4exvb" path="res://models/board/boardnoplane.fbx" id="6_pcjed"]
-[ext_resource type="Script" path="res://levels/camera_rotation_point.gd" id="7_puomn"]
-[ext_resource type="Texture2D" uid="uid://bchg422kply44" path="res://ui/start_menu/deceptionwizards.png" id="8_cfcnm"]
-[ext_resource type="PackedScene" uid="uid://b6g4slnf3sti0" path="res://models/islands/smallisland.fbx" id="8_kuj14"]
-[ext_resource type="Texture2D" uid="uid://bdnd1ksavg43" path="res://ui/start_menu/start.png" id="9_1ftdh"]
-[ext_resource type="Texture2D" uid="uid://c2syw6go0aqcl" path="res://ui/start_menu/quit.png" id="10_dftou"]
-[ext_resource type="Texture2D" uid="uid://bjwe0wet2jt4j" path="res://ui/start_menu/starthighlighted.png" id="10_r4o0u"]
-[ext_resource type="Shader" path="res://shaders/dither_screen.gdshader" id="11_eyel1"]
-[ext_resource type="Texture2D" uid="uid://dvs3e5op0xp7p" path="res://ui/start_menu/quithighighlighted.png" id="12_1t8fe"]
+[ext_resource type="Script" path="res://levels/end_screen.gd" id="1_c8g6x"]
+[ext_resource type="PackedScene" uid="uid://efhli5mx1ocb" path="res://player/player.tscn" id="1_tq5pt"]
+[ext_resource type="Resource" uid="uid://deu0peg282uw6" path="res://player/p1_controls.tres" id="2_lfok6"]
+[ext_resource type="Resource" uid="uid://c1bs0xj1k2bgb" path="res://player/p2_controls.tres" id="3_fo6kf"]
+[ext_resource type="PackedScene" uid="uid://hni7dct4exvb" path="res://models/board/boardnoplane.fbx" id="4_hjikw"]
+[ext_resource type="PackedScene" uid="uid://b6g4slnf3sti0" path="res://models/islands/smallisland.fbx" id="5_naxnl"]
+[ext_resource type="Script" path="res://levels/camera_rotation_point.gd" id="6_jlgil"]
+[ext_resource type="Texture2D" uid="uid://bchg422kply44" path="res://ui/start_menu/deceptionwizards.png" id="7_bny0j"]
+[ext_resource type="Texture2D" uid="uid://bdnd1ksavg43" path="res://ui/start_menu/start.png" id="8_qf2ku"]
+[ext_resource type="Texture2D" uid="uid://bjwe0wet2jt4j" path="res://ui/start_menu/starthighlighted.png" id="9_xtwk5"]
+[ext_resource type="Texture2D" uid="uid://c2syw6go0aqcl" path="res://ui/start_menu/quit.png" id="10_4psgp"]
+[ext_resource type="Texture2D" uid="uid://dvs3e5op0xp7p" path="res://ui/start_menu/quithighighlighted.png" id="11_vkbdr"]
+[ext_resource type="Shader" path="res://shaders/dither_screen.gdshader" id="12_cqiky"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qgjog"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wfwmo"]
 load_path = "res://.godot/imported/sky.hdr-9d66ead5bae0793d543047dca498778f.bptc.ctex"
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ihb4h"]
-panorama = SubResource("CompressedTexture2D_qgjog")
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_e5f4p"]
+panorama = SubResource("CompressedTexture2D_wfwmo")
 energy_multiplier = 0.5
 
-[sub_resource type="Sky" id="Sky_o5oec"]
-sky_material = SubResource("PanoramaSkyMaterial_ihb4h")
+[sub_resource type="Sky" id="Sky_gqkk0"]
+sky_material = SubResource("PanoramaSkyMaterial_e5f4p")
 
-[sub_resource type="Environment" id="Environment_n4eol"]
+[sub_resource type="Environment" id="Environment_s1l50"]
 background_mode = 2
-sky = SubResource("Sky_o5oec")
+sky = SubResource("Sky_gqkk0")
 sky_custom_fov = 100.0
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_o7nfv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2sho7"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tblxm"]
-shader = ExtResource("11_eyel1")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jng53"]
+shader = ExtResource("12_cqiky")
 shader_parameter/quantize_size = 1.0
 shader_parameter/handle_scale = null
 shader_parameter/handle_subpixels = true
@@ -46,12 +46,11 @@ shader_parameter/shift = 0.0
 shader_parameter/grayscale = null
 shader_parameter/use_palette = null
 
-[node name="StartScreen" type="Node3D"]
-script = ExtResource("1_xstd2")
-map_size = Vector3i(6, 4, 6)
+[node name="EndScreen" type="Node3D"]
+script = ExtResource("1_c8g6x")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_n4eol")
+environment = SubResource("Environment_s1l50")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.339597, -0.804549, 0.487213, -0.00206689, 0.518634, 0.854994, -0.940569, 0.289346, -0.17779, 0, 0, 0)
@@ -64,35 +63,35 @@ transform = Transform3D(1, 0, 0, 0, 0.642788, 0.766044, 0, -0.766044, 0.642788, 
 visible = false
 fov = 59.0
 
-[node name="Player" parent="." instance=ExtResource("3_ldii8")]
+[node name="Player" parent="." instance=ExtResource("1_tq5pt")]
 transform = Transform3D(1.06066, 0, 1.06066, 0, 1.5, 0, -1.06066, 0, 1.06066, 25, 0, 25)
 motion_mode = 0
-controls = ExtResource("4_481ip")
+controls = ExtResource("2_lfok6")
 player_blue = true
 
-[node name="Player2" parent="." instance=ExtResource("3_ldii8")]
+[node name="Player2" parent="." instance=ExtResource("1_tq5pt")]
 transform = Transform3D(1.06066, 0, 1.06066, 0, 1.5, 0, -1.06066, 0, 1.06066, 26, 0, 25)
 motion_mode = 0
-controls = ExtResource("5_l85kh")
+controls = ExtResource("3_fo6kf")
 
-[node name="boardnoplane" parent="." instance=ExtResource("6_pcjed")]
+[node name="boardnoplane" parent="." instance=ExtResource("4_hjikw")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.73518, -0.171568, 6.24596)
 
 [node name="Timer" type="Timer" parent="."]
 
-[node name="smallisland" parent="." instance=ExtResource("8_kuj14")]
+[node name="smallisland" parent="." instance=ExtResource("5_naxnl")]
 transform = Transform3D(-1462.07, 0, -2619.61, 0, 3000, 0, 2619.61, 0, -1462.07, 0.734699, -40.4271, 8.20241)
 
 [node name="CameraRotationPoint" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7684, 0, 12.1105)
-script = ExtResource("7_puomn")
+script = ExtResource("6_jlgil")
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="CameraRotationPoint"]
 transform = Transform3D(0.543174, -0.727132, 0.41981, 0, 0.5, 0.866025, -0.83962, -0.470403, 0.271587, 18.6231, 27.015, 19.6347)
 remote_path = NodePath("../../SubViewportContainer/SubViewport/MainCamera")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-material = SubResource("ShaderMaterial_o7nfv")
+material = SubResource("ShaderMaterial_2sho7")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -124,9 +123,9 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.6, 0.6)
 pivot_offset = Vector2(512, 308)
-texture = ExtResource("8_cfcnm")
+texture = ExtResource("7_bny0j")
 
-[node name="Start" type="TextureButton" parent="."]
+[node name="Winner" type="TextureButton" parent="."]
 anchors_preset = -1
 anchor_left = 0.591
 anchor_top = 0.806
@@ -140,8 +139,8 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.6, 0.6)
 pivot_offset = Vector2(512, 308)
-texture_normal = ExtResource("9_1ftdh")
-texture_hover = ExtResource("10_r4o0u")
+texture_normal = ExtResource("8_qf2ku")
+texture_hover = ExtResource("9_xtwk5")
 
 [node name="Quit" type="TextureButton" parent="."]
 anchors_preset = -1
@@ -157,8 +156,8 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.6, 0.6)
 pivot_offset = Vector2(512, 308)
-texture_normal = ExtResource("10_dftou")
-texture_hover = ExtResource("12_1t8fe")
+texture_normal = ExtResource("10_4psgp")
+texture_hover = ExtResource("11_vkbdr")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
@@ -170,13 +169,10 @@ grow_vertical = 2
 color = Color(1, 1, 1, 0.105882)
 
 [node name="DitheringShader" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_tblxm")
+material = SubResource("ShaderMaterial_jng53")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-
-[connection signal="pressed" from="Start" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
