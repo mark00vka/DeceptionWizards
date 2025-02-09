@@ -1,3 +1,5 @@
+@tool
+
 extends Node3D
 
 const GROUND_TILE = preload("res://tiles/ground_tile/ground_tile.tscn")

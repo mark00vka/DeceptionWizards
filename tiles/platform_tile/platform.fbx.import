@@ -37,7 +37,6 @@ _subresources={
 "import/skip_import": true
 },
 "PATH:Cube": {
-"generate/physics": true,
 "physics/mask": 2
 },
 "PATH:Light": {

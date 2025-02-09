@@ -17,7 +17,7 @@ var phase : Phase:
 var level : int = 1
 var finished_placement : int = 0
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var text
 	if is_building_phase():
 		text = building_timer.time_left
