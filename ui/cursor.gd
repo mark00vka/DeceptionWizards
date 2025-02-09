@@ -1,3 +1,4 @@
+class_name Cursor
 extends TextureRect
 
 @export var sens: float = 1.0
